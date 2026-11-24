@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misi 1: VLAN &amp; Trunk — Mikronet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body data-halaman="vlan">
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="Mikronet — Beranda simulasi">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="4" y="4" width="40" height="40" rx="12" fill="#003B7A"/>
+        <circle cx="24" cy="16" r="7" fill="#009BFF"/>
+        <path d="M24 26 C16 26 10 31 8 42 L40 42 C38 31 32 26 24 26 Z" fill="#0B3B7B"/>
+        <circle cx="24" cy="16" r="2.5" fill="#F7B217"/>
+      </svg>
+      Mikronet
+    </a>
+    <div class="progress-pill" title="Kemajuan simulasi">
+      <div class="progress-track"><div class="progress-fill" id="header-progress-bar"></div></div>
+      <span class="progress-label" id="header-progress-text">0%</span>
+    </div>
+  </div>
+</header>
+<main class="page">
+
+  <div class="hero">
+    <span class="misi-no">Misi 1 dari 3</span>
+    <h1 class="hero-title">VLAN &amp; Trunk</h1>
+    <p class="hero-desc">Satu switch fisik bisa dibagi menjadi beberapa jaringan logis. Jaringan logis itu disebut <b>VLAN</b>.</p>
+  </div>
+  <div class="banner-urut" id="banner-urut" hidden></div>
+
+  <div class="card">
+    <h2 class="section-title">Bagian A: Atur port SW1</h2>
+    <div class="cerita">
+      <p><b>Bayangkan</b> switch adalah lorong sekolah yang panjang. Tanpa VLAN, semua orang bicara di lorong yang sama dan semua ikut mendengar. VLAN menyekat lorong itu menjadi ruang kelas tertutup.</p>
+      <p>Dalam istilah jaringan: tanpa VLAN, semua port ada di satu <b>broadcast domain</b>. Port <b>access</b> membawa satu VLAN (untuk PC). Port <b>trunk</b> membawa banyak VLAN sekaligus (ke router atau switch lain). Di trunk, setiap frame diberi <b>tag 802.1Q</b> berisi VLAN ID.</p>
+    </div>
+
+    <div class="tugas" id="tugas-m1">
+      <b>Tugas (dicentang saat kamu menekan Periksa):</b>
+      <ul>
+        <li data-tugas="m1_pc1">Fa0/2 (PC1) → access <b>VLAN 10</b> · LAB-BAWAH</li>
+        <li data-tugas="m1_pc2">Fa0/3 (PC2) → access <b>VLAN 20</b> · LAB-ATAS</li>
+        <li data-tugas="m1_trunk">Fa0/1 (ke R1) → mode <b>trunk</b></li>
+      </ul>
+    </div>
+
+    <p class="langkah-no">1. Ketuk sebuah port di SW1, lalu pilih pengaturannya</p>
+    <div class="sw-diagram" id="sw-diagram">
+      <div class="sw-baris sw-atas" id="sw-atas"></div>
+      <div class="sw-badan">
+        <span class="sw-nama">SW1 · Cisco 2960</span>
+        <div class="sw-ports" id="sw-ports" role="group" aria-label="Port SW1"></div>
+      </div>
+      <div class="sw-baris sw-bawah" id="sw-bawah"></div>
+    </div>
+    <div class="legenda" aria-hidden="true">
+      <span><i class="lg v1"></i>VLAN 1 (bawaan)</span><span><i class="lg v10"></i>VLAN 10</span><span><i class="lg v20"></i>VLAN 20</span><span><i class="lg trunk"></i>Trunk</span>
+    </div>
+
+    <div class="port-panel" id="port-panel" aria-live="polite">
+      <p class="section-note">Belum ada port yang dipilih. Ketuk <b>Fa0/2</b> (PC1) untuk mulai.</p>
+    </div>
+
+    <p class="langkah-no">2. Uji: kirim broadcast dari PC1</p>
+    <p class="section-note">Broadcast hanya diterima perangkat di VLAN yang sama. Coba sebelum dan sesudah mengatur VLAN.</p>
+    <div class="toolbar-baris">
+      <button class="btn btn-amber" id="btn-broadcast" type="button">Kirim broadcast dari PC1</button>
+    </div>
+    <p class="hasil-uji" id="hasil-broadcast" aria-live="polite"></p>
+
+    <div class="dua-kolom kolom-cli">
+      <div>
+        <p class="langkah-no">Perintah Cisco yang setara</p>
+        <pre class="terminal" id="cli-sw1" aria-live="polite"></pre>
+      </div>
+      <div>
+        <p class="langkah-no">SW1# show vlan brief</p>
+        <div class="tabel-gulir"><table class="tabel-cli" id="vlan-brief"></table></div>
+        <p class="section-note kecil-note">Port trunk tidak muncul di <span class="mono">show vlan brief</span>. Cek dengan <span class="mono">show interfaces trunk</span>:</p>
+        <pre class="terminal pendek" id="cli-trunk"></pre>
+      </div>
+    </div>
+
+    <p class="langkah-no">3. Periksa konfigurasimu</p>
+    <div class="toolbar-baris">
+      <button class="btn btn-success" id="btn-periksa-m1" type="button">Periksa konfigurasi</button>
+      <button class="btn btn-ghost" id="btn-reset-sw1" type="button">Kembalikan ke bawaan</button>
+    </div>
+    <ul class="cek-list" id="cek-m1" aria-live="polite"><li class="info">Tekan <b>Periksa konfigurasi</b> setelah mengatur port.</li></ul>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <div class="judul-baris"><h2 class="section-title">Bagian B: Kuis 5 soal</h2><span class="score-pill" id="m1-skor">0/5</span></div>
+    <p class="section-note">Klik pilihanmu, lalu tekan <b>Kunci jawaban</b>. Setelah dikunci tidak bisa diganti.</p>
+    <div id="m1-soal"></div>
+  </div>
+
+  <div class="aksi-bawah">
+    <a class="btn btn-ghost" href="index.html">Kembali</a>
+    <button class="btn btn-primary" id="btn-m1-selesai" type="button" disabled>Selesai, lanjut ke Misi 2</button>
+  </div>
+  <p class="syarat" id="syarat-m1" aria-live="polite"></p>
+</main>
+<script src="script.js?v=3"></script>
+</body>
+</html>

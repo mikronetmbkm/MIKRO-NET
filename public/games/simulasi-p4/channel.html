@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misi 3: Channel dan Interferensi — Mikronet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=16">
+</head>
+<body data-halaman="channel">
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="Mikronet — Beranda simulasi">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="4" y="4" width="40" height="40" rx="12" fill="#003B7A"/>
+        <circle cx="24" cy="16" r="7" fill="#009BFF"/>
+        <path d="M24 26 C16 26 10 31 8 42 L40 42 C38 31 32 26 24 26 Z" fill="#0B3B7B"/>
+        <circle cx="24" cy="16" r="2.5" fill="#F7B217"/>
+      </svg>
+      Mikronet
+    </a>
+    <div class="progress-pill" title="Kemajuan simulasi">
+      <div class="progress-track"><div class="progress-fill" id="header-progress-bar"></div></div>
+      <span class="progress-label" id="header-progress-text">0%</span>
+    </div>
+  </div>
+</header>
+<main class="page">
+
+  <div class="hero">
+    <span class="misi-no">Misi 3 dari 3</span>
+    <h1 class="hero-title">Channel dan Interferensi</h1>
+    <p class="hero-desc">Banyak jaringan WiFi berbagi udara yang sama. Di pita 2,4 GHz, jaringan yang memakai <b>channel</b> berdekatan saling mengganggu (<b>interferensi</b>), sehingga koneksi menjadi lambat atau putus-putus.</p>
+  </div>
+  <div class="banner-urut" id="banner-urut" hidden></div>
+
+  <div class="card">
+    <h2 class="section-title">Bagian A: Channel yang tumpang tindih</h2>
+    <p class="section-note">Pita 2,4 GHz dibagi menjadi channel 1 sampai 13 yang jaraknya hanya 5 MHz, padahal setiap channel memakai lebar sekitar <b>22 MHz</b>. Akibatnya channel yang berdekatan saling <b>tumpang tindih</b>. Ketuk nomor channel untuk menggambar lebarnya.</p>
+    <div class="tugas"><b>Tugas:</b><ul><li data-tugas="m3_overlap">Pilih <b>tiga</b> channel yang sama sekali tidak tumpang tindih, lalu tekan <b>Periksa</b>.</li></ul></div>
+    <canvas class="kanvas" id="kv-spektrum" width="900" height="240" aria-label="Spektrum channel WiFi 2,4 GHz"></canvas>
+    <div class="chip-baris ch-pilih" id="ch-pilih" role="group" aria-label="Pilih channel"></div>
+    <div class="toolbar-baris">
+      <button class="btn btn-success" id="btn-cek-overlap" type="button">Periksa</button>
+      <button class="btn btn-ghost" id="btn-ulang-overlap" type="button">Kosongkan</button>
+    </div>
+    <p class="hasil-uji" id="hasil-overlap" aria-live="polite"></p>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <h2 class="section-title">Bagian B: Pilih channel yang paling sepi</h2>
+    <p class="section-note">Kamu memasang access point baru. Aplikasi <b>WiFi analyzer</b> menampilkan jaringan tetangga beserta channel dan kekuatan sinyalnya. Pilih salah satu dari channel 1, 6, atau 11 yang gangguannya paling kecil.</p>
+    <div class="tugas"><b>Tugas:</b><ul><li data-tugas="m3_channel">Pilih channel terbaik di <b>dua lokasi</b>, lalu tekan <b>Pasang</b> di masing-masing lokasi.</li></ul></div>
+    <div class="chip-baris" id="lok-pilih" role="group" aria-label="Pilih lokasi"></div>
+    <canvas class="kanvas" id="kv-analyzer" width="900" height="260" aria-label="Grafik WiFi analyzer"></canvas>
+    <div class="tabel-gulir"><table class="kelas-table" id="tbl-tetangga"></table></div>
+    <div class="chip-baris" id="ap-pilih" role="group" aria-label="Pilih channel access point" style="margin-top:12px"></div>
+    <div class="meter" id="meter-ganggu"></div>
+    <div class="toolbar-baris"><button class="btn btn-amber" id="btn-pasang" type="button">Pasang</button></div>
+    <p class="hasil-uji" id="hasil-channel" aria-live="polite"></p>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <h2 class="section-title">Bagian C: 2,4 GHz atau 5 GHz?</h2>
+    <div class="tabel-gulir"><table class="kelas-table">
+      <thead><tr><th></th><th>2,4 GHz</th><th>5 GHz</th></tr></thead>
+      <tbody>
+        <tr><td>Jangkauan dan tembus dinding</td><td>lebih jauh, lebih tembus</td><td>lebih pendek, mudah terhalang</td></tr>
+        <tr><td>Kecepatan</td><td>lebih rendah</td><td>lebih tinggi</td></tr>
+        <tr><td>Channel tidak tumpang tindih</td><td>hanya 3 (1, 6, 11)</td><td>jauh lebih banyak</td></tr>
+        <tr><td>Kepadatan</td><td>padat (WiFi, Bluetooth, microwave)</td><td>lebih lega</td></tr>
+        <tr><td>Dukungan perangkat</td><td>hampir semua perangkat</td><td>tidak semua adapter murah mendukung</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tugas" style="margin-top:14px"><b>Tugas:</b><ul><li data-tugas="m3_band">Tentukan pita yang lebih tepat untuk keempat keadaan.</li></ul></div>
+    <div class="kasus" id="band"></div>
+    <div class="toolbar-baris"><button class="btn btn-success" id="btn-cek-band" type="button">Periksa</button></div>
+    <ul class="cek-list" id="cek-band" aria-live="polite"></ul>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <h2 class="section-title">Bagian D: Kasus troubleshooting</h2>
+    <div class="tugas"><b>Tugas:</b><ul><li data-tugas="m3_kasus">Tentukan penyebab paling mungkin untuk ketiga kasus.</li></ul></div>
+    <div class="kasus" id="kasus"></div>
+    <div class="toolbar-baris"><button class="btn btn-success" id="btn-cek-kasus" type="button">Periksa</button></div>
+    <ul class="cek-list" id="cek-kasus" aria-live="polite"></ul>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <div class="judul-baris"><h2 class="section-title">Bagian E: Kuis 5 soal</h2><span class="score-pill" id="m3-skor">0/5</span></div>
+    <p class="section-note">Klik pilihanmu, lalu tekan <b>Kunci jawaban</b>. Setelah dikunci tidak bisa diganti.</p>
+    <div id="m3-soal"></div>
+  </div>
+
+  <div class="aksi-bawah">
+    <a class="btn btn-ghost" href="index.html">Kembali</a>
+    <button class="btn btn-primary" id="btn-m3-selesai" type="button" disabled>Selesai, lihat hasil</button>
+  </div>
+  <p class="syarat" id="syarat-m3" aria-live="polite"></p>
+</main>
+<script src="script.js?v=16"></script>
+</body>
+</html>

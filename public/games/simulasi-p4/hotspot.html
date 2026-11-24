@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misi 2: Hotspot, SSID, dan Koneksi — Mikronet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=16">
+</head>
+<body data-halaman="hotspot">
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="Mikronet — Beranda simulasi">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="4" y="4" width="40" height="40" rx="12" fill="#003B7A"/>
+        <circle cx="24" cy="16" r="7" fill="#009BFF"/>
+        <path d="M24 26 C16 26 10 31 8 42 L40 42 C38 31 32 26 24 26 Z" fill="#0B3B7B"/>
+        <circle cx="24" cy="16" r="2.5" fill="#F7B217"/>
+      </svg>
+      Mikronet
+    </a>
+    <div class="progress-pill" title="Kemajuan simulasi">
+      <div class="progress-track"><div class="progress-fill" id="header-progress-bar"></div></div>
+      <span class="progress-label" id="header-progress-text">0%</span>
+    </div>
+  </div>
+</header>
+<main class="page">
+
+  <div class="hero">
+    <span class="misi-no">Misi 2 dari 3</span>
+    <h1 class="hero-title">Hotspot, SSID, dan Koneksi</h1>
+    <p class="hero-desc">Saat praktik, laptop pemancar menjadi <b>access point</b> lewat Mobile hotspot dan laptop penerima menyambung sebagai <b>station</b> (klien). Coba dulu di sini: atur hotspot, sambungkan penerima, lalu baca status koneksinya.</p>
+  </div>
+  <div class="banner-urut" id="banner-urut" hidden></div>
+
+  <div class="card">
+    <h2 class="section-title">Bagian A: Atur Mobile hotspot di laptop pemancar</h2>
+    <p class="section-note">Laptop pemancar mendapat internet dari <b>kabel LAN</b> sekolah. Laptop penerima memakai USB WiFi adapter yang <b>hanya mendukung 2,4 GHz</b>. Atur hotspot supaya penerima bisa menyambung dan ikut mendapat internet.</p>
+    <div class="tugas"><b>Tugas:</b><ul><li data-tugas="m2_hotspot">Isi pengaturan hotspot dengan benar, lalu tekan <b>Aktifkan hotspot</b>.</li></ul></div>
+    <div class="win-dlg hs-dlg">
+      <div class="win-judul">Settings › Network &amp; internet › Mobile hotspot</div>
+      <div class="win-isi">
+        <label for="hs-share">Share my internet connection from</label>
+        <select class="win-input" id="hs-share"><option value="">— pilih —</option><option value="eth">Ethernet (kabel LAN, ada internet)</option><option value="wifi">Wi-Fi 2 (USB WiFi adapter)</option></select>
+        <label for="hs-ssid">Network name (SSID)</label>
+        <input class="win-input" id="hs-ssid" autocomplete="off" spellcheck="false" maxlength="40">
+        <label for="hs-pass">Network password</label>
+        <input class="win-input" id="hs-pass" autocomplete="off" spellcheck="false" maxlength="70">
+        <label for="hs-band">Network band</label>
+        <select class="win-input" id="hs-band"><option value="any">Any available</option><option value="24">2.4 GHz</option><option value="5">5 GHz</option></select>
+      </div>
+    </div>
+    <div class="toolbar-baris">
+      <button class="btn btn-success" id="btn-hs" type="button">Aktifkan hotspot</button>
+      <span class="lampu mati" id="hs-lampu">Hotspot mati</span>
+    </div>
+    <ul class="cek-list" id="cek-hs" aria-live="polite"></ul>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <h2 class="section-title">Bagian B: Sambungkan laptop penerima</h2>
+    <p class="section-note">Di laptop penerima, buka daftar WiFi. Cari SSID hotspot kelompokmu, lalu masukkan password-nya. Jaringan lain di daftar ini milik orang lain.</p>
+    <div class="tugas"><b>Tugas:</b><ul><li data-tugas="m2_konek">Sambungkan penerima ke hotspot kelompokmu sampai mendapat internet.</li></ul></div>
+    <div class="dua-kolom">
+      <div>
+        <p class="kolom-judul">Laptop penerima · daftar WiFi</p>
+        <div class="wifi-list" id="wifi-list" role="list"></div>
+      </div>
+      <div>
+        <p class="kolom-judul">Laptop pemancar · Mobile hotspot</p>
+        <div class="hs-panel" id="hs-panel"></div>
+      </div>
+    </div>
+    <div id="rx-status"></div>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <h2 class="section-title">Bagian C: Baca status koneksi</h2>
+    <p class="section-note">Empat kelompok melaporkan keadaan laptop penerima mereka. Tentukan arti setiap keadaan.</p>
+    <div class="tugas"><b>Tugas:</b><ul><li data-tugas="m2_status">Pilih arti yang tepat untuk keempat keadaan.</li></ul></div>
+    <div class="status-grid" id="status-grid"></div>
+    <div class="toolbar-baris"><button class="btn btn-success" id="btn-cek-status" type="button">Periksa</button></div>
+    <ul class="cek-list" id="cek-status" aria-live="polite"></ul>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <div class="judul-baris"><h2 class="section-title">Bagian D: Kuis 5 soal</h2><span class="score-pill" id="m2-skor">0/5</span></div>
+    <p class="section-note">Klik pilihanmu, lalu tekan <b>Kunci jawaban</b>. Setelah dikunci tidak bisa diganti.</p>
+    <div id="m2-soal"></div>
+  </div>
+
+  <div class="aksi-bawah">
+    <a class="btn btn-ghost" href="index.html">Kembali</a>
+    <button class="btn btn-primary" id="btn-m2-selesai" type="button" disabled>Selesai, lanjut ke Misi 3</button>
+  </div>
+  <p class="syarat" id="syarat-m2" aria-live="polite"></p>
+</main>
+<script src="script.js?v=16"></script>
+</body>
+</html>

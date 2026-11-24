@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misi 1: Kenali Winbox — Mikronet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body data-halaman="winbox">
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="Mikronet — Beranda simulasi">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="4" y="4" width="40" height="40" rx="12" fill="#003B7A"/>
+        <circle cx="24" cy="16" r="7" fill="#009BFF"/>
+        <path d="M24 26 C16 26 10 31 8 42 L40 42 C38 31 32 26 24 26 Z" fill="#0B3B7B"/>
+        <circle cx="24" cy="16" r="2.5" fill="#F7B217"/>
+      </svg>
+      Mikronet
+    </a>
+    <div class="progress-pill" title="Kemajuan simulasi">
+      <div class="progress-track"><div class="progress-fill" id="header-progress-bar"></div></div>
+      <span class="progress-label" id="header-progress-text">0%</span>
+    </div>
+  </div>
+</header>
+<main class="page">
+
+  <div class="hero">
+    <span class="misi-no">Misi 1 dari 3</span>
+    <h1 class="hero-title">Kenali Winbox</h1>
+    <p class="hero-desc"><b>Winbox</b> adalah aplikasi untuk mengatur router MikroTik lewat tampilan grafis. Tampilan di bawah dibuat mirip Winbox asli, jadi nanti di lab kamu sudah tahu harus klik di mana.</p>
+  </div>
+  <div class="banner-urut" id="banner-urut" hidden></div>
+
+  <div class="card">
+    <h2 class="section-title">Bagian A: Masuk ke router</h2>
+    <p class="section-note">Router yang baru di-reset belum punya IP. Winbox tetap bisa menemukannya lewat tab <b>Neighbors</b> dengan memakai <b>MAC Address</b>.</p>
+    <div class="tugas"><b>Tugas:</b>
+      <ul><li data-tugas="m1_login">Pilih router di tab Neighbors, isi Login, lalu tekan <b>Connect</b>.</li></ul>
+    </div>
+
+    <div class="wb-win" id="wb-login">
+      <div class="wb-title"><span>WinBox v3.40</span><span aria-hidden="true">▢ ✕</span></div>
+      <div class="wb-body">
+        <div class="wb-form">
+          <label for="lg-ke">Connect To:</label><input class="wb-input mono" id="lg-ke" autocomplete="off" spellcheck="false">
+          <label for="lg-user">Login:</label><input class="wb-input mono" id="lg-user" autocomplete="off" spellcheck="false">
+          <label for="lg-pass">Password:</label><input class="wb-input mono" id="lg-pass" type="text" autocomplete="off" spellcheck="false" placeholder="(kosong)">
+        </div>
+        <div class="wb-tombol"><button class="wb-btn" type="button" id="lg-connect">Connect</button></div>
+        <div class="wb-tabs" role="tablist"><span class="wb-tab">Managed</span><span class="wb-tab aktif">Neighbors</span></div>
+        <div class="tabel-gulir">
+          <table class="wb-tabel" id="lg-tetangga">
+            <thead><tr><th>MAC Address</th><th>IP Address</th><th>Identity</th><th>Version</th><th>Board</th></tr></thead>
+            <tbody><tr>
+              <td><button type="button" class="wb-sel mono" data-isi="F4:1E:57:95:7E:5B">F4:1E:57:95:7E:5B</button></td>
+              <td><button type="button" class="wb-sel mono" data-isi="0.0.0.0">0.0.0.0</button></td>
+              <td>MikroTik</td><td>6.49.17</td><td>RB951Ui-2HnD</td></tr></tbody>
+          </table>
+        </div>
+        <p class="wb-status" id="lg-status">Klik MAC Address atau IP Address pada tabel untuk mengisi Connect To.</p>
+      </div>
+    </div>
+    <ul class="cek-list" id="cek-login" aria-live="polite" style="margin-top:12px"></ul>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <h2 class="section-title">Bagian B: Cari menu yang tepat</h2>
+    <p class="section-note">Menu Winbox ada di sisi kiri. Menu bertanda ▸ punya submenu. Baca tugasnya, lalu klik menu yang sesuai.</p>
+    <div class="tugas"><b>Tugas:</b>
+      <ul><li data-tugas="m1_menu">Temukan kelima menu yang diminta.</li></ul>
+    </div>
+    <div class="menu-soal" id="menu-soal" aria-live="polite"></div>
+    <div class="wb-win wb-shell-win">
+      <div class="wb-title"><span>admin@F4:1E:57:95:7E:5B (MikroTik) - WinBox</span><span aria-hidden="true">▢ ✕</span></div>
+      <div class="wb-shell">
+        <nav class="wb-menu" id="wb-menu" aria-label="Menu Winbox"></nav>
+        <div class="wb-kanan">
+          <div class="wb-sub" id="wb-sub" hidden></div>
+          <div class="wb-layar" id="wb-layar"><span class="redup-teks">Area jendela Winbox</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="hasil-uji" id="hasil-menu" aria-live="polite"></p>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <h2 class="section-title">Bagian C: Reset tanpa konfigurasi bawaan</h2>
+    <div class="cerita">
+      <p>Router MikroTik baru biasanya membawa <b>konfigurasi bawaan</b>: ether2 sampai ether5 digabung dalam satu <b>bridge</b> dengan IP 192.168.88.1. Praktik hari ini memakai ether2 dan ether3 sebagai dua jaringan terpisah, jadi router di-reset dulu tanpa konfigurasi bawaan.</p>
+    </div>
+    <div class="tugas"><b>Tugas:</b>
+      <ul><li data-tugas="m1_reset">Lakukan <b>System → Reset Configuration</b> dengan pilihan yang tepat.</li></ul>
+    </div>
+    <div class="wb-win wb-kecil" id="wb-reset">
+      <div class="wb-title"><span>Reset Configuration</span><span aria-hidden="true">✕</span></div>
+      <div class="wb-body wb-reset-isi">
+        <div class="wb-cek">
+          <label><input type="checkbox" id="rs-keep"> Keep User Configuration</label>
+          <label><input type="checkbox" id="rs-caps"> CAPS Mode</label>
+          <label><input type="checkbox" id="rs-nodef"> No Default Configuration</label>
+          <label><input type="checkbox" id="rs-nobak"> Do Not Backup</label>
+        </div>
+        <div class="wb-tombol kolom">
+          <button class="wb-btn" type="button" id="rs-reset">Reset Configuration</button>
+          <button class="wb-btn" type="button" id="rs-batal">Cancel</button>
+        </div>
+      </div>
+      <div class="wb-tanya" id="rs-tanya" hidden>
+        <span>Router akan di-reset dan dimulai ulang. Lanjutkan?</span>
+        <button class="wb-btn" type="button" id="rs-ya">Yes</button><button class="wb-btn" type="button" id="rs-tidak">No</button>
+      </div>
+    </div>
+    <ul class="cek-list" id="cek-reset" aria-live="polite" style="margin-top:12px"></ul>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <div class="judul-baris"><h2 class="section-title">Bagian D: Kuis 5 soal</h2><span class="score-pill" id="m1-skor">0/5</span></div>
+    <p class="section-note">Klik pilihanmu, lalu tekan <b>Kunci jawaban</b>. Setelah dikunci tidak bisa diganti.</p>
+    <div id="m1-soal"></div>
+  </div>
+
+  <div class="aksi-bawah">
+    <a class="btn btn-ghost" href="index.html">Kembali</a>
+    <button class="btn btn-primary" id="btn-m1-selesai" type="button" disabled>Selesai, lanjut ke Misi 2</button>
+  </div>
+  <p class="syarat" id="syarat-m1" aria-live="polite"></p>
+</main>
+<script src="script.js?v=1"></script>
+</body>
+</html>

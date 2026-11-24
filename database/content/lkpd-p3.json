@@ -1,0 +1,178 @@
+{
+ "judul": "Pengumpulan Praktikum Pertemuan 3",
+ "petunjuk": "Unggah bukti ping antar-PC kelompokmu. Bagian Fase 2 boleh dikosongkan bila tidak dikerjakan atau tidak ada internet. Jawaban tersimpan otomatis. Tekan Kumpulkan di bagian bawah setelah selesai.",
+ "bagian": [
+  {
+   "judul": "A. Identitas kelompok",
+   "butir": [
+    {
+     "id": "kelompok",
+     "jenis": "teks",
+     "label": "Nama kelompok"
+    },
+    {
+     "id": "anggota",
+     "jenis": "paragraf",
+     "label": "Anggota dan perannya",
+     "petunjuk": "Contoh: Andi (Winbox di PC1), Sinta (PC2), Raka (pencatat)."
+    }
+   ]
+  },
+  {
+   "judul": "B. Uji ping antar-PC (wajib)",
+   "petunjuk": "Hasil Tahap E. PC1 = 192.168.11.2, PC2 = 192.168.22.2.",
+   "butir": [
+    {
+     "id": "ping12",
+     "jenis": "pilihan",
+     "label": "PC1 ping PC2 (192.168.22.2)",
+     "opsi": [
+      "Berhasil (4 dari 4 Reply)",
+      "Sebagian berhasil",
+      "Gagal: Request timed out",
+      "Gagal: Destination host unreachable"
+     ]
+    },
+    {
+     "id": "f_ping12",
+     "jenis": "berkas",
+     "label": "Bukti PC1 ping PC2",
+     "petunjuk": "Tangkapan layar Command Prompt PC1. Format JPG atau PNG.",
+     "maks_berkas": 2
+    },
+    {
+     "id": "ping21",
+     "jenis": "pilihan",
+     "label": "PC2 ping PC1 (192.168.11.2)",
+     "opsi": [
+      "Berhasil (4 dari 4 Reply)",
+      "Sebagian berhasil",
+      "Gagal: Request timed out",
+      "Gagal: Destination host unreachable"
+     ]
+    },
+    {
+     "id": "f_ping21",
+     "jenis": "berkas",
+     "label": "Bukti PC2 ping PC1",
+     "petunjuk": "Tangkapan layar Command Prompt PC2. Format JPG atau PNG.",
+     "maks_berkas": 2
+    }
+   ]
+  },
+  {
+   "judul": "C. Fase 2: internet dan firewall (opsional)",
+   "petunjuk": "Isi bila Tahap F–H dikerjakan. Jika tidak ada internet, ping ke 8.8.8.8 dan google.com memang gagal; tetap catat hasilnya.",
+   "butir": [
+    {
+     "id": "dhcp",
+     "jenis": "pilihan",
+     "label": "Status DHCP Client ether1",
+     "opsi": [
+      "bound",
+      "searching",
+      "Tidak dikerjakan"
+     ],
+     "wajib": false
+    },
+    {
+     "id": "ping_net",
+     "jenis": "pilihan",
+     "label": "PC1 ping 8.8.8.8",
+     "opsi": [
+      "Berhasil",
+      "Gagal: Request timed out",
+      "Gagal: Destination net unreachable",
+      "Gagal: pesan lain"
+     ],
+     "wajib": false
+    },
+    {
+     "id": "ping_dns",
+     "jenis": "pilihan",
+     "label": "PC1 ping google.com",
+     "opsi": [
+      "Berhasil",
+      "Gagal: Request timed out",
+      "Gagal: Destination net unreachable",
+      "Gagal: pesan lain"
+     ],
+     "wajib": false
+    },
+    {
+     "id": "f_net",
+     "jenis": "berkas",
+     "label": "Bukti ping 8.8.8.8 dan google.com",
+     "petunjuk": "Dari Terminal Winbox atau Command Prompt PC.",
+     "maks_berkas": 3,
+     "wajib": false
+    },
+    {
+     "id": "fw_aktif",
+     "jenis": "pilihan",
+     "label": "PC1 ping PC2 saat aturan firewall aktif",
+     "opsi": [
+      "Berhasil (4 dari 4 Reply)",
+      "Sebagian berhasil",
+      "Gagal: Request timed out",
+      "Gagal: Destination host unreachable"
+     ],
+     "wajib": false
+    },
+    {
+     "id": "fw_mati",
+     "jenis": "pilihan",
+     "label": "PC1 ping PC2 setelah aturan dinonaktifkan",
+     "opsi": [
+      "Berhasil (4 dari 4 Reply)",
+      "Sebagian berhasil",
+      "Gagal: Request timed out",
+      "Gagal: Destination host unreachable"
+     ],
+     "wajib": false
+    },
+    {
+     "id": "f_fw",
+     "jenis": "berkas",
+     "label": "Bukti uji firewall",
+     "petunjuk": "Ping saat aturan aktif dan setelah dinonaktifkan.",
+     "maks_berkas": 3,
+     "wajib": false
+    },
+    {
+     "id": "catatan",
+     "jenis": "paragraf",
+     "label": "Catatan kelompok",
+     "petunjuk": "Kendala yang ditemui dan cara mengatasinya.",
+     "wajib": false
+    }
+   ]
+  }
+ ],
+ "rubrik": [
+  {
+   "kriteria": "Tahap A–B · Kabel sesuai topologi dan berhasil masuk Winbox",
+   "maks": 15
+  },
+  {
+   "kriteria": "Tahap C · IP ether2 dan ether3 benar (dengan /24)",
+   "maks": 20
+  },
+  {
+   "kriteria": "Tahap D · IP, subnet mask, dan gateway PC1 dan PC2 benar",
+   "maks": 20
+  },
+  {
+   "kriteria": "Tahap E · Bukti PC1 ping PC2 berhasil",
+   "maks": 20
+  },
+  {
+   "kriteria": "Tahap E · Bukti PC2 ping PC1 berhasil",
+   "maks": 20
+  },
+  {
+   "kriteria": "Kelengkapan dan kerapian pengisian",
+   "maks": 5
+  }
+ ]
+}

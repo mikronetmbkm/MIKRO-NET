@@ -1,0 +1,570 @@
+{
+ "judul": "Praktikum Pertemuan 3 · Konfigurasi MikroTik dengan Winbox",
+ "sub": "Hubungkan dua PC melalui router MikroTik sampai keduanya dapat saling ping, lalu lanjutkan ke koneksi internet dan firewall. Kerjakan berkelompok: satu orang di PC1 (Winbox), satu orang di PC2, satu orang mencatat dan memeriksa.",
+ "durasi": "± 120 menit",
+ "tanpa_gambar": "Kerjakan langsung pada router dan PC.",
+ "tujuan": [
+  "Masuk ke router MikroTik menggunakan Winbox.",
+  "Mengatur IP Address pada interface router.",
+  "Mengatur IP Address dan gateway pada PC1 dan PC2.",
+  "Menguji konektivitas antar-PC yang berbeda jaringan.",
+  "Menghubungkan router ke internet dengan DHCP Client, DNS, dan NAT masquerade.",
+  "Membuat aturan firewall filter sederhana dan menguji pengaruhnya."
+ ],
+ "alat": [
+  "1 router MikroTik dengan minimal 3 port Ethernet.",
+  "2 PC/laptop Windows, Winbox sudah tersalin di PC1.",
+  "2–3 kabel UTP straight-through.",
+  "Koneksi internet pada ether1 (untuk Fase 2, bila tersedia)."
+ ],
+ "teori": [
+  {
+   "istilah": "MikroTik",
+   "arti": "merek router yang menjalankan sistem operasi RouterOS; banyak dipakai di sekolah, kantor, dan RT/RW net."
+  },
+  {
+   "istilah": "Winbox",
+   "arti": "aplikasi untuk mengatur router MikroTik melalui tampilan grafis (GUI), tanpa mengetik perintah satu per satu."
+  },
+  {
+   "istilah": "Neighbors",
+   "arti": "tab di Winbox yang menampilkan router MikroTik di jaringan beserta MAC Address-nya."
+  },
+  {
+   "istilah": "Interface",
+   "arti": "port pada router. ether1 dipakai sebagai WAN (ke internet), ether2 dan ether3 sebagai LAN (ke PC)."
+  },
+  {
+   "istilah": "Gateway",
+   "arti": "alamat router yang dituju PC ketika mengirim data ke jaringan lain."
+  },
+  {
+   "istilah": "DHCP Client",
+   "arti": "membuat router meminta IP secara otomatis dari jaringan di atasnya. Status bound berarti IP sudah diperoleh."
+  },
+  {
+   "istilah": "DNS",
+   "arti": "menerjemahkan nama domain (google.com) menjadi alamat IP."
+  },
+  {
+   "istilah": "NAT masquerade",
+   "arti": "mengganti alamat IP privat PC dengan IP router di ether1 agar PC dapat mengakses internet."
+  },
+  {
+   "istilah": "Firewall filter",
+   "arti": "aturan untuk mengizinkan atau memblokir lalu lintas yang masuk, keluar, atau melewati router."
+  }
+ ],
+ "topologi": {
+  "gambar": "p3-01.png",
+  "alt": "Topologi: Internet ke ether1 MikroTik, PC1 di ether2, PC2 di ether3",
+  "kolom": [
+   "Perangkat",
+   "Interface",
+   "IP Address",
+   "Gateway"
+  ],
+  "baris": [
+   [
+    "MikroTik",
+    "ether1 (WAN)",
+    "DHCP Client",
+    "Dari jaringan"
+   ],
+   [
+    "MikroTik",
+    "ether2 (LAN 1)",
+    "192.168.11.1/24",
+    "-"
+   ],
+   [
+    "MikroTik",
+    "ether3 (LAN 2)",
+    "192.168.22.1/24",
+    "-"
+   ],
+   [
+    "PC1",
+    "Ethernet",
+    "192.168.11.2/24",
+    "192.168.11.1"
+   ],
+   [
+    "PC2",
+    "Ethernet",
+    "192.168.22.2/24",
+    "192.168.22.1"
+   ]
+  ],
+  "catatan": "Fase 1 (Tahap A–E) tidak membutuhkan internet. Fase 2 (Tahap F–H) membutuhkan internet pada ether1; jika tidak tersedia, tetap kerjakan dan catat hasilnya."
+ },
+ "tahap": [
+  {
+   "judul": "Fase 1 · Tahap A · Persiapan dan pemasangan kabel",
+   "langkah": [
+    {
+     "judul": "Periksa perlengkapan",
+     "isi": "Pastikan router MikroTik menyala, kedua PC menyala, dan aplikasi Winbox sudah ada di PC1. Winbox harus disalin sebelum praktik dimulai karena hari ini tidak ada internet untuk mengunduhnya.",
+     "gambar": [],
+     "cek": [
+      "Router menyala dan lampu power aktif.",
+      "Winbox dapat dibuka di PC1.",
+      "Tersedia minimal 2 kabel UTP straight-through."
+     ]
+    },
+    {
+     "judul": "Pasang kabel sesuai topologi",
+     "isi": "Hubungkan setiap perangkat ke port yang tepat. Perhatikan nomor port pada router, bukan hanya perangkatnya.",
+     "gambar": [
+      "p3-01.png"
+     ],
+     "tabel": {
+      "kolom": [
+       "Dari",
+       "Port",
+       "Ke",
+       "Keterangan"
+      ],
+      "baris": [
+       [
+        "PC1",
+        "Ethernet",
+        "MikroTik ether2",
+        "LAN 1 (wajib)"
+       ],
+       [
+        "PC2",
+        "Ethernet",
+        "MikroTik ether3",
+        "LAN 2 (wajib)"
+       ],
+       [
+        "Sumber internet",
+        "-",
+        "MikroTik ether1",
+        "WAN (untuk Fase 2, bila tersedia)"
+       ]
+      ]
+     },
+     "catatan": "Lampu port pada router menyala ketika kabel tersambung dengan baik."
+    }
+   ]
+  },
+  {
+   "judul": "Fase 1 · Tahap B · Masuk ke router lewat Winbox",
+   "langkah": [
+    {
+     "judul": "Temukan router di tab Neighbors",
+     "isi": "Buka Winbox di PC1, lalu pilih tab Neighbors. Router yang terdeteksi akan muncul beserta MAC Address-nya. Klik MAC Address router tersebut, bukan IP Address-nya.",
+     "gambar": [
+      "p3-02.png"
+     ],
+     "catatan": "Router yang baru di-reset belum memiliki IP (tertulis 0.0.0.0), sehingga koneksi dilakukan melalui MAC Address."
+    },
+    {
+     "judul": "Login ke router",
+     "isi": "Isi Login dengan admin. Kosongkan Password, kecuali router sudah diberi password oleh guru. Klik Connect.",
+     "gambar": [
+      "p3-03.png"
+     ],
+     "cek": [
+      "Jendela utama Winbox terbuka dan menu di sisi kiri tampil."
+     ]
+    },
+    {
+     "judul": "Reset router tanpa konfigurasi bawaan",
+     "isi": "Minta izin guru atau pendamping terlebih dahulu. Buka System → Reset Configuration, centang No Default Configuration, lalu klik Reset Configuration dan pilih Yes. Router akan memulai ulang sekitar satu menit dan Winbox terputus. Setelah itu, ulangi langkah login melalui tab Neighbors.",
+     "gambar": [
+      "p3-24.png"
+     ],
+     "catatan": "Konfigurasi bawaan MikroTik menggabungkan ether2 sampai ether5 ke dalam satu bridge. Jika tidak di-reset, IP yang dipasang ke ether2 dan ether3 tidak bekerja sebagaimana mestinya.",
+     "cek": [
+      "Setelah login ulang, menu IP → Addresses masih kosong."
+     ]
+    }
+   ]
+  },
+  {
+   "judul": "Fase 1 · Tahap C · Memberi IP pada interface router",
+   "langkah": [
+    {
+     "judul": "Buka daftar IP Address",
+     "isi": "Klik menu IP → Addresses. Jendela Address List akan terbuka. Klik tombol + (biru) untuk menambah alamat baru.",
+     "gambar": [
+      "p3-04.png"
+     ]
+    },
+    {
+     "judul": "Tambahkan IP untuk ether2",
+     "isi": "Isi Address dengan 192.168.11.1/24 dan pilih Interface ether2. Kolom Network terisi otomatis setelah Apply. Klik Apply, lalu OK.",
+     "gambar": [
+      "p3-05.png"
+     ],
+     "catatan": "Jangan lupa menulis /24 di belakang alamat. Tanpa /24, router menganggap prefix /32 dan PC tidak akan dapat terhubung."
+    },
+    {
+     "judul": "Tambahkan IP untuk ether3",
+     "isi": "Klik + sekali lagi. Isi Address dengan 192.168.22.1/24 dan pilih Interface ether3. Klik Apply, lalu OK.",
+     "gambar": [
+      "p3-06.png"
+     ]
+    },
+    {
+     "judul": "Checkpoint C",
+     "isi": "Periksa kembali isi Address List sebelum melanjutkan.",
+     "gambar": [],
+     "cek": [
+      "Terdapat dua baris: 192.168.11.1/24 pada ether2 dan 192.168.22.1/24 pada ether3.",
+      "Kolom Network berisi 192.168.11.0 dan 192.168.22.0.",
+      "Di menu Interfaces, ether2 dan ether3 berstatus R (running) karena kabel PC sudah tersambung."
+     ]
+    }
+   ]
+  },
+  {
+   "judul": "Fase 1 · Tahap D · Mengatur IP pada PC1 dan PC2",
+   "langkah": [
+    {
+     "judul": "Buka pengaturan adapter jaringan",
+     "isi": "Di Windows, buka Control Panel → Network and Internet → Network and Sharing Center → Change adapter settings. Klik dua kali adapter Ethernet yang tersambung ke router, lalu klik Properties.",
+     "gambar": [
+      "p3-20.png"
+     ]
+    },
+    {
+     "judul": "Pilih Internet Protocol Version 4",
+     "isi": "Klik dua kali Internet Protocol Version 4 (TCP/IPv4).",
+     "gambar": [
+      "p3-21.png"
+     ]
+    },
+    {
+     "judul": "Isi IP PC1",
+     "isi": "Pilih Use the following IP address, lalu isi sesuai tabel. Klik OK, kemudian Close.",
+     "gambar": [
+      "p3-22.png"
+     ],
+     "tabel": {
+      "kolom": [
+       "Kolom",
+       "Isi pada PC1"
+      ],
+      "baris": [
+       [
+        "IP address",
+        "192.168.11.2"
+       ],
+       [
+        "Subnet mask",
+        "255.255.255.0"
+       ],
+       [
+        "Default gateway",
+        "192.168.11.1"
+       ],
+       [
+        "Preferred DNS server",
+        "8.8.8.8"
+       ]
+      ]
+     }
+    },
+    {
+     "judul": "Isi IP PC2",
+     "isi": "Lakukan langkah yang sama di PC2 dengan nilai berikut.",
+     "gambar": [],
+     "tabel": {
+      "kolom": [
+       "Kolom",
+       "Isi pada PC2"
+      ],
+      "baris": [
+       [
+        "IP address",
+        "192.168.22.2"
+       ],
+       [
+        "Subnet mask",
+        "255.255.255.0"
+       ],
+       [
+        "Default gateway",
+        "192.168.22.1"
+       ],
+       [
+        "Preferred DNS server",
+        "8.8.8.8"
+       ]
+      ]
+     },
+     "catatan": "Gateway setiap PC adalah IP interface router yang tersambung dengannya: PC1 ke ether2 (192.168.11.1), PC2 ke ether3 (192.168.22.1)."
+    },
+    {
+     "judul": "Izinkan ping masuk di Windows",
+     "isi": "Windows Firewall memblokir ping masuk secara bawaan, sehingga ping antar-PC bisa gagal walaupun konfigurasi sudah benar. Buka Command Prompt dengan Run as administrator di PC1 dan PC2, lalu jalankan perintah berikut.",
+     "gambar": [],
+     "kode_label": "Command Prompt (administrator)",
+     "kode": "netsh advfirewall firewall add rule name=\"Izinkan ping\" protocol=icmpv4:8,any dir=in action=allow",
+     "catatan": "Perintah ini hanya membuka izin ping. Aturan akan dihapus kembali pada langkah terakhir."
+    }
+   ]
+  },
+  {
+   "judul": "Fase 1 · Tahap E · Uji koneksi antar-PC",
+   "langkah": [
+    {
+     "judul": "Uji dari PC1",
+     "isi": "Buka Command Prompt di PC1, lalu ping secara berurutan: gateway sendiri, gateway jaringan lain, kemudian PC2.",
+     "gambar": [
+      "p3-23.png"
+     ],
+     "kode_label": "Command Prompt PC1",
+     "kode": "ping 192.168.11.1\nping 192.168.22.1\nping 192.168.22.2",
+     "cek": [
+      "Ketiga ping mendapat Reply from …",
+      "Ping ke 192.168.22.2 berhasil walaupun PC2 berada di jaringan yang berbeda."
+     ]
+    },
+    {
+     "judul": "Uji dari PC2",
+     "isi": "Lakukan hal yang sama di PC2.",
+     "gambar": [],
+     "kode_label": "Command Prompt PC2",
+     "kode": "ping 192.168.22.1\nping 192.168.11.1\nping 192.168.11.2"
+    },
+    {
+     "judul": "Simpan bukti ping antar-PC (wajib)",
+     "isi": "Ambil tangkapan layar Command Prompt yang menampilkan PC1 ping PC2 dan PC2 ping PC1. Gunakan Windows + Shift + S. Kedua gambar ini wajib diunggah pada langkah Pengumpulan.",
+     "gambar": [],
+     "cek": [
+      "Bukti PC1 → PC2 (192.168.22.2) tersimpan.",
+      "Bukti PC2 → PC1 (192.168.11.2) tersimpan."
+     ]
+    },
+    {
+     "judul": "Coba ping ke internet",
+     "isi": "Dari PC1, jalankan ping 8.8.8.8. Pada tahap ini hasilnya gagal karena router belum tersambung ke internet. Perhatikan pesan yang muncul.",
+     "gambar": [],
+     "kode_label": "Command Prompt PC1",
+     "kode": "ping 8.8.8.8",
+     "catatan": "Pesan yang mungkin muncul: Request timed out atau Destination net unreachable. Keduanya berarti paket tidak sampai ke tujuan."
+    }
+   ]
+  },
+  {
+   "judul": "Fase 2 · Tahap F · Menyambungkan router ke internet",
+   "langkah": [
+    {
+     "judul": "Tambahkan DHCP Client pada ether1",
+     "isi": "Buka IP → DHCP Client, klik +. Pilih Interface ether1, pastikan Use Peer DNS tercentang dan Add Default Route bernilai yes (tab Advanced). Klik Apply, lalu OK.",
+     "gambar": [
+      "p3-07.png",
+      "p3-08.png"
+     ],
+     "catatan": "DHCP Client membuat router meminta IP secara otomatis dari jaringan di atasnya (ISP atau jaringan sekolah)."
+    },
+    {
+     "judul": "Periksa status DHCP Client",
+     "isi": "Lihat kolom Status pada daftar DHCP Client. Jika internet tersedia, status menjadi bound dan kolom IP Address terisi.",
+     "gambar": [
+      "p3-09.png"
+     ],
+     "catatan": "Jika tidak ada internet atau kabel ether1 tidak tersambung, status tetap searching. Itu wajar. Lanjutkan langkah berikutnya agar konfigurasinya tetap lengkap."
+    },
+    {
+     "judul": "Atur DNS router",
+     "isi": "Buka IP → DNS. Isi Servers dengan 8.8.8.8, centang Allow Remote Requests, lalu klik Apply dan OK.",
+     "gambar": [
+      "p3-10.png",
+      "p3-11.png"
+     ],
+     "catatan": "DNS menerjemahkan nama domain, misalnya google.com, menjadi alamat IP."
+    },
+    {
+     "judul": "Buka menu NAT",
+     "isi": "Buka IP → Firewall, pilih tab NAT, lalu klik +.",
+     "gambar": [
+      "p3-12.png",
+      "p3-13.png"
+     ]
+    },
+    {
+     "judul": "Isi tab General",
+     "isi": "Pada tab General, pilih Chain srcnat dan Out. Interface ether1.",
+     "gambar": [
+      "p3-14.png",
+      "p3-15.png"
+     ]
+    },
+    {
+     "judul": "Isi tab Action",
+     "isi": "Buka tab Action, pilih Action masquerade, lalu klik Apply dan OK.",
+     "gambar": [
+      "p3-16.png",
+      "p3-17.png"
+     ],
+     "cek": [
+      "Daftar NAT berisi satu aturan: chain srcnat, action masquerade, out interface ether1."
+     ]
+    }
+   ]
+  },
+  {
+   "judul": "Fase 2 · Tahap G · Uji koneksi internet",
+   "langkah": [
+    {
+     "judul": "Uji dari router",
+     "isi": "Klik New Terminal di Winbox, lalu jalankan perintah berikut. Tekan Ctrl + C untuk menghentikan ping.",
+     "gambar": [
+      "p3-18.png",
+      "p3-19.png"
+     ],
+     "kode_label": "Terminal Winbox",
+     "kode": "ping 8.8.8.8\nping google.com"
+    },
+    {
+     "judul": "Uji dari PC1 dan PC2",
+     "isi": "Dari Command Prompt PC1 dan PC2, jalankan ping ke 8.8.8.8 dan google.com. Simpan tangkapan layarnya untuk Pengumpulan (opsional).",
+     "gambar": [],
+     "kode_label": "Command Prompt",
+     "kode": "ping 8.8.8.8\nping google.com",
+     "catatan": "Jika internet tidak tersedia, kedua ping gagal. Catat pesan yang muncul. Ping ke 8.8.8.8 berhasil tetapi google.com gagal berarti DNS belum benar."
+    }
+   ]
+  },
+  {
+   "judul": "Fase 2 · Tahap H · Firewall filter",
+   "langkah": [
+    {
+     "judul": "Buat aturan pemblokiran ping",
+     "isi": "Buka IP → Firewall, pilih tab Filter Rules, lalu klik +. Isi tab General dan Action sesuai tabel, kemudian klik Apply dan OK.",
+     "gambar": [
+      "p3-25.png"
+     ],
+     "tabel": {
+      "kolom": [
+       "Tab",
+       "Kolom",
+       "Isi"
+      ],
+      "baris": [
+       [
+        "General",
+        "Chain",
+        "forward"
+       ],
+       [
+        "General",
+        "Src. Address",
+        "192.168.11.0/24"
+       ],
+       [
+        "General",
+        "Dst. Address",
+        "192.168.22.0/24"
+       ],
+       [
+        "General",
+        "Protocol",
+        "icmp"
+       ],
+       [
+        "Action",
+        "Action",
+        "drop"
+       ]
+      ]
+     },
+     "catatan": "Chain forward berlaku untuk lalu lintas yang melewati router, misalnya dari PC1 ke PC2."
+    },
+    {
+     "judul": "Uji ping saat aturan aktif",
+     "isi": "Ping dari PC1 ke PC2, lalu dari PC2 ke PC1. Simpan tangkapan layarnya untuk Pengumpulan (opsional).",
+     "gambar": [],
+     "kode_label": "Command Prompt",
+     "kode": "ping 192.168.22.2   (dari PC1)\nping 192.168.11.2   (dari PC2)",
+     "cek": [
+      "PC1 → PC2 gagal (Request timed out).",
+      "PC2 → PC1 juga gagal, karena balasan dari PC1 menuju PC2 ikut terblokir aturan tersebut."
+     ]
+    },
+    {
+     "judul": "Nonaktifkan aturan dan uji kembali",
+     "isi": "Pilih aturan tersebut, lalu klik tombol ✕ (Disable). Baris aturan berubah menjadi abu-abu. Ulangi ping dari PC1 ke PC2.",
+     "gambar": [],
+     "cek": [
+      "Ping PC1 → PC2 kembali berhasil setelah aturan dinonaktifkan."
+     ]
+    }
+   ]
+  },
+  {
+   "judul": "Penutup",
+   "langkah": [
+    {
+     "judul": "Kumpulkan bukti dan rapikan perangkat",
+     "isi": "Unggah bukti ping pada langkah Pengumpulan. Setelah selesai, kembalikan pengaturan IPv4 di kedua PC menjadi Obtain an IP address automatically, lalu hapus izin ping dengan perintah berikut di Command Prompt (administrator).",
+     "gambar": [],
+     "kode_label": "Command Prompt (administrator)",
+     "kode": "netsh advfirewall firewall delete rule name=\"Izinkan ping\"",
+     "cek": [
+      "Bukti ping antar-PC sudah diunggah.",
+      "Pengaturan IP kedua PC sudah dikembalikan ke otomatis."
+     ]
+    }
+   ]
+  }
+ ],
+ "tantangan": [
+  "Ubah nama router menjadi nama kelompokmu melalui System → Identity. Di mana nama itu muncul?",
+  "Buat DHCP Server pada ether2 (IP → DHCP Server → DHCP Setup) agar PC1 mendapat IP otomatis. IP berapa yang diperoleh PC1?",
+  "Ubah aturan firewall agar hanya memblokir PC1 → PC2, sedangkan PC2 masih dapat ping PC1. Petunjuk: perhatikan Connection State."
+ ],
+ "masalah": [
+  [
+   "Winbox tidak menemukan router",
+   "Kabel atau port PC1 bermasalah",
+   "Cek kabel ke ether2, klik Refresh di tab Neighbors, atau coba port lain"
+  ],
+  [
+   "Login ditolak",
+   "Router sudah memiliki password",
+   "Tanyakan password kepada guru atau pendamping"
+  ],
+  [
+   "PC tidak dapat ping gateway sendiri",
+   "IP/subnet PC salah atau kabel di port yang salah",
+   "Cek IPv4 PC (IP, mask, gateway) dan pastikan kabel di port sesuai tabel"
+  ],
+  [
+   "PC1 dapat ping kedua gateway, tetapi tidak dapat ping PC2",
+   "Windows Firewall PC2 memblokir ping",
+   "Jalankan perintah netsh pada langkah Izinkan ping di PC2"
+  ],
+  [
+   "IP di Address List bertanda merah atau tidak bekerja",
+   "ether2/ether3 masih bagian dari bridge bawaan",
+   "Reset router dengan No Default Configuration"
+  ],
+  [
+   "DHCP Client tetap searching",
+   "Tidak ada internet atau kabel ether1 tidak tersambung",
+   "Cek kabel ether1 dan sumber internet"
+  ],
+  [
+   "Router dapat ping 8.8.8.8, PC tidak dapat",
+   "NAT masquerade belum ada atau gateway PC salah",
+   "Cek IP → Firewall → NAT dan default gateway PC"
+  ],
+  [
+   "Ping 8.8.8.8 berhasil, google.com gagal",
+   "DNS belum diatur",
+   "Cek IP → DNS dan DNS server pada PC"
+  ],
+  [
+   "PC1 tiba-tiba tidak dapat ping PC2",
+   "Aturan firewall filter masih aktif",
+   "Nonaktifkan aturan di IP → Firewall → Filter Rules"
+  ]
+ ]
+}

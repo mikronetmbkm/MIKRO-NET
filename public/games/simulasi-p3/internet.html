@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misi 3: Internet & Firewall — Mikronet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body data-halaman="internet">
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="Mikronet — Beranda simulasi">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="4" y="4" width="40" height="40" rx="12" fill="#003B7A"/>
+        <circle cx="24" cy="16" r="7" fill="#009BFF"/>
+        <path d="M24 26 C16 26 10 31 8 42 L40 42 C38 31 32 26 24 26 Z" fill="#0B3B7B"/>
+        <circle cx="24" cy="16" r="2.5" fill="#F7B217"/>
+      </svg>
+      Mikronet
+    </a>
+    <div class="progress-pill" title="Kemajuan simulasi">
+      <div class="progress-track"><div class="progress-fill" id="header-progress-bar"></div></div>
+      <span class="progress-label" id="header-progress-text">0%</span>
+    </div>
+  </div>
+</header>
+<main class="page">
+
+  <div class="hero">
+    <span class="misi-no">Misi 3 dari 3</span>
+    <h1 class="hero-title">Internet &amp; Firewall</h1>
+    <p class="hero-desc">Di simulasi ini ether1 tersambung ke internet, jadi kamu bisa melihat hasil yang di lab mungkin belum bisa dicoba. Konfigurasi router dan PC dari Misi 2 tetap dipakai.</p>
+  </div>
+  <div class="banner-urut" id="banner-urut" hidden></div>
+
+  <div class="card">
+    <h2 class="section-title">Bagian A: DHCP Client di ether1</h2>
+    <p class="section-note">ether1 tersambung ke jaringan ISP yang sudah punya server DHCP. Router cukup <b>meminta</b> IP secara otomatis: <b>IP → DHCP Client</b>, klik <b>+</b>.</p>
+    <div class="tugas"><b>Tugas:</b>
+      <ul><li data-tugas="m3_dhcp">Buat DHCP Client sampai statusnya <b>bound</b> dan router punya rute ke internet.</li></ul>
+    </div>
+    <div class="wb-win" id="wb-dhcp">
+      <div class="wb-title"><span>DHCP Client</span><span aria-hidden="true">▢ ✕</span></div>
+      <div class="wb-toolbar">
+        <button class="wb-tool tambah" type="button" id="dc-tambah" aria-label="Tambah DHCP Client">+</button>
+        <button class="wb-tool hapus" type="button" id="dc-hapus" aria-label="Hapus DHCP Client terpilih" disabled>−</button>
+      </div>
+      <div class="tabel-gulir"><table class="wb-tabel pilihan" id="dc-tabel"></table></div>
+      <div class="wb-dialog" id="dc-dialog" hidden>
+        <div class="wb-title"><span>New DHCP Client</span></div>
+        <div class="wb-body">
+          <div class="wb-form">
+            <label for="dc-if">Interface:</label><select class="wb-input mono" id="dc-if"><option>ether1</option><option>ether2</option><option>ether3</option></select>
+            <span></span><label class="wb-cek-satu"><input type="checkbox" id="dc-peerdns" checked> Use Peer DNS</label>
+            <span></span><label class="wb-cek-satu"><input type="checkbox" id="dc-peerntp" checked> Use Peer NTP</label>
+            <label for="dc-defrt">Add Default Route:</label><select class="wb-input mono" id="dc-defrt"><option>yes</option><option>no</option></select>
+          </div>
+          <div class="wb-tombol"><button class="wb-btn" type="button" id="dc-ok">OK</button><button class="wb-btn" type="button" id="dc-batal">Cancel</button></div>
+        </div>
+      </div>
+    </div>
+    <ul class="cek-list" id="cek-dhcp" aria-live="polite" style="margin-top:12px"></ul>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <h2 class="section-title">Bagian B: DNS</h2>
+    <p class="section-note"><b>DNS</b> menerjemahkan nama seperti <span class="mono">google.com</span> menjadi alamat IP. Buka <b>IP → DNS</b>.</p>
+    <div class="tugas"><b>Tugas:</b>
+      <ul><li data-tugas="m3_dns">Isi server DNS <span class="mono">8.8.8.8</span> dan izinkan PC memakai router sebagai DNS.</li></ul>
+    </div>
+    <div class="wb-win wb-kecil" id="wb-dns">
+      <div class="wb-title"><span>DNS Settings</span><span aria-hidden="true">✕</span></div>
+      <div class="wb-body">
+        <div class="wb-form">
+          <label for="dns-srv">Servers:</label><input class="wb-input mono" id="dns-srv" inputmode="decimal" autocomplete="off" spellcheck="false">
+          <label for="dns-dyn">Dynamic Servers:</label><input class="wb-input mono" id="dns-dyn" readonly tabindex="-1">
+          <span></span><label class="wb-cek-satu"><input type="checkbox" id="dns-remote"> Allow Remote Requests</label>
+        </div>
+        <div class="wb-tombol"><button class="wb-btn" type="button" id="dns-ok">OK</button><button class="wb-btn" type="button" id="dns-apply">Apply</button></div>
+      </div>
+    </div>
+    <ul class="cek-list" id="cek-dns" aria-live="polite" style="margin-top:12px"></ul>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <h2 class="section-title">Bagian C: NAT masquerade</h2>
+    <div class="cerita">
+      <p>IP PC (192.168.11.2) adalah IP <b>privat</b> yang tidak dikenal di internet. <b>NAT masquerade</b> mengganti alamat pengirim dengan IP router di ether1, sehingga balasan dari internet bisa kembali ke router, lalu diteruskan ke PC.</p>
+    </div>
+    <div class="tugas"><b>Tugas:</b>
+      <ul><li data-tugas="m3_nat">Buat aturan NAT di <b>IP → Firewall → NAT</b> agar PC bisa ke internet.</li></ul>
+    </div>
+    <div class="wb-win" id="wb-nat">
+      <div class="wb-title"><span>Firewall</span><span aria-hidden="true">▢ ✕</span></div>
+      <div class="wb-tabs"><span class="wb-tab">Filter Rules</span><span class="wb-tab aktif">NAT</span><span class="wb-tab">Mangle</span></div>
+      <div class="wb-toolbar">
+        <button class="wb-tool tambah" type="button" id="nat-tambah" aria-label="Tambah aturan NAT">+</button>
+        <button class="wb-tool hapus" type="button" id="nat-hapus" aria-label="Hapus aturan NAT terpilih" disabled>−</button>
+      </div>
+      <div class="tabel-gulir"><table class="wb-tabel pilihan" id="nat-tabel"></table></div>
+      <div class="wb-dialog" id="nat-dialog" hidden>
+        <div class="wb-title"><span>New NAT Rule</span></div>
+        <div class="wb-tabs"><button type="button" class="wb-tab aktif" data-tab-nat="umum">General</button><button type="button" class="wb-tab" data-tab-nat="aksi">Action</button></div>
+        <div class="wb-body">
+          <div class="wb-form" data-panel-nat="umum">
+            <label for="nat-chain">Chain:</label><select class="wb-input mono" id="nat-chain"><option>srcnat</option><option>dstnat</option></select>
+            <label for="nat-out">Out. Interface:</label><select class="wb-input mono" id="nat-out"><option value="">(kosong)</option><option>ether1</option><option>ether2</option><option>ether3</option></select>
+          </div>
+          <div class="wb-form" data-panel-nat="aksi" hidden>
+            <label for="nat-aksi">Action:</label><select class="wb-input mono" id="nat-aksi"><option>accept</option><option>masquerade</option><option>dst-nat</option><option>redirect</option></select>
+          </div>
+          <div class="wb-tombol"><button class="wb-btn" type="button" id="nat-ok">OK</button><button class="wb-btn" type="button" id="nat-batal">Cancel</button></div>
+        </div>
+      </div>
+    </div>
+    <ul class="cek-list" id="cek-nat" aria-live="polite" style="margin-top:12px"></ul>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <h2 class="section-title">Bagian D: Uji koneksi internet</h2>
+    <p class="section-note">Coba dari router (Terminal Winbox) dan dari PC1. Bandingkan hasil ping ke IP (8.8.8.8) dengan ping ke nama (google.com).</p>
+    <div class="panggung panggung-p3" id="pg-net" aria-hidden="true"></div>
+    <div class="chip-baris ping-tombol">
+      <button class="btn btn-ghost btn-kecil" type="button" data-ping="router|8.8.8.8">Router → 8.8.8.8</button>
+      <button class="btn btn-ghost btn-kecil" type="button" data-ping="router|google.com">Router → google.com</button>
+      <button class="btn btn-amber btn-kecil" type="button" data-ping="pc1|8.8.8.8">PC1 → 8.8.8.8</button>
+      <button class="btn btn-amber btn-kecil" type="button" data-ping="pc1|google.com">PC1 → google.com</button>
+    </div>
+    <pre class="terminal" id="terminal">Pilih salah satu uji di atas.</pre>
+    <ul class="cek-list" id="cek-ping" aria-live="polite"></ul>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <h2 class="section-title">Bagian E: Firewall filter</h2>
+    <div class="cerita">
+      <p><b>Filter Rules</b> menentukan lalu lintas mana yang diizinkan atau diblokir. Chain <b>forward</b> berlaku untuk paket yang <b>melewati</b> router (misalnya PC1 ke PC2); chain <b>input</b> untuk paket yang <b>menuju</b> router itu sendiri.</p>
+    </div>
+    <div class="tugas"><b>Tugas:</b>
+      <ul><li data-tugas="m3_fw">Blokir ping dari jaringan PC1 ke jaringan PC2, buktikan ping gagal, lalu nonaktifkan aturannya dan buktikan ping berhasil lagi.</li></ul>
+    </div>
+    <div class="wb-win" id="wb-filter">
+      <div class="wb-title"><span>Firewall</span><span aria-hidden="true">▢ ✕</span></div>
+      <div class="wb-tabs"><span class="wb-tab aktif">Filter Rules</span><span class="wb-tab">NAT</span><span class="wb-tab">Mangle</span></div>
+      <div class="wb-toolbar">
+        <button class="wb-tool tambah" type="button" id="fl-tambah" aria-label="Tambah aturan filter">+</button>
+        <button class="wb-tool hapus" type="button" id="fl-hapus" aria-label="Hapus aturan terpilih" disabled>−</button>
+        <button class="wb-tool aktifkan" type="button" id="fl-enable" aria-label="Aktifkan aturan terpilih" disabled>✓</button>
+        <button class="wb-tool matikan" type="button" id="fl-disable" aria-label="Nonaktifkan aturan terpilih" disabled>✕</button>
+      </div>
+      <div class="tabel-gulir"><table class="wb-tabel pilihan" id="fl-tabel"></table></div>
+      <div class="wb-dialog" id="fl-dialog" hidden>
+        <div class="wb-title"><span>New Firewall Rule</span></div>
+        <div class="wb-tabs"><button type="button" class="wb-tab aktif" data-tab-fl="umum">General</button><button type="button" class="wb-tab" data-tab-fl="aksi">Action</button></div>
+        <div class="wb-body">
+          <div class="wb-form" data-panel-fl="umum">
+            <label for="fl-chain">Chain:</label><select class="wb-input mono" id="fl-chain"><option>forward</option><option>input</option><option>output</option></select>
+            <label for="fl-src">Src. Address:</label><input class="wb-input mono" id="fl-src" autocomplete="off" spellcheck="false" placeholder="(kosong = semua)">
+            <label for="fl-dst">Dst. Address:</label><input class="wb-input mono" id="fl-dst" autocomplete="off" spellcheck="false" placeholder="(kosong = semua)">
+            <label for="fl-proto">Protocol:</label><select class="wb-input mono" id="fl-proto"><option value="">(semua)</option><option>icmp</option><option>tcp</option><option>udp</option></select>
+          </div>
+          <div class="wb-form" data-panel-fl="aksi" hidden>
+            <label for="fl-aksi">Action:</label><select class="wb-input mono" id="fl-aksi"><option>accept</option><option>drop</option></select>
+          </div>
+          <p class="wb-galat" id="fl-galat" aria-live="polite"></p>
+          <div class="wb-tombol"><button class="wb-btn" type="button" id="fl-ok">OK</button><button class="wb-btn" type="button" id="fl-batal">Cancel</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="chip-baris ping-tombol" style="margin-top:12px">
+      <button class="btn btn-amber btn-kecil" type="button" data-ping2="pc1|192.168.22.2">PC1 → PC2</button>
+      <button class="btn btn-amber btn-kecil" type="button" data-ping2="pc2|192.168.11.2">PC2 → PC1</button>
+    </div>
+    <pre class="terminal pendek" id="terminal2">Buat aturan, lalu uji ping.</pre>
+    <ul class="cek-list" id="cek-fw" aria-live="polite"></ul>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <div class="judul-baris"><h2 class="section-title">Bagian F: Kuis 5 soal</h2><span class="score-pill" id="m3-skor">0/5</span></div>
+    <p class="section-note">Klik pilihanmu, lalu tekan <b>Kunci jawaban</b>. Setelah dikunci tidak bisa diganti.</p>
+    <div id="m3-soal"></div>
+  </div>
+
+  <div class="aksi-bawah">
+    <a class="btn btn-ghost" href="index.html">Kembali</a>
+    <button class="btn btn-primary" id="btn-m3-selesai" type="button" disabled>Selesai, lihat hasil</button>
+  </div>
+  <p class="syarat" id="syarat-m3" aria-live="polite"></p>
+</main>
+<script src="script.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+{
+  "judul": "LKPD Pertemuan 2 · VLAN, DHCP, VLSM & Static Route",
+  "petunjuk": "Kerjakan sendiri. Jawabanmu tersimpan otomatis. Pilihan ganda dinilai otomatis setelah dikumpulkan; uraian dinilai gurumu.",
+  "tujuan": [
+    "Menjelaskan fungsi switch, router, dan access point dalam jaringan.",
+    "Menjelaskan VLAN dan inter-VLAN routing.",
+    "Mengidentifikasi penyebab umum kegagalan koneksi (DHCP, routing).",
+    "Menjelaskan fungsi DHCP, VLSM, dan static route."
+  ],
+  "poin_pg": 5,
+  "pg": [
+    {
+      "id": "pg1",
+      "soal": "Perangkat jaringan yang berfungsi menghubungkan beberapa perangkat dalam satu jaringan atau subnet yang sama adalah …",
+      "opsi": [
+        "Router",
+        "Switch",
+        "Access Point",
+        "Modem"
+      ],
+      "kunci": 1,
+      "bahas": "Switch menghubungkan perangkat di dalam satu jaringan (satu subnet) dan bekerja di Layer 2.",
+      "topik": "Perangkat jaringan"
+    },
+    {
+      "id": "pg2",
+      "soal": "Perangkat yang digunakan untuk menghubungkan dua jaringan atau subnet yang berbeda adalah …",
+      "opsi": [
+        "Switch",
+        "Access Point",
+        "Router",
+        "Hub"
+      ],
+      "kunci": 2,
+      "bahas": "Router menghubungkan jaringan yang berbeda dan menentukan jalur paket antar-jaringan (Layer 3).",
+      "topik": "Perangkat jaringan"
+    },
+    {
+      "id": "pg3",
+      "soal": "PC di Ruangan 2 mendapat IP 169.254.10.5 padahal DHCP sudah dikonfigurasi. Penyebab yang paling mungkin adalah …",
+      "opsi": [
+        "DHCP server memberi IP dari pool yang salah",
+        "PC gagal menghubungi DHCP server",
+        "Subnet mask PC salah ketik",
+        "Gateway belum diisi"
+      ],
+      "kunci": 1,
+      "bahas": "169.254.x.x (APIPA) muncul saat PC tidak mendapat jawaban dari DHCP server. Periksa kabel, VLAN, trunk, dan status subinterface.",
+      "topik": "DHCP"
+    },
+    {
+      "id": "pg4",
+      "soal": "Pada R1 tampil baris S 192.168.40.0/28 via 192.168.40.18. Kode S berarti …",
+      "opsi": [
+        "Connected",
+        "Static",
+        "Local",
+        "Default"
+      ],
+      "kunci": 1,
+      "bahas": "Kode S pada tabel routing berarti rute statis yang ditulis manual dengan perintah ip route.",
+      "topik": "Routing statis"
+    },
+    {
+      "id": "pg5",
+      "soal": "Mengapa perangkat yang berada pada VLAN berbeda tidak dapat langsung berkomunikasi?",
+      "opsi": [
+        "Karena switch tidak memiliki kabel",
+        "Karena setiap VLAN merupakan jaringan yang berbeda",
+        "Karena semua VLAN menggunakan IP yang sama",
+        "Karena PC tidak memiliki MAC address"
+      ],
+      "kunci": 1,
+      "bahas": "Setiap VLAN adalah jaringan (subnet) terpisah. Untuk menyeberang antar-VLAN dibutuhkan router atau switch Layer 3.",
+      "topik": "VLAN dan inter-VLAN"
+    },
+    {
+      "id": "pg6",
+      "soal": "Layanan yang dapat memberikan IP address, subnet mask, default gateway, dan DNS secara otomatis kepada perangkat adalah …",
+      "opsi": [
+        "VLAN",
+        "VLSM",
+        "DHCP",
+        "Static Route"
+      ],
+      "kunci": 2,
+      "bahas": "DHCP membagikan konfigurasi jaringan secara otomatis lewat proses DORA (Discover, Offer, Request, Acknowledge).",
+      "topik": "DHCP"
+    },
+    {
+      "id": "pg7",
+      "soal": "Teknik pembagian jaringan menjadi subnet dengan ukuran berbeda sesuai kebutuhan jumlah host disebut …",
+      "opsi": [
+        "VLAN",
+        "DHCP",
+        "VLSM",
+        "NAT"
+      ],
+      "kunci": 2,
+      "bahas": "VLSM (Variable Length Subnet Mask) memberi tiap segmen prefix yang pas dengan kebutuhannya, sehingga alamat tidak terbuang.",
+      "topik": "VLSM"
+    }
+  ],
+  "uraian": [
+    {
+      "id": "u1",
+      "soal": "Jelaskan perbedaan fungsi switch, router, dan access point dalam sebuah jaringan!",
+      "kunci": "Switch menghubungkan beberapa perangkat dalam satu jaringan atau subnet yang sama. Router menghubungkan jaringan atau subnet yang berbeda dan meneruskan paket antarjaringan. Access Point menghubungkan perangkat wireless ke jaringan melalui koneksi nirkabel.",
+      "maks": 20,
+      "topik": "Perangkat jaringan"
+    },
+    {
+      "id": "u2",
+      "soal": "Sebuah jaringan memiliki VLAN 10 dengan subnet 192.168.10.0/24 dan VLAN 30 dengan subnet 192.168.30.0/24. Kedua VLAN menggunakan satu switch dan terhubung ke sebuah router. Jelaskan mengapa PC pada VLAN 10 tidak dapat langsung berkomunikasi dengan PC pada VLAN 30 dan bagaimana inter-VLAN routing dapat mengatasi masalah tersebut!",
+      "kunci": "PC pada VLAN 10 dan VLAN 30 berada pada subnet yang berbeda, sehingga tidak dapat berkomunikasi secara langsung. Diperlukan inter-VLAN routing menggunakan router atau Layer 3 switch untuk meneruskan paket dari satu VLAN ke VLAN lain. Salah satu metodenya Router-on-a-Stick: satu interface fisik router dibagi menjadi beberapa subinterface yang masing-masing dikonfigurasi untuk VLAN berbeda (encapsulation dot1Q) dan menjadi gateway VLAN tersebut.",
+      "maks": 25,
+      "topik": "VLAN dan inter-VLAN"
+    },
+    {
+      "id": "u3",
+      "soal": "Pada sebuah jaringan terdapat dua router, yaitu R1 dan R2. R1 mengetahui jaringan yang terhubung langsung dengannya, tetapi tidak mengetahui jaringan LAN yang berada di belakang R2.\na. Apa yang harus dilakukan agar R1 dapat mengirim paket menuju jaringan di belakang R2?\nb. Tuliskan format dasar perintah static route yang digunakan!",
+      "kunci": "a. R1 dikonfigurasi static route menuju jaringan di belakang R2 melalui alamat next-hop R2.\nb. ip route <network-tujuan> <subnet-mask> <next-hop>, contoh: ip route 192.168.40.0 255.255.255.240 192.168.40.18 (R1 menuju 192.168.40.0/28 lewat next-hop 192.168.40.18). Agar komunikasi dua arah berhasil, R2 juga harus punya rute kembali ke jaringan di belakang R1 (misalnya default route).",
+      "maks": 20,
+      "topik": "Routing statis"
+    }
+  ]
+}

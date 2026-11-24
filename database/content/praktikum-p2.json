@@ -1,0 +1,479 @@
+{
+ "judul": "Praktikum Pertemuan 2 · VLAN, Router-on-a-Stick, DHCP, VLSM, dan Static Route",
+ "sub": "Bangun jaringan dua router di Cisco Packet Tracer sampai keempat PC bisa saling ping. Kerjakan berpasangan: satu mengetik, satu membaca tabel dan memeriksa. Tukar peran di setiap tahap.",
+ "durasi": "70 menit",
+ "tujuan": [
+  "Membuat VLAN dan port trunk di switch Cisco.",
+  "Mengonfigurasi router-on-a-stick (subinterface) agar antar-VLAN bisa saling ping.",
+  "Mengonfigurasi DHCP server di router dan mengambil IP otomatis di PC.",
+  "Menghitung VLSM untuk link antar-router (/30).",
+  "Mengonfigurasi static route dan default route, lalu menguji koneksi secara bertahap."
+ ],
+ "alat": [
+  "Cisco Packet Tracer: 2 router 2911, 2 switch 2960, 4 PC.",
+  "Kerja berpasangan, 1 laptop per kelompok.",
+  "Catatan materi Pertemuan 2 (tabel prefix VLSM)."
+ ],
+ "teori": [
+  {
+   "istilah": "VLAN",
+   "arti": "membagi satu switch fisik menjadi beberapa jaringan logis. PC di VLAN berbeda tidak bisa saling ping tanpa router."
+  },
+  {
+   "istilah": "Port access dan port trunk",
+   "arti": "access untuk perangkat akhir dan hanya membawa satu VLAN; trunk ke router/switch lain dan membawa banyak VLAN dengan tag 802.1Q."
+  },
+  {
+   "istilah": "Router-on-a-stick",
+   "arti": "satu port router dibagi menjadi subinterface (mis. g0/0.10). Tiap subinterface menjadi gateway satu VLAN."
+  },
+  {
+   "istilah": "DHCP",
+   "arti": "router membagikan IP, mask, gateway, dan DNS otomatis lewat proses DORA."
+  },
+  {
+   "istilah": "VLSM",
+   "arti": "memberi tiap jaringan prefix sesuai kebutuhan host. Link antar-router cukup /30 (2 host)."
+  },
+  {
+   "istilah": "Static route",
+   "arti": "rute yang ditulis manual: ip route <network> <mask> <next-hop>. Rute harus ada di kedua arah."
+  }
+ ],
+ "topologi": {
+  "gambar": "p2-01.png",
+  "alt": "Topologi: PC1 dan PC2 di SW1 ke R1, PC3 dan PC4 di SW2 ke R2, R1 dan R2 tersambung langsung",
+  "kolom": [
+   "Segmen",
+   "Jaringan",
+   "Gateway",
+   "Cara IP"
+  ],
+  "baris": [
+   [
+    "VLAN 10 (PC1)",
+    "192.168.10.0/24",
+    "192.168.10.1 (R1 Gi0/0.10)",
+    "Manual: PC1 192.168.10.2"
+   ],
+   [
+    "VLAN 20 (PC2)",
+    "192.168.20.0/24",
+    "192.168.20.1 (R1 Gi0/0.20)",
+    "DHCP dari R1"
+   ],
+   [
+    "Link R1–R2",
+    "192.168.100.0/30",
+    "R1 .1, R2 .2",
+    "Manual (hasil VLSM)"
+   ],
+   [
+    "VLAN 30 (PC3)",
+    "192.168.30.0/24",
+    "192.168.30.1 (R2 Gi0/0.30)",
+    "Manual: PC3 192.168.30.2"
+   ],
+   [
+    "VLAN 40 (PC4)",
+    "192.168.40.0/24",
+    "192.168.40.1 (R2 Gi0/0.40)",
+    "DHCP dari R2"
+   ]
+  ],
+  "catatan": "Setiap tahap punya checkpoint. Jangan lanjut sebelum checkpoint lolos. Di akhir tiap tahap, simpan konfigurasi dengan copy running-config startup-config."
+ },
+ "tahap": [
+  {
+   "judul": "Tahap A · Bangun topologi",
+   "langkah": [
+    {
+     "judul": "Tempatkan perangkat",
+     "isi": "Taruh 2 router (2911), 2 switch (2960), dan 4 PC di workspace. Susun seperti gambar topologi: SW1 dan PC1–PC2 di kiri, SW2 dan PC3–PC4 di kanan, R1 dan R2 di atas.",
+     "gambar": [
+      "p2-01.png"
+     ]
+    },
+    {
+     "judul": "Pasang kabel sesuai tabel",
+     "isi": "Hubungkan setiap perangkat persis sesuai tabel berikut. Perhatikan port-nya, bukan hanya perangkatnya.",
+     "gambar": [],
+     "tabel": {
+      "kolom": [
+       "Dari",
+       "Port",
+       "Ke",
+       "Port",
+       "Kabel"
+      ],
+      "baris": [
+       [
+        "SW1",
+        "Fa0/1",
+        "R1",
+        "Gi0/0",
+        "Straight-through"
+       ],
+       [
+        "PC1",
+        "Fa0",
+        "SW1",
+        "Fa0/2",
+        "Straight-through"
+       ],
+       [
+        "PC2",
+        "Fa0",
+        "SW1",
+        "Fa0/3",
+        "Straight-through"
+       ],
+       [
+        "R1",
+        "Gi0/1",
+        "R2",
+        "Gi0/1",
+        "Cross-over"
+       ],
+       [
+        "SW2",
+        "Fa0/1",
+        "R2",
+        "Gi0/0",
+        "Straight-through"
+       ],
+       [
+        "PC3",
+        "Fa0",
+        "SW2",
+        "Fa0/2",
+        "Straight-through"
+       ],
+       [
+        "PC4",
+        "Fa0",
+        "SW2",
+        "Fa0/3",
+        "Straight-through"
+       ]
+      ]
+     },
+     "catatan": "Router ke router memakai kabel Cross-over. Kalau memakai Straight-through, link R1–R2 tetap merah."
+    },
+    {
+     "judul": "Ganti nama perangkat",
+     "isi": "Klik nama tiap perangkat lalu ganti menjadi R1, R2, SW1, SW2, PC1, PC2, PC3, dan PC4 supaya mudah dicocokkan dengan tabel.",
+     "gambar": []
+    },
+    {
+     "judul": "Checkpoint A",
+     "isi": "Tunggu beberapa saat sampai lampu link berubah hijau.",
+     "gambar": [],
+     "cek": [
+      "Semua link switch–PC dan switch–router berwarna hijau.",
+      "Link R1–R2 masih merah. Itu wajar sampai Tahap E."
+     ]
+    }
+   ]
+  },
+  {
+   "judul": "Tahap B · VLAN dan trunk di switch",
+   "langkah": [
+    {
+     "judul": "Konfigurasi SW1",
+     "isi": "Klik SW1, buka tab CLI, lalu ketik perintah di bawah baris per baris. Fa0/2 masuk VLAN 10, Fa0/3 masuk VLAN 20, dan Fa0/1 (ke R1) menjadi trunk.",
+     "gambar": [],
+     "kode": "enable\nconfigure terminal\nhostname SW1\nvlan 10\nname LAB-BAWAH\nvlan 20\nname LAB-ATAS\ninterface fa0/2\nswitchport mode access\nswitchport access vlan 10\ninterface fa0/3\nswitchport mode access\nswitchport access vlan 20\ninterface fa0/1\nswitchport mode trunk\nend\ncopy running-config startup-config"
+    },
+    {
+     "judul": "Konfigurasi SW2",
+     "isi": "Lakukan hal yang sama di SW2 dengan VLAN 30 dan 40.",
+     "gambar": [],
+     "kode": "enable\nconfigure terminal\nhostname SW2\nvlan 30\nname RUANG-GURU\nvlan 40\nname PERPUS\ninterface fa0/2\nswitchport mode access\nswitchport access vlan 30\ninterface fa0/3\nswitchport mode access\nswitchport access vlan 40\ninterface fa0/1\nswitchport mode trunk\nend\ncopy running-config startup-config"
+    },
+    {
+     "judul": "Checkpoint B",
+     "isi": "Prediksi dulu: apakah PC1 sudah bisa ping PC2 sekarang? Kenapa? Tulis jawabanmu di Pengumpulan. Lalu cek dengan perintah berikut di kedua switch.",
+     "gambar": [],
+     "kode": "show vlan brief\nshow interfaces trunk",
+     "cek": [
+      "SW1: Fa0/2 di VLAN 10, Fa0/3 di VLAN 20.",
+      "SW2: Fa0/2 di VLAN 30, Fa0/3 di VLAN 40.",
+      "Fa0/1 muncul sebagai trunk di kedua switch."
+     ]
+    }
+   ]
+  },
+  {
+   "judul": "Tahap C · Router-on-a-stick",
+   "langkah": [
+    {
+     "judul": "Isi IP di keempat PC",
+     "isi": "Buka PC → Desktop → IP Configuration, pilih Static, lalu isi sesuai tabel. IP PC2 dan PC4 masih sementara; nanti diganti DHCP di Tahap D.",
+     "gambar": [
+      "p2-02.png",
+      "p2-03.png"
+     ],
+     "tabel": {
+      "kolom": [
+       "PC",
+       "IP address",
+       "Subnet mask",
+       "Default gateway"
+      ],
+      "baris": [
+       [
+        "PC1",
+        "192.168.10.2",
+        "255.255.255.0",
+        "192.168.10.1"
+       ],
+       [
+        "PC2",
+        "192.168.20.10 (sementara)",
+        "255.255.255.0",
+        "192.168.20.1"
+       ],
+       [
+        "PC3",
+        "192.168.30.2",
+        "255.255.255.0",
+        "192.168.30.1"
+       ],
+       [
+        "PC4",
+        "192.168.40.10 (sementara)",
+        "255.255.255.0",
+        "192.168.40.1"
+       ]
+      ]
+     }
+    },
+    {
+     "judul": "Konfigurasi R1",
+     "isi": "Port fisik g0/0 tidak diberi IP, cukup dinyalakan. Setiap VLAN mendapat satu subinterface yang menjadi gateway-nya.",
+     "gambar": [],
+     "kode": "enable\nconfigure terminal\nhostname R1\ninterface g0/0\nno ip address\nno shutdown\ninterface g0/0.10\nencapsulation dot1Q 10\nip address 192.168.10.1 255.255.255.0\ninterface g0/0.20\nencapsulation dot1Q 20\nip address 192.168.20.1 255.255.255.0\nend\ncopy running-config startup-config",
+     "catatan": "Jangan lupa no shutdown di g0/0. Kalau lupa, semua subinterface ikut mati."
+    },
+    {
+     "judul": "Konfigurasi R2",
+     "isi": "Lakukan hal yang sama di R2 untuk VLAN 30 dan 40.",
+     "gambar": [],
+     "kode": "enable\nconfigure terminal\nhostname R2\ninterface g0/0\nno ip address\nno shutdown\ninterface g0/0.30\nencapsulation dot1Q 30\nip address 192.168.30.1 255.255.255.0\ninterface g0/0.40\nencapsulation dot1Q 40\nip address 192.168.40.1 255.255.255.0\nend\ncopy running-config startup-config"
+    },
+    {
+     "judul": "Checkpoint C: status interface",
+     "isi": "Prediksi dulu: PC1 ping PC2, berhasil atau gagal? Dan PC1 ping PC3? Lalu jalankan perintah ini di R1 dan R2.",
+     "gambar": [
+      "p2-04.png",
+      "p2-05.png"
+     ],
+     "kode": "show ip interface brief",
+     "cek": [
+      "Semua subinterface (g0/0.10, g0/0.20, g0/0.30, g0/0.40) berstatus up."
+     ]
+    },
+    {
+     "judul": "Checkpoint C: tabel routing",
+     "isi": "Jalankan show ip route di R1 dan R2. Jaringan tiap VLAN harus tercatat dengan kode C (connected).",
+     "gambar": [
+      "p2-06.png",
+      "p2-07.png"
+     ],
+     "kode": "show ip route"
+    },
+    {
+     "judul": "Checkpoint C: uji ping antar-VLAN",
+     "isi": "Dari PC1 ping PC2, dan dari PC3 ping PC4. Keduanya harus berhasil karena router sudah menyeberangkan antar-VLAN. PC1 ke PC3 masih gagal karena belum ada rute antar-router; itu normal.",
+     "gambar": [
+      "p2-08.png",
+      "p2-09.png"
+     ],
+     "cek": [
+      "PC1 berhasil ping PC2.",
+      "PC3 berhasil ping PC4."
+     ]
+    }
+   ]
+  },
+  {
+   "judul": "Tahap D · DHCP",
+   "langkah": [
+    {
+     "judul": "DHCP di R1 untuk VLAN 20",
+     "isi": "Alamat .1 sampai .5 dikecualikan supaya tidak dibagikan ke PC (ada gateway dan perangkat IP tetap).",
+     "gambar": [],
+     "kode": "configure terminal\nip dhcp excluded-address 192.168.20.1 192.168.20.5\nip dhcp pool VLAN20\nnetwork 192.168.20.0 255.255.255.0\ndefault-router 192.168.20.1\ndns-server 8.8.8.8\nend\ncopy running-config startup-config"
+    },
+    {
+     "judul": "DHCP di R2 untuk VLAN 40",
+     "isi": "Sama seperti R1, tetapi untuk jaringan 192.168.40.0/24.",
+     "gambar": [],
+     "kode": "configure terminal\nip dhcp excluded-address 192.168.40.1 192.168.40.5\nip dhcp pool VLAN40\nnetwork 192.168.40.0 255.255.255.0\ndefault-router 192.168.40.1\ndns-server 8.8.8.8\nend\ncopy running-config startup-config"
+    },
+    {
+     "judul": "Ubah PC2 dan PC4 ke DHCP",
+     "isi": "Di PC2 dan PC4 buka IP Configuration, ganti dari Static ke DHCP. Tunggu sampai muncul tulisan DHCP request successful.",
+     "gambar": [
+      "p2-10.png"
+     ],
+     "catatan": "Pertanyaan diskusi: kenapa alamat .1 sampai .5 dikecualikan dari pool? Apa yang terjadi kalau tidak?"
+    },
+    {
+     "judul": "Checkpoint D",
+     "isi": "Cek hasil pembagian IP di PC dan di router.",
+     "gambar": [],
+     "kode": "show ip dhcp binding",
+     "cek": [
+      "PC2 dan PC4 mendapat IP, mask, gateway, dan DNS otomatis (IP mulai dari .6).",
+      "show ip dhcp binding di R1 dan R2 menampilkan satu entri.",
+      "Kalau PC mendapat 169.254.x.x, periksa kabel, VLAN, trunk, dan status subinterface."
+     ]
+    }
+   ]
+  },
+  {
+   "judul": "Tahap E · VLSM dan link antar-router",
+   "langkah": [
+    {
+     "judul": "Hitung VLSM link R1–R2",
+     "isi": "Link R1–R2 hanya butuh 2 alamat host. Hitung: kebutuhan + 2, blok terkecil yang muat, dan prefix-nya. Lalu dari blok 192.168.100.0 tentukan network, host pertama, host terakhir, dan broadcast. Tulis hasilnya di bagian C Pengumpulan.",
+     "gambar": [],
+     "catatan": "Ingat trik materi: cari blok terkecil yang lebih besar atau sama dengan kebutuhan host + 2."
+    },
+    {
+     "judul": "IP link di R1",
+     "isi": "Beri IP host pertama ke port g0/1 R1.",
+     "gambar": [],
+     "kode": "configure terminal\ninterface g0/1\nip address 192.168.100.1 255.255.255.252\nno shutdown\nend\ncopy running-config startup-config"
+    },
+    {
+     "judul": "IP link di R2",
+     "isi": "Beri IP host terakhir ke port g0/1 R2.",
+     "gambar": [],
+     "kode": "configure terminal\ninterface g0/1\nip address 192.168.100.2 255.255.255.252\nno shutdown\nend\ncopy running-config startup-config"
+    },
+    {
+     "judul": "Checkpoint E",
+     "isi": "Link R1–R2 sekarang harus hijau. Dari CLI R1 ping ke R2.",
+     "gambar": [
+      "p2-11.png"
+     ],
+     "kode": "ping 192.168.100.2",
+     "cek": [
+      "Link R1–R2 berwarna hijau.",
+      "Ping dari R1 ke 192.168.100.2 berhasil (Success rate 100 percent)."
+     ]
+    }
+   ]
+  },
+  {
+   "judul": "Tahap F · Static route",
+   "langkah": [
+    {
+     "judul": "Prediksi",
+     "isi": "Sebelum menulis rute, coba PC1 ping PC3. Berhasil atau gagal? Catat hasilnya. Router hanya mengenal jaringan yang terhubung langsung ke port-nya.",
+     "gambar": []
+    },
+    {
+     "judul": "Static route di R1",
+     "isi": "R1 belum mengenal VLAN 30 dan 40 di balik R2. Tambahkan dua rute spesifik lewat R2 (192.168.100.2).",
+     "gambar": [],
+     "kode": "configure terminal\nip route 192.168.30.0 255.255.255.0 192.168.100.2\nip route 192.168.40.0 255.255.255.0 192.168.100.2\nend\ncopy running-config startup-config",
+     "catatan": "Berhenti di sini dan tes PC1 ping PC3. Hasilnya Request timed out. Diskusikan berpasangan: paketnya sampai atau tidak? Balasannya ke mana?"
+    },
+    {
+     "judul": "Default route di R2",
+     "isi": "Semua jaringan lain berada di balik R1, jadi R2 cukup satu default route ke R1 (192.168.100.1).",
+     "gambar": [],
+     "kode": "configure terminal\nip route 0.0.0.0 0.0.0.0 192.168.100.1\nend\ncopy running-config startup-config"
+    },
+    {
+     "judul": "Checkpoint akhir: tabel routing",
+     "isi": "Jalankan show ip route di R1 dan R2.",
+     "gambar": [
+      "p2-12.png",
+      "p2-13.png"
+     ],
+     "kode": "show ip route",
+     "cek": [
+      "R1: ada dua baris berkode S.",
+      "R2: ada baris S* (default route)."
+     ]
+    },
+    {
+     "judul": "Checkpoint akhir: keempat PC saling ping",
+     "isi": "Uji dari setiap PC ke PC lain. Kalau gagal, uji bertahap: ping gateway sendiri, lalu IP router di seberang link, lalu PC tujuan.",
+     "gambar": [
+      "p2-14.png",
+      "p2-15.png",
+      "p2-16.png",
+      "p2-17.png"
+     ],
+     "cek": [
+      "PC1 dan PC2 berhasil ping PC3 dan PC4.",
+      "PC3 dan PC4 berhasil ping PC1 dan PC2."
+     ]
+    }
+   ]
+  },
+  {
+   "judul": "Dokumentasi dan penyimpanan",
+   "langkah": [
+    {
+     "judul": "Ambil screenshot",
+     "isi": "Screenshot topologi (semua link hijau), hasil show vlan brief, show ip interface brief, show ip route, IP Configuration PC2/PC4 (DHCP), dan ping antar-PC. Kamu akan mengunggahnya di langkah Pengumpulan.",
+     "gambar": []
+    },
+    {
+     "judul": "Simpan project",
+     "isi": "Pilih File → Save As, beri nama Kelompok_X_Pertemuan2.pkt (ganti X dengan nomor kelompok). File .pkt ini juga diunggah di langkah Pengumpulan.",
+     "gambar": []
+    }
+   ]
+  }
+ ],
+ "tantangan": [
+  "VLSM lanjutan: dari 192.168.70.0/24 bagi untuk Lab Komputer (50 host), Perpustakaan (25 host), Ruang TU (10 host), dan link R1–R2 (2 host). Tulis prefix, network, rentang host, dan broadcast.",
+  "Hapus sementara default route di R2 (no ip route 0.0.0.0 0.0.0.0 192.168.100.1). Apa yang terjadi pada ping PC1 ke PC3, dan di router mana balasannya hilang? Pasang lagi setelah selesai.",
+  "Tambahkan VLAN 50 (SERVER) dengan jaringan 192.168.50.0/24 di port fa0/10 SW1. Tulis konfigurasi switch dan subinterface R1, lalu uji ping dari PC1 ke server (192.168.50.2)."
+ ],
+ "masalah": [
+  [
+   "Semua subinterface down",
+   "Lupa no shutdown di g0/0",
+   "Masuk interface g0/0 lalu ketik no shutdown"
+  ],
+  [
+   "PC tidak bisa ping gateway-nya",
+   "Port ke router masih mode access, atau PC di VLAN yang salah",
+   "Cek show interfaces trunk dan show vlan brief; pastikan Fa0/1 trunk"
+  ],
+  [
+   "Link R1–R2 tetap merah",
+   "Kabel router ke router memakai straight-through",
+   "Ganti dengan kabel cross-over dan pastikan no shutdown di g0/1"
+  ],
+  [
+   "PC mendapat IP 169.254.x.x",
+   "PC gagal menghubungi DHCP server",
+   "Cek kabel, VLAN, trunk, subinterface; pastikan network pool sama dengan subnet subinterface"
+  ],
+  [
+   "Gateway PC salah",
+   "default-router di pool tidak sama dengan IP subinterface",
+   "Samakan default-router dengan IP subinterface VLAN itu"
+  ],
+  [
+   "PC1 ping PC3 Request timed out",
+   "Rute baru ada di satu arah (R2 belum punya rute kembali)",
+   "Tambahkan default route di R2"
+  ],
+  [
+   "Encapsulation tidak cocok",
+   "Angka dot1Q berbeda dengan VLAN ID di switch",
+   "Samakan angka encapsulation dot1Q dengan nomor VLAN"
+  ]
+ ]
+}

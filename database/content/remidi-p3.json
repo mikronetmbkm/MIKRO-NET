@@ -1,0 +1,114 @@
+{
+  "judul": "Remidi Pertemuan 3 · Dasar MikroTik dengan Winbox",
+  "petunjuk": "Kerjakan sendiri dengan teliti. Jawabanmu tersimpan otomatis. Pilihan ganda dinilai otomatis; uraian dinilai gurumu. Nilai remidi paling tinggi sama dengan KKM.",
+  "poin_pg": 10,
+  "pg": [
+    {
+      "id": "pg1",
+      "soal": "Menu Winbox untuk menambahkan IP address pada interface router adalah …",
+      "opsi": [
+        "IP → Addresses",
+        "Interfaces → Ethernet",
+        "System → Identity",
+        "Tools → Ping"
+      ],
+      "kunci": 0,
+      "bahas": "IP → Addresses → tombol + untuk menambah alamat dan memilih interface-nya.",
+      "topik": "Mengenal Winbox"
+    },
+    {
+      "id": "pg2",
+      "soal": "Router yang baru di-reset tanpa konfigurasi tetap bisa dimasuki Winbox karena …",
+      "opsi": [
+        "Winbox memakai internet",
+        "Winbox bisa terhubung lewat MAC address tanpa IP",
+        "router otomatis mendapat IP 8.8.8.8",
+        "Winbox memakai kabel console"
+      ],
+      "kunci": 1,
+      "bahas": "Winbox dapat terhubung di lapisan 2 memakai MAC address, jadi tidak perlu IP lebih dulu.",
+      "topik": "Mengenal Winbox"
+    },
+    {
+      "id": "pg3",
+      "soal": "Penulisan IP untuk ether2 yang benar di Winbox adalah …",
+      "opsi": [
+        "192.168.11.1",
+        "192.168.11.1/24",
+        "192.168.11.0",
+        "255.255.255.0"
+      ],
+      "kunci": 1,
+      "bahas": "Tulis IP beserta prefix. Tanpa /24, RouterOS menganggapnya /32 sehingga PC tidak satu network.",
+      "topik": "IP dan gateway PC"
+    },
+    {
+      "id": "pg4",
+      "soal": "ether3 ber-IP 192.168.22.1/24. Default gateway untuk PC2 yang tersambung ke ether3 adalah …",
+      "opsi": [
+        "192.168.11.1",
+        "192.168.22.2",
+        "192.168.22.1",
+        "192.168.22.255"
+      ],
+      "kunci": 2,
+      "bahas": "Gateway PC adalah IP interface router pada jaringan yang sama, yaitu 192.168.22.1.",
+      "topik": "IP dan gateway PC"
+    },
+    {
+      "id": "pg5",
+      "soal": "PC1 di ether2 dan PC2 di ether3 bisa saling ping tanpa membuat static route karena …",
+      "opsi": [
+        "router memakai NAT",
+        "kedua jaringan terhubung langsung ke router (connected route)",
+        "switch meneruskan paket",
+        "DNS sudah diatur"
+      ],
+      "kunci": 1,
+      "bahas": "Jaringan yang IP-nya dipasang di interface router otomatis masuk tabel routing sebagai connected (DAC).",
+      "topik": "Routing antar-jaringan"
+    },
+    {
+      "id": "pg6",
+      "soal": "Perintah di Command Prompt untuk melihat IP address dan gateway laptop adalah …",
+      "opsi": [
+        "ping",
+        "ipconfig",
+        "tracert",
+        "netstat"
+      ],
+      "kunci": 1,
+      "bahas": "ipconfig menampilkan IPv4 address, subnet mask, dan default gateway setiap adapter.",
+      "topik": "IP dan gateway PC"
+    },
+    {
+      "id": "pg7",
+      "soal": "IP, subnet mask, dan gateway kedua PC sudah benar, tetapi ping PC1 ke PC2 Request timed out. Yang paling perlu diperiksa adalah …",
+      "opsi": [
+        "Windows Firewall di PC2 yang memblokir ping",
+        "DNS server",
+        "kabel ke internet",
+        "nama router"
+      ],
+      "kunci": 0,
+      "bahas": "Windows Firewall sering memblokir ICMP (ping) masuk. Izinkan ICMP atau matikan sementara saat praktik.",
+      "topik": "DNS dan troubleshooting"
+    }
+  ],
+  "uraian": [
+    {
+      "id": "u1",
+      "soal": "Tuliskan langkah mengatur IP ether2 menjadi 192.168.11.1/24 di Winbox sampai PC1 berhasil ping gateway-nya. Sertakan pengaturan IP di PC1.",
+      "kunci": "Winbox: IP → Addresses → + → Address 192.168.11.1/24, Interface ether2 → OK. PC1: IP 192.168.11.2, mask 255.255.255.0, gateway 192.168.11.1. Uji: ping 192.168.11.1 dari CMD.",
+      "maks": 15,
+      "topik": "IP dan gateway PC"
+    },
+    {
+      "id": "u2",
+      "soal": "PC1 (192.168.11.2/24, gateway 192.168.11.1) ping PC2 (192.168.22.2/24) gagal. Ternyata gateway PC2 kosong. Jelaskan mengapa ping gagal dan cara memperbaikinya.",
+      "kunci": "Paket dari PC1 sampai ke PC2, tetapi balasan PC2 ke jaringan 192.168.11.0 tidak tahu harus dikirim ke mana karena tidak ada gateway. Isi gateway PC2 = 192.168.22.1 lalu ping ulang.",
+      "maks": 15,
+      "topik": "Routing antar-jaringan"
+    }
+  ]
+}

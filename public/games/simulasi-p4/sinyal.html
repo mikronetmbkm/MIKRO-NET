@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misi 1: Sifat Sinyal Nirkabel — Mikronet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=16">
+</head>
+<body data-halaman="sinyal">
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="Mikronet — Beranda simulasi">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="4" y="4" width="40" height="40" rx="12" fill="#003B7A"/>
+        <circle cx="24" cy="16" r="7" fill="#009BFF"/>
+        <path d="M24 26 C16 26 10 31 8 42 L40 42 C38 31 32 26 24 26 Z" fill="#0B3B7B"/>
+        <circle cx="24" cy="16" r="2.5" fill="#F7B217"/>
+      </svg>
+      Mikronet
+    </a>
+    <div class="progress-pill" title="Kemajuan simulasi">
+      <div class="progress-track"><div class="progress-fill" id="header-progress-bar"></div></div>
+      <span class="progress-label" id="header-progress-text">0%</span>
+    </div>
+  </div>
+</header>
+<main class="page">
+
+  <div class="hero">
+    <span class="misi-no">Misi 1 dari 3</span>
+    <h1 class="hero-title">Sifat Sinyal Nirkabel</h1>
+    <p class="hero-desc">WiFi mengirim data memakai <b>gelombang radio</b> 2,4 GHz. Gelombang ini tidak terlihat, jadi di misi ini kita menggambarkannya supaya terbayang perilakunya.</p>
+  </div>
+  <div class="banner-urut" id="banner-urut" hidden></div>
+
+  <div class="card">
+    <h2 class="section-title">Bagian A: Sinyal melemah karena jarak</h2>
+    <p class="section-note">Geser laptop menjauh dari access point. Perhatikan nilai <b>dBm</b>: makin mendekati 0, makin kuat. Di ruang bebas, setiap jarak <b>dua kali lipat</b>, sinyal melemah sekitar <b>6 dB</b>.</p>
+    <div class="tugas"><b>Tugas:</b><ul><li data-tugas="m1_jarak">Lengkapi perkiraan sinyal pada 20 m dan 40 m, lalu tekan <b>Periksa</b>.</li></ul></div>
+    <canvas class="kanvas" id="kv-jarak" width="900" height="260" aria-label="Animasi gelombang dari access point ke laptop"></canvas>
+    <div class="geser-baris">
+      <label for="sl-jarak" class="field-label">Jarak laptop: <b id="lbl-jarak">10 m</b></label>
+      <input type="range" id="sl-jarak" min="5" max="80" step="1" value="10">
+    </div>
+    <div class="meter" id="meter-jarak"></div>
+    <div class="tabel-gulir"><table class="kelas-table tabel-isi">
+      <thead><tr><th>Jarak</th><th>10 m</th><th>20 m</th><th>40 m</th></tr></thead>
+      <tbody><tr><td>Sinyal (dBm)</td><td class="mono">−55</td>
+        <td><input class="input mono kecil" id="in-20" inputmode="text" autocomplete="off" placeholder="?" aria-label="dBm pada 20 m"></td>
+        <td><input class="input mono kecil" id="in-40" inputmode="text" autocomplete="off" placeholder="?" aria-label="dBm pada 40 m"></td></tr></tbody>
+    </table></div>
+    <div class="toolbar-baris"><button class="btn btn-success" id="btn-cek-jarak" type="button">Periksa</button></div>
+    <p class="hasil-uji" id="hasil-jarak" aria-live="polite"></p>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <h2 class="section-title">Bagian B: Sinyal bertemu halangan</h2>
+    <p class="section-note">Pilih benda di antara pemancar dan penerima. Ada benda yang <b>memantulkan</b> sinyal, ada yang <b>menyerap</b> sehingga sinyal melemah.</p>
+    <div class="tugas"><b>Tugas:</b><ul><li data-tugas="m1_halangan">Coba kelima halangan, lalu jawab pertanyaan di bawahnya.</li></ul></div>
+    <div class="chip-baris" id="pilih-halangan" role="group" aria-label="Pilih halangan"></div>
+    <canvas class="kanvas" id="kv-halangan" width="900" height="260" aria-label="Animasi gelombang mengenai halangan"></canvas>
+    <p class="hasil-uji" id="ket-halangan" aria-live="polite"></p>
+    <div class="field" style="margin-top:12px"><label class="field-label" for="sel-pantul">Benda mana yang paling banyak <b>memantulkan</b> sinyal?</label>
+      <select class="input" id="sel-pantul"><option value="">— pilih —</option><option value="kaca">Kaca jendela</option><option value="tembok">Tembok bata</option><option value="pohon">Pohon rimbun</option><option value="logam">Pagar logam</option><option value="orang">Tubuh manusia</option></select></div>
+    <div class="field"><label class="field-label" for="sel-lokasi">Lokasi terbaik untuk memasang link antena adalah…</label>
+      <select class="input" id="sel-lokasi"><option value="">— pilih —</option><option value="a">Di balik tembok supaya antena aman</option><option value="b">Area lapang tanpa halangan di antara dua antena</option><option value="c">Di bawah pohon supaya teduh</option><option value="d">Di dekat pagar logam supaya sinyal memantul</option></select></div>
+    <div class="toolbar-baris"><button class="btn btn-success" id="btn-cek-halangan" type="button">Periksa</button></div>
+    <p class="hasil-uji" id="hasil-halangan" aria-live="polite"></p>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <h2 class="section-title">Bagian C: Antena segala arah dan antena terarah</h2>
+    <p class="section-note">Access point biasa memancar ke <b>segala arah</b> (omnidirectional). Antena <b>terarah</b> (directional), misalnya antena grid, yagi, atau wajanbolic, <b>memusatkan</b> sinyal ke satu arah, sehingga jangkauannya lebih jauh, tetapi hanya ke depan.</p>
+    <div class="tugas"><b>Tugas:</b><ul><li data-tugas="m1_arah">Bandingkan kedua pola pancaran, lalu jawab pertanyaan.</li></ul></div>
+    <div class="chip-baris" role="group" aria-label="Pilih jenis antena">
+      <button class="chip-btn aktif" type="button" data-pola="omni">Access point (segala arah)</button>
+      <button class="chip-btn" type="button" data-pola="wajan">Antena terarah</button>
+    </div>
+    <canvas class="kanvas" id="kv-pola" width="900" height="300" aria-label="Pola pancaran antena dilihat dari atas"></canvas>
+    <div class="field" style="margin-top:12px"><label class="field-label" for="sel-arah">Sekolah ingin menghubungkan dua gedung berjarak 50 m tanpa kabel. Pilihan yang paling tepat adalah…</label>
+      <select class="input" id="sel-arah"><option value="">— pilih —</option><option value="a">Dua access point biasa di tengah ruangan</option><option value="b">Dua antena terarah yang saling berhadapan</option><option value="c">Satu access point dengan password yang kuat</option><option value="d">Antena diarahkan ke langit</option></select></div>
+    <div class="toolbar-baris"><button class="btn btn-success" id="btn-cek-arah" type="button">Periksa</button></div>
+    <p class="hasil-uji" id="hasil-arah" aria-live="polite"></p>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <div class="judul-baris"><h2 class="section-title">Bagian D: Kuis 5 soal</h2><span class="score-pill" id="m1-skor">0/5</span></div>
+    <p class="section-note">Klik pilihanmu, lalu tekan <b>Kunci jawaban</b>. Setelah dikunci tidak bisa diganti.</p>
+    <div id="m1-soal"></div>
+  </div>
+
+  <div class="aksi-bawah">
+    <a class="btn btn-ghost" href="index.html">Kembali</a>
+    <button class="btn btn-primary" id="btn-m1-selesai" type="button" disabled>Selesai, lanjut ke Misi 2</button>
+  </div>
+  <p class="syarat" id="syarat-m1" aria-live="polite"></p>
+</main>
+<script src="script.js?v=16"></script>
+</body>
+</html>

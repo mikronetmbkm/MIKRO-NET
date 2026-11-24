@@ -1,0 +1,147 @@
+{
+ "judul": "LKPD Pertemuan 4 · Wajanbolic dan Link Point-to-Point",
+ "petunjuk": "Kerjakan sendiri. Jawabanmu tersimpan otomatis. Pilihan ganda dinilai otomatis setelah dikumpulkan; uraian dinilai gurumu.",
+ "tujuan": [
+  "Menjelaskan konsep komunikasi wireless Point-to-Point dan perbedaannya dengan access point biasa.",
+  "Menjelaskan prinsip kerja antena wajanbolic.",
+  "Menghitung panjang feeder dengan rumus F = D² / (16 × d).",
+  "Menganalisis penyebab link nirkabel yang gagal atau lemah."
+ ],
+ "poin_pg": 5,
+ "pg": [
+  {
+   "id": "pg1",
+   "soal": "Komunikasi nirkabel yang menghubungkan dua titik secara langsung (satu pemancar dan satu penerima) disebut …",
+   "opsi": [
+    "Point-to-Multipoint",
+    "Point-to-Point",
+    "Broadcast",
+    "Mesh"
+   ],
+   "kunci": 1,
+   "bahas": "Point-to-Point (P2P) menghubungkan tepat dua titik dengan antena yang saling diarahkan.",
+   "topik": "Konsep Point-to-Point"
+  },
+  {
+   "id": "pg2",
+   "soal": "Fungsi utama wajan pada wajanbolic adalah …",
+   "opsi": [
+    "Memancarkan sinyal WiFi sendiri",
+    "Menambah daya USB WiFi adapter",
+    "Memantulkan dan memfokuskan sinyal ke titik fokus",
+    "Mengubah frekuensi WiFi"
+   ],
+   "kunci": 2,
+   "bahas": "Wajan adalah reflektor pasif: tidak berdaya dan tidak memancarkan sinyal, tetapi memantulkan sinyal ke titik fokus sehingga lebih terarah.",
+   "topik": "Prinsip wajanbolic"
+  },
+  {
+   "id": "pg3",
+   "soal": "Sebuah wajan berdiameter 40 cm dengan kedalaman 10 cm. Panjang feeder-nya adalah …",
+   "opsi": [
+    "5 cm",
+    "8 cm",
+    "10 cm",
+    "16 cm"
+   ],
+   "kunci": 2,
+   "bahas": "F = 40² / (16 × 10) = 1600 / 160 = 10 cm.",
+   "topik": "Perhitungan feeder"
+  },
+  {
+   "id": "pg4",
+   "soal": "Pipa paralon dilapisi aluminium foil agar …",
+   "opsi": [
+    "Pipa tampak lebih indah",
+    "Sinyal terarah dan tidak menyebar ke samping",
+    "Pipa tidak berkarat",
+    "Pipa menjadi lebih berat"
+   ],
+   "kunci": 1,
+   "bahas": "Foil adalah logam yang memantulkan gelombang WiFi, sehingga pipa berfungsi sebagai tabung pengarah sinyal.",
+   "topik": "Prinsip wajanbolic"
+  },
+  {
+   "id": "pg5",
+   "soal": "Pada sisi penerima, USB WiFi adapter bekerja pada mode …",
+   "opsi": [
+    "Access Point",
+    "Station/Client",
+    "Repeater",
+    "Bridge"
+   ],
+   "kunci": 1,
+   "bahas": "Penerima menyambung ke hotspot pemancar, jadi berperan sebagai station/klien.",
+   "topik": "Mode adapter dan hotspot"
+  },
+  {
+   "id": "pg6",
+   "soal": "Laptop penerima memperoleh IP address otomatis dari laptop pemancar melalui layanan …",
+   "opsi": [
+    "DNS",
+    "NAT",
+    "DHCP",
+    "VLAN"
+   ],
+   "kunci": 2,
+   "bahas": "Mobile hotspot Windows menjalankan DHCP dan membagikan IP 192.168.137.x ke klien.",
+   "topik": "Mode adapter dan hotspot"
+  },
+  {
+   "id": "pg7",
+   "soal": "Laptop penerima sudah tersambung ke SSID dan mendapat IP 192.168.137.30, tetapi statusnya Connected, no internet. Penyebab yang paling mungkin adalah …",
+   "opsi": [
+    "Laptop pemancar tidak mendapat internet dari kabel LAN atau tethering",
+    "Password hotspot salah",
+    "Wajan terlalu besar",
+    "Adapter penerima tidak di titik fokus"
+   ],
+   "kunci": 0,
+   "bahas": "IP 192.168.137.x berarti koneksi WiFi ke hotspot sudah berhasil. Yang tidak ada adalah internet yang dibagikan pemancar, jadi periksa sumber internet di laptop pemancar.",
+   "topik": "Troubleshooting link"
+  },
+  {
+   "id": "pg8",
+   "soal": "Sinyal −60 dBm dibandingkan dengan −80 dBm. Pernyataan yang benar adalah …",
+   "opsi": [
+    "−80 dBm lebih kuat",
+    "−60 dBm lebih kuat",
+    "Keduanya sama kuat",
+    "Tidak dapat dibandingkan"
+   ],
+   "kunci": 1,
+   "bahas": "Nilai dBm yang lebih mendekati 0 berarti sinyal lebih kuat. −60 dBm lebih kuat daripada −80 dBm.",
+   "topik": "Kekuatan sinyal (dBm)"
+  }
+ ],
+ "uraian": [
+  {
+   "id": "u1",
+   "soal": "Jelaskan perbedaan access point biasa dengan link Point-to-Point menggunakan wajanbolic (minimal 3 perbedaan)!",
+   "maks": 15,
+   "kunci": "(a) AP memancar ke segala arah, P2P terfokus ke satu arah; (b) AP melayani banyak perangkat, P2P menghubungkan dua titik; (c) AP berjangkauan pendek, P2P dapat lebih jauh pada satu arah; (d) AP bebas arah, P2P harus saling berhadapan dan diarahkan.",
+   "topik": "Konsep Point-to-Point"
+  },
+  {
+   "id": "u2",
+   "soal": "Hitung panjang feeder wajan dengan D = 45 cm dan d = 14 cm, tuliskan langkahnya, dan jelaskan mengapa adapter harus berada di titik fokus!",
+   "maks": 15,
+   "kunci": "F = 45² / (16 × 14) = 2025 / 224 ≈ 9,04 cm. Adapter harus di titik fokus karena pantulan dari seluruh permukaan wajan bertemu di sana; bila bergeser, hanya sebagian pantulan yang diterima sehingga penguatan berkurang.",
+   "topik": "Perhitungan feeder"
+  },
+  {
+   "id": "u3",
+   "soal": "Mengapa WiFi bawaan laptop harus dinonaktifkan saat praktik, dan bagaimana cara membuktikan bahwa laptop penerima benar-benar tersambung ke hotspot kelompok?",
+   "maks": 15,
+   "kunci": "WiFi bawaan dinonaktifkan agar laptop hanya memakai USB adapter di wajan, sehingga koneksi benar-benar lewat wajanbolic. Bukti: SSID kelompok berstatus Connected di penerima, situs web dapat dibuka, dan laptop penerima tampil di bagian Devices connected pada halaman Mobile hotspot laptop pemancar.",
+   "topik": "Pengujian link"
+  },
+  {
+   "id": "u4",
+   "soal": "Link sudah tersambung tetapi sinyal naik-turun. Sebutkan 3 kemungkinan penyebab beserta cara memeriksanya!",
+   "maks": 15,
+   "kunci": "(a) Arah wajan bergeser: periksa dan setel arah; (b) kabel USB longgar atau terlalu panjang: periksa konektor dan panjang kabel; (c) interferensi atau halangan bergerak: ukur bergantian, jaga jalur kosong; (d) adapter tidak tepat di titik fokus: geser ±1–2 cm.",
+   "topik": "Troubleshooting link"
+  }
+ ]
+}

@@ -1,0 +1,223 @@
+{
+ "judul": "Pengumpulan Praktikum Pertemuan 2",
+ "petunjuk": "Isi hasil praktikum VLAN, router-on-a-stick, DHCP, VLSM, dan static route kelompokmu. Jawaban tersimpan otomatis. Tekan Kumpulkan di bagian bawah saat semua sudah lengkap.",
+ "bagian": [
+  {
+   "judul": "A. Identitas kelompok",
+   "butir": [
+    {
+     "id": "kelompok",
+     "jenis": "teks",
+     "label": "Nama kelompok"
+    },
+    {
+     "id": "anggota",
+     "jenis": "paragraf",
+     "label": "Anggota dan perannya",
+     "petunjuk": "Contoh: Andi (Konfigurator Router), Sinta (Konfigurator Switch), Raka (Penguji), Dewi (Pencatat)."
+    }
+   ]
+  },
+  {
+   "judul": "B. Prediksi dan hasil uji",
+   "petunjuk": "Tulis prediksimu sebelum menguji, lalu catat hasil sebenarnya.",
+   "butir": [
+    {
+     "id": "prediksi_b",
+     "jenis": "paragraf",
+     "label": "Tahap B: apakah PC1 sudah bisa ping PC2 setelah VLAN dibuat? Kenapa?"
+    },
+    {
+     "id": "ping_c_12",
+     "jenis": "pilihan",
+     "label": "Tahap C: PC1 ping PC2 (antar-VLAN di R1)",
+     "opsi": [
+      "Berhasil",
+      "Gagal"
+     ]
+    },
+    {
+     "id": "ping_c_13",
+     "jenis": "pilihan",
+     "label": "Tahap C: PC1 ping PC3 (sebelum ada static route)",
+     "opsi": [
+      "Berhasil",
+      "Gagal"
+     ]
+    },
+    {
+     "id": "ip_pc2",
+     "jenis": "teks",
+     "label": "Tahap D: IP yang didapat PC2 dari DHCP",
+     "petunjuk": "Contoh: 192.168.20.6"
+    },
+    {
+     "id": "ip_pc4",
+     "jenis": "teks",
+     "label": "Tahap D: IP yang didapat PC4 dari DHCP"
+    },
+    {
+     "id": "ping_f_r1",
+     "jenis": "pilihan",
+     "label": "Tahap F: PC1 ping PC3 saat baru R1 yang punya static route",
+     "opsi": [
+      "Berhasil",
+      "Request timed out",
+      "Destination host unreachable"
+     ]
+    },
+    {
+     "id": "ping_f_akhir",
+     "jenis": "pilihan",
+     "label": "Tahap F: setelah R2 diberi default route, keempat PC saling ping",
+     "opsi": [
+      "Semua berhasil",
+      "Sebagian berhasil",
+      "Gagal"
+     ]
+    }
+   ]
+  },
+  {
+   "judul": "C. Perhitungan VLSM link R1–R2 (Tahap E)",
+   "petunjuk": "Link R1–R2 hanya butuh 2 alamat host. Tulis dengan format lengkap, misalnya 192.168.100.0.",
+   "butir": [
+    {
+     "id": "v_tambah",
+     "jenis": "angka",
+     "label": "Kebutuhan host + 2"
+    },
+    {
+     "id": "v_blok",
+     "jenis": "angka",
+     "label": "Blok terkecil yang muat"
+    },
+    {
+     "id": "v_prefix",
+     "jenis": "teks",
+     "label": "Prefix",
+     "petunjuk": "Contoh: /27"
+    },
+    {
+     "id": "v_network",
+     "jenis": "teks",
+     "label": "Network address"
+    },
+    {
+     "id": "v_host",
+     "jenis": "teks",
+     "label": "Rentang host (pertama – terakhir)"
+    },
+    {
+     "id": "v_broadcast",
+     "jenis": "teks",
+     "label": "Broadcast address"
+    }
+   ]
+  },
+  {
+   "judul": "D. Lembar jawaban",
+   "butir": [
+    {
+     "id": "j1",
+     "jenis": "paragraf",
+     "label": "1. Apa perbedaan port access dan port trunk?"
+    },
+    {
+     "id": "j2",
+     "jenis": "paragraf",
+     "label": "2. Mengapa PC1 tidak bisa ping PC2 sebelum router dikonfigurasi (Tahap B)?"
+    },
+    {
+     "id": "j3",
+     "jenis": "paragraf",
+     "label": "3. Sebutkan 4 tahap DHCP (DORA) dan fungsi tiap tahap."
+    },
+    {
+     "id": "j4",
+     "jenis": "paragraf",
+     "label": "4. Mengapa link R1–R2 diberi prefix /30, bukan /24?"
+    },
+    {
+     "id": "j5",
+     "jenis": "paragraf",
+     "label": "5. Apa yang terjadi saat hanya R1 yang punya static route (Tahap F)? Jelaskan alasannya."
+    },
+    {
+     "id": "j6",
+     "jenis": "paragraf",
+     "label": "6. Mengapa R2 cukup memakai satu default route, sedangkan R1 butuh dua rute spesifik?"
+    }
+   ]
+  },
+  {
+   "judul": "E. Dokumentasi dan file",
+   "butir": [
+    {
+     "id": "f_topologi",
+     "jenis": "berkas",
+     "label": "Screenshot topologi lengkap",
+     "petunjuk": "Semua link hijau, termasuk link R1–R2. Format JPG atau PNG.",
+     "maks_berkas": 2
+    },
+    {
+     "id": "f_show",
+     "jenis": "berkas",
+     "label": "Screenshot hasil perintah show",
+     "petunjuk": "show vlan brief (SW1/SW2), show ip interface brief, dan show ip route (R1/R2). Boleh beberapa gambar.",
+     "maks_berkas": 4
+    },
+    {
+     "id": "f_dhcp",
+     "jenis": "berkas",
+     "label": "Screenshot IP Configuration PC2 atau PC4 (DHCP)",
+     "maks_berkas": 2
+    },
+    {
+     "id": "f_ping",
+     "jenis": "berkas",
+     "label": "Screenshot ping antar-PC yang berhasil",
+     "petunjuk": "Minimal PC1 ke PC3 dan PC4, serta PC3 ke PC1 dan PC2.",
+     "maks_berkas": 4
+    },
+    {
+     "id": "f_pkt",
+     "jenis": "berkas",
+     "label": "File project (.pkt)",
+     "petunjuk": "Nama berkas: Kelompok_X_Pertemuan2.pkt",
+     "maks_berkas": 1
+    }
+   ]
+  }
+ ],
+ "rubrik": [
+  {
+   "kriteria": "Tahap A · Topologi dan kabel sesuai tabel (termasuk cross-over R1–R2)",
+   "maks": 10
+  },
+  {
+   "kriteria": "Tahap B · VLAN dan trunk di SW1 dan SW2 benar",
+   "maks": 15
+  },
+  {
+   "kriteria": "Tahap C · Router-on-a-stick: subinterface up, ping antar-VLAN berhasil",
+   "maks": 20
+  },
+  {
+   "kriteria": "Tahap D · DHCP pool dan excluded-address benar, PC mendapat IP otomatis",
+   "maks": 15
+  },
+  {
+   "kriteria": "Tahap E · Perhitungan VLSM /30 dan IP link R1–R2 benar",
+   "maks": 15
+  },
+  {
+   "kriteria": "Tahap F · Static route dan default route, keempat PC saling ping",
+   "maks": 20
+  },
+  {
+   "kriteria": "Lembar jawaban dan dokumentasi",
+   "maks": 5
+  }
+ ]
+}

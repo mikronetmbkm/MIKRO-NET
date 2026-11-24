@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulasi Jaringan Pertemuan 4 — Mikronet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=16">
+</head>
+<body data-halaman="beranda">
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="Mikronet — Beranda simulasi">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="4" y="4" width="40" height="40" rx="12" fill="#003B7A"/>
+        <circle cx="24" cy="16" r="7" fill="#009BFF"/>
+        <path d="M24 26 C16 26 10 31 8 42 L40 42 C38 31 32 26 24 26 Z" fill="#0B3B7B"/>
+        <circle cx="24" cy="16" r="2.5" fill="#F7B217"/>
+      </svg>
+      Mikronet
+    </a>
+    <div class="progress-pill" title="Kemajuan simulasi">
+      <div class="progress-track"><div class="progress-fill" id="header-progress-bar"></div></div>
+      <span class="progress-label" id="header-progress-text">0%</span>
+    </div>
+  </div>
+</header>
+<main class="page">
+
+  <section class="hero">
+    <span class="misi-no">Pertemuan 4</span>
+    <h1 class="hero-title">Jaringan Nirkabel: Sinyal, Hotspot, dan Channel</h1>
+    <p class="hero-desc">Lihat bagaimana sinyal WiFi bergerak, coba membuat hotspot dan menyambungkan perangkat, lalu pilih channel yang bebas gangguan. Skormu terkirim otomatis ke MIKRO-NET setelah ketiga misi selesai.</p>
+  </section>
+  <div class="card-grid">
+    <article class="card" id="card-m1">
+      <span class="misi-no">Misi 1</span>
+      <h2 class="card-title">Sifat Sinyal Nirkabel</h2>
+      <p class="card-desc">Amati sinyal melemah karena jarak, memantul atau terserap oleh halangan, dan bedanya antena segala arah dengan antena terarah. Kuis 5 soal.</p>
+      <div class="card-status" id="status-m1">Belum dimulai</div>
+      <a class="btn btn-primary" id="btn-m1" href="sinyal.html">Mulai</a>
+    </article>
+    <article class="card locked" id="card-m2">
+      <span class="misi-no">Misi 2</span>
+      <h2 class="card-title">Hotspot, SSID, dan Koneksi</h2>
+      <p class="card-desc">Atur Mobile hotspot, sambungkan laptop penerima ke SSID yang benar, dan baca arti status koneksinya. Kuis 5 soal.</p>
+      <div class="card-status" id="status-m2">Terkunci: selesaikan Misi 1</div>
+      <a class="btn btn-lock" id="btn-m2" href="hotspot.html" aria-disabled="true">Terkunci</a>
+    </article>
+    <article class="card locked" id="card-m3">
+      <span class="misi-no">Misi 3</span>
+      <h2 class="card-title">Channel dan Interferensi</h2>
+      <p class="card-desc">Temukan channel yang tidak tumpang tindih, pilih channel paling sepi dengan WiFi analyzer, bandingkan 2,4 dan 5 GHz, lalu pecahkan kasus. Kuis 5 soal.</p>
+      <div class="card-status" id="status-m3">Terkunci: selesaikan Misi 2</div>
+      <a class="btn btn-lock" id="btn-m3" href="channel.html" aria-disabled="true">Terkunci</a>
+    </article>
+  </div>
+  <div class="aksi-bawah">
+    <a class="btn btn-success" id="btn-hasil" href="hasil.html" hidden>Lihat hasil akhir</a>
+    <button class="btn btn-ghost" id="btn-reset-progress" type="button">Ulangi dari awal</button>
+  </div>
+</main>
+<script src="script.js?v=16"></script>
+</body>
+</html>

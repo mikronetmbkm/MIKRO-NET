@@ -1,0 +1,191 @@
+{
+  "judul": "LKPD Pertemuan 1 · IP Address & Cisco Dasar",
+  "petunjuk": "Kerjakan sendiri. Jawabanmu tersimpan otomatis. Pilihan ganda dinilai otomatis setelah dikumpulkan; uraian dinilai gurumu.",
+  "tujuan": [
+    "Menjelaskan konsep IP address, Network ID, dan Host ID.",
+    "Mengidentifikasi kelas IP address berdasarkan rentang oktet pertama.",
+    "Menjelaskan fungsi notasi CIDR dan subnet mask.",
+    "Menghitung subnetting dasar untuk jaringan sederhana.",
+    "Mengenal antarmuka Cisco Packet Tracer serta membuat dan menguji LAN sederhana."
+  ],
+  "poin_pg": 5,
+  "pg": [
+    {
+      "id": "pg1",
+      "soal": "IP address pada sebuah perangkat jaringan berfungsi untuk …",
+      "opsi": [
+        "Menentukan warna kabel jaringan",
+        "Mengidentifikasi perangkat agar dapat saling berkomunikasi",
+        "Mengatur ukuran monitor",
+        "Menentukan sistem operasi",
+        "Mengubah kabel menjadi nirkabel"
+      ],
+      "kunci": 1,
+      "bahas": "IP address digunakan sebagai alamat/identitas perangkat dalam jaringan.",
+      "topik": "Konsep IP address"
+    },
+    {
+      "id": "pg2",
+      "soal": "IPv4 terdiri atas …",
+      "opsi": [
+        "16 bit dalam 2 oktet",
+        "24 bit dalam 3 oktet",
+        "32 bit dalam 4 oktet",
+        "48 bit dalam 6 oktet",
+        "64 bit dalam 8 oktet"
+      ],
+      "kunci": 2,
+      "bahas": "IPv4 memiliki panjang 32 bit yang dibagi menjadi 4 oktet.",
+      "topik": "Konsep IP address"
+    },
+    {
+      "id": "pg3",
+      "soal": "Pada IP address 192.168.1.10, bagian yang menunjukkan identitas perangkat dalam jaringan disebut …",
+      "opsi": [
+        "Network ID",
+        "Host ID",
+        "Subnet mask",
+        "Broadcast ID",
+        "Gateway ID"
+      ],
+      "kunci": 1,
+      "bahas": "Pada contoh pembagian sederhana 192.168.1.10, bagian .10 merupakan Host ID.",
+      "topik": "Network ID dan Host ID"
+    },
+    {
+      "id": "pg4",
+      "soal": "IP address dengan oktet pertama 172 termasuk dalam kelas …",
+      "opsi": [
+        "Kelas A",
+        "Kelas B",
+        "Kelas C",
+        "Kelas D",
+        "Kelas E"
+      ],
+      "kunci": 1,
+      "bahas": "Oktet pertama 172 berada pada rentang Kelas B (128–191).",
+      "topik": "Kelas IP"
+    },
+    {
+      "id": "pg5",
+      "soal": "Notasi CIDR /24 pada 192.168.1.0/24 menunjukkan bahwa …",
+      "opsi": [
+        "24 bit digunakan sebagai Network ID",
+        "24 bit digunakan sebagai Host ID",
+        "Terdapat 24 perangkat",
+        "Subnet mask 255.255.0.0",
+        "Jaringan hanya memiliki 24 alamat IP"
+      ],
+      "kunci": 0,
+      "bahas": "/24 berarti 24 bit digunakan untuk Network ID, dengan subnet mask 255.255.255.0.",
+      "topik": "CIDR dan subnet mask"
+    },
+    {
+      "id": "pg6",
+      "soal": "Subnet mask yang sesuai dengan prefix /26 adalah …",
+      "opsi": [
+        "255.255.255.0",
+        "255.255.255.128",
+        "255.255.255.192",
+        "255.255.255.224",
+        "255.255.255.240"
+      ],
+      "kunci": 2,
+      "bahas": "/26 memiliki subnet mask 255.255.255.192.",
+      "topik": "CIDR dan subnet mask"
+    },
+    {
+      "id": "pg7",
+      "soal": "Jumlah host yang dapat digunakan pada subnet /27 adalah …",
+      "opsi": [
+        "14 host",
+        "30 host",
+        "62 host",
+        "126 host",
+        "254 host"
+      ],
+      "kunci": 1,
+      "bahas": "/27 memiliki 5 bit host, sehingga host yang dapat digunakan = 2⁵ − 2 = 30.",
+      "topik": "Perhitungan subnet"
+    },
+    {
+      "id": "pg8",
+      "soal": "Jaringan 192.168.10.0/24 dibagi menjadi dua subnet menggunakan /25. Network address subnet kedua adalah …",
+      "opsi": [
+        "192.168.10.0",
+        "192.168.10.1",
+        "192.168.10.64",
+        "192.168.10.128",
+        "192.168.10.255"
+      ],
+      "kunci": 3,
+      "bahas": "Jika 192.168.10.0/24 dibagi menjadi dua /25, subnet kedua dimulai dari 192.168.10.128.",
+      "topik": "Perhitungan subnet"
+    },
+    {
+      "id": "pg9",
+      "soal": "Dalam Cisco Packet Tracer, perangkat yang digunakan bersama 2 PC untuk membangun LAN sederhana pada praktik Pertemuan 1 adalah …",
+      "opsi": [
+        "Router",
+        "Modem",
+        "Access Point",
+        "Switch",
+        "Server"
+      ],
+      "kunci": 3,
+      "bahas": "Untuk menghubungkan 2 PC pada LAN sederhana digunakan Switch.",
+      "topik": "LAN di Packet Tracer"
+    },
+    {
+      "id": "pg10",
+      "soal": "Setelah PC1 dan PC2 diberi IP 192.168.1.1/24 dan 192.168.1.2/24, perintah untuk menguji koneksi dari PC1 ke PC2 adalah …",
+      "opsi": [
+        "ipconfig 192.168.1.2",
+        "connect 192.168.1.2",
+        "ping 192.168.1.2",
+        "route 192.168.1.2",
+        "test 192.168.1.2"
+      ],
+      "kunci": 2,
+      "bahas": "Pengujian koneksi PC1 ke PC2 dilakukan dengan perintah ping 192.168.1.2.",
+      "topik": "Uji koneksi (ping)"
+    }
+  ],
+  "uraian": [
+    {
+      "id": "u1",
+      "soal": "Jelaskan pengertian IP address dan mengapa perangkat yang berkomunikasi dalam jaringan membutuhkan alamat IP.",
+      "kunci": "IP Address adalah alamat atau identitas yang diberikan kepada suatu perangkat dalam jaringan agar perangkat tersebut dapat dikenali dan berkomunikasi dengan perangkat lainnya. Contohnya adalah 192.168.1.10.",
+      "maks": 10,
+      "topik": "Konsep IP address"
+    },
+    {
+      "id": "u2",
+      "soal": "Jelaskan perbedaan Network ID dan Host ID pada IPv4. Berikan satu contoh IP address untuk memperjelas jawaban.",
+      "kunci": "Network ID menunjukkan identitas atau alamat jaringan, sedangkan Host ID menunjukkan identitas perangkat yang berada di dalam jaringan tersebut. Contoh 192.168.1.10/24: Network ID-nya 192.168.1.0, sedangkan .10 merupakan bagian yang menunjukkan host pada jaringan tersebut.",
+      "maks": 10,
+      "topik": "Network ID dan Host ID"
+    },
+    {
+      "id": "u3",
+      "soal": "Jelaskan pengertian CIDR dan arti dari notasi 192.168.1.0/24. Sertakan subnet mask yang sesuai.",
+      "kunci": "CIDR (Classless Inter-Domain Routing) adalah metode penulisan alamat IP menggunakan notasi garis miring (/) yang menunjukkan jumlah bit untuk Network ID. 192.168.1.0/24 berarti 24 bit digunakan sebagai Network ID dan 8 bit sebagai Host ID. Subnet mask-nya 255.255.255.0 dan jumlah host yang dapat digunakan adalah 254 host (2⁸ − 2).",
+      "maks": 10,
+      "topik": "CIDR dan subnet mask"
+    },
+    {
+      "id": "u4",
+      "soal": "Sebuah sekolah memiliki jaringan 192.168.10.0/24 dan ingin membaginya menjadi 2 subnet menggunakan /25. Tentukan network address, rentang host yang dapat digunakan, dan broadcast address dari kedua subnet.",
+      "kunci": "Subnet 1: Network ID 192.168.10.0/25, host 192.168.10.1–192.168.10.126, broadcast 192.168.10.127.\nSubnet 2: Network ID 192.168.10.128/25, host 192.168.10.129–192.168.10.254, broadcast 192.168.10.255.",
+      "maks": 10,
+      "topik": "Perhitungan subnet"
+    },
+    {
+      "id": "u5",
+      "soal": "Jelaskan langkah-langkah membuat LAN sederhana menggunakan Cisco Packet Tracer yang terdiri dari 2 PC dan 1 switch, mulai dari menambahkan perangkat, menghubungkan kabel, mengatur IP address, sampai menguji koneksi menggunakan ping.",
+      "kunci": "1) Buka Cisco Packet Tracer.\n2) Tambahkan 2 PC dan 1 Switch.\n3) Hubungkan PC1 dan PC2 ke Switch menggunakan kabel Copper Straight-Through.\n4) Atur PC1 dengan IP 192.168.1.1 dan subnet mask 255.255.255.0.\n5) Atur PC2 dengan IP 192.168.1.2 dan subnet mask 255.255.255.0.\n6) Buka Command Prompt pada PC1.\n7) Jalankan ping 192.168.1.2.\n8) Jika muncul Reply, berarti kedua PC dapat berkomunikasi.",
+      "maks": 10,
+      "topik": "LAN di Packet Tracer"
+    }
+  ]
+}

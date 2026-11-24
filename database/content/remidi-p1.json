@@ -1,0 +1,114 @@
+{
+  "judul": "Remidi Pertemuan 1 · IP Address dan Subnet",
+  "petunjuk": "Kerjakan sendiri dengan teliti. Jawabanmu tersimpan otomatis. Pilihan ganda dinilai otomatis; uraian dinilai gurumu. Nilai remidi paling tinggi sama dengan KKM.",
+  "poin_pg": 10,
+  "pg": [
+    {
+      "id": "pg1",
+      "soal": "IPv4 terdiri atas …",
+      "opsi": [
+        "32 bit yang dibagi menjadi 4 oktet (masing-masing 8 bit)",
+        "64 bit yang dibagi menjadi 8 oktet",
+        "128 bit yang dibagi menjadi 8 blok",
+        "16 bit yang dibagi menjadi 2 oktet"
+      ],
+      "kunci": 0,
+      "bahas": "IPv4 panjangnya 32 bit, ditulis sebagai 4 angka desimal (oktet) 0–255 yang dipisah titik.",
+      "topik": "Konsep IP address"
+    },
+    {
+      "id": "pg2",
+      "soal": "Network address dari IP 192.168.5.20/24 adalah …",
+      "opsi": [
+        "192.168.5.255",
+        "192.168.5.0",
+        "192.168.0.0",
+        "192.168.5.1"
+      ],
+      "kunci": 1,
+      "bahas": "Pada /24, tiga oktet pertama adalah network. Bagian host diisi 0 sehingga network address 192.168.5.0.",
+      "topik": "Network ID dan Host ID"
+    },
+    {
+      "id": "pg3",
+      "soal": "Subnet mask untuk prefix /24 adalah …",
+      "opsi": [
+        "255.0.0.0",
+        "255.255.0.0",
+        "255.255.255.0",
+        "255.255.255.128"
+      ],
+      "kunci": 2,
+      "bahas": "/24 berarti 24 bit pertama bernilai 1 = 255.255.255.0.",
+      "topik": "CIDR dan subnet mask"
+    },
+    {
+      "id": "pg4",
+      "soal": "IP address 10.10.10.1 termasuk kelas …",
+      "opsi": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "kunci": 0,
+      "bahas": "Oktet pertama 1–126 adalah kelas A. 10 termasuk rentang itu.",
+      "topik": "Kelas IP"
+    },
+    {
+      "id": "pg5",
+      "soal": "Jumlah host yang dapat dipakai pada subnet /26 adalah …",
+      "opsi": [
+        "30",
+        "62",
+        "64",
+        "126"
+      ],
+      "kunci": 1,
+      "bahas": "/26 menyisakan 6 bit host: 2⁶ − 2 = 62 (dikurangi network dan broadcast).",
+      "topik": "Perhitungan subnet"
+    },
+    {
+      "id": "pg6",
+      "soal": "Broadcast address dari jaringan 192.168.1.0/24 adalah …",
+      "opsi": [
+        "192.168.1.0",
+        "192.168.1.1",
+        "192.168.1.254",
+        "192.168.1.255"
+      ],
+      "kunci": 3,
+      "bahas": "Broadcast adalah alamat terakhir dalam subnet: semua bit host bernilai 1, yaitu 192.168.1.255.",
+      "topik": "Perhitungan subnet"
+    },
+    {
+      "id": "pg7",
+      "soal": "PC1 (192.168.1.10/24) dan PC2 (192.168.2.10/24) tersambung ke switch yang sama tanpa router. Ping PC1 ke PC2 gagal karena …",
+      "opsi": [
+        "kabel switch rusak",
+        "keduanya berada di network yang berbeda",
+        "subnet mask kedua PC sama",
+        "switch belum diberi IP"
+      ],
+      "kunci": 1,
+      "bahas": "Network PC1 192.168.1.0/24, PC2 192.168.2.0/24. Beda network butuh router; samakan network agar bisa ping lewat switch.",
+      "topik": "Uji koneksi (ping)"
+    }
+  ],
+  "uraian": [
+    {
+      "id": "u1",
+      "soal": "Untuk jaringan 192.168.20.0/25, tentukan network address, broadcast address, rentang IP host, dan jumlah host yang bisa dipakai. Tuliskan langkahnya.",
+      "kunci": "Network 192.168.20.0; broadcast 192.168.20.127; host 192.168.20.1 – 192.168.20.126; 2⁷ − 2 = 126 host. Langkah: /25 menyisakan 7 bit host, blok 128.",
+      "maks": 15,
+      "topik": "Perhitungan subnet"
+    },
+    {
+      "id": "u2",
+      "soal": "PC1 diberi IP 192.168.1.1/24 dan PC2 diberi IP 192.168.10.2/24, keduanya tersambung ke satu switch. Jelaskan mengapa ping gagal dan bagaimana memperbaikinya.",
+      "kunci": "Beda network (192.168.1.0/24 dan 192.168.10.0/24). Perbaikan: ubah IP PC2 menjadi satu network dengan PC1, mis. 192.168.1.2/24, lalu ping ulang.",
+      "maks": 15,
+      "topik": "Network ID dan Host ID"
+    }
+  ]
+}

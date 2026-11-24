@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misi 3: Topologi — Mikronet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=6">
+</head>
+<body data-halaman="topo">
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="Mikronet — Beranda simulasi">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="4" y="4" width="40" height="40" rx="12" fill="#003B7A"/>
+        <circle cx="24" cy="16" r="7" fill="#009BFF"/>
+        <path d="M24 26 C16 26 10 31 8 42 L40 42 C38 31 32 26 24 26 Z" fill="#0B3B7B"/>
+        <circle cx="24" cy="16" r="2.5" fill="#F7B217"/>
+      </svg>
+      Mikronet
+    </a>
+    <div class="progress-pill" title="Kemajuan simulasi">
+      <div class="progress-track"><div class="progress-fill" id="header-progress-bar"></div></div>
+      <span class="progress-label" id="header-progress-text">0%</span>
+    </div>
+  </div>
+</header>
+<main class="page">
+
+  <div class="hero">
+    <span class="misi-no">Misi 3 dari 3</span>
+    <h1 class="hero-title">Susun Topologi &amp; Uji Ping</h1>
+    <p class="hero-desc">Bangun jaringan seperti di Packet Tracer. Pemeriksa di kanan memberi tahu kalau susunanmu belum sesuai standar.</p>
+  </div>
+
+  <div class="tantangan-baris">
+    <div class="tantangan" id="t1"><b>Tantangan 1 · LAN lab</b><span>2 PC + 1 switch. IP PC satu jaringan: 192.168.1.x</span><em id="t1-status">Belum</em></div>
+    <div class="tantangan" id="t2"><b>Uji ping</b><span>Kirim ping dari PC ke PC lain sampai dapat <i>Reply</i></span><em id="t2-status">Belum</em></div>
+    <div class="tantangan" id="t3"><b>Tantangan 2 · Bonus router</b><span>Router → Switch → PC. Isi gateway PC = IP router</span><em id="t3-status">Belum</em></div>
+  </div>
+
+  <div class="topo-layout">
+    <aside>
+      <h2 class="section-title kecil">1. Tambah perangkat</h2>
+      <div class="device-palette">
+        <button class="palette-btn" id="btn-add-pc" type="button"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="14" width="48" height="32" rx="6" fill="#0B3B7B"/><rect x="14" y="20" width="36" height="22" rx="3" fill="#009BFF"/><circle cx="52" cy="16" r="2.5" fill="#F7B217"/><rect x="24" y="48" width="16" height="3" rx="1.5" fill="#003B7A"/><rect x="18" y="51" width="28" height="3" rx="1.5" fill="#0B3B7B"/></svg> PC</button>
+        <button class="palette-btn" id="btn-add-switch" type="button"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="22" width="52" height="20" rx="4" fill="#0B3B7B"/><rect x="11" y="28" width="6" height="5" rx="1" fill="#009BFF"/><rect x="20" y="28" width="6" height="5" rx="1" fill="#009BFF"/><rect x="29" y="28" width="6" height="5" rx="1" fill="#009BFF"/><rect x="38" y="28" width="6" height="5" rx="1" fill="#009BFF"/><rect x="47" y="28" width="6" height="5" rx="1" fill="#F7B217"/></svg> Switch</button>
+        <button class="palette-btn" id="btn-add-router" type="button"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="24" fill="#0B3B7B"/><path d="M32 14v14M27 19l5-5 5 5M32 50V36M27 45l5 5 5-5M14 32h14M19 27l-5 5 5 5M50 32H36M45 27l5 5-5 5" stroke="#F7B217" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg> Router</button>
+      </div>
+      <h2 class="section-title kecil">2. Pasang kabel</h2>
+      <div class="toolbar">
+        <button class="btn btn-ghost toolbar-btn" id="btn-mode-connect" type="button">Mode kabel</button>
+        <button class="btn btn-danger" id="btn-delete-connection" type="button" disabled>Hapus kabel terpilih</button>
+      </div>
+      <h2 class="section-title kecil">3. Atur IP</h2>
+      <p class="section-note">Klik perangkat untuk mengatur nama dan IP.</p>
+      <h2 class="section-title kecil">4. Periksa &amp; ping</h2>
+      <div class="toolbar">
+        <button class="btn btn-success" id="btn-validate-topo" type="button">Periksa topologi</button>
+        <button class="btn btn-ghost" id="btn-kosongkan" type="button">Kosongkan kanvas</button>
+      </div>
+    </aside>
+
+    <div>
+      <div class="topo-canvas" id="topo-canvas" role="application" aria-label="Kanvas topologi">
+        <svg class="topo-svg" id="topo-svg" aria-hidden="true"></svg>
+        <div class="paket" id="paket" hidden></div>
+        <div class="topo-message" id="topo-message" role="status"></div>
+        <div class="device-form" id="device-form" role="dialog" aria-label="Pengaturan perangkat">
+          <div class="field"><label class="field-label" for="input-device-name">Nama</label><input class="input" id="input-device-name" type="text" autocomplete="off" maxlength="20"></div>
+          <div class="field" id="fld-ip"><label class="field-label" for="input-device-ip">IP address</label><input class="input mono" id="input-device-ip" type="text" inputmode="decimal" placeholder="192.168.1.10" autocomplete="off"></div>
+          <p class="mask-ket" id="fld-mask">Subnet mask: <span class="mono">255.255.255.0</span> (/24)</p>
+          <div class="field" id="fld-gw"><label class="field-label" for="input-device-gw">Default gateway <small>(boleh kosong tanpa router)</small></label><input class="input mono" id="input-device-gw" type="text" inputmode="decimal" placeholder="kosong" autocomplete="off"></div>
+          <p class="note" id="fld-switch">Switch tidak perlu IP. Ia hanya meneruskan data antar-perangkat di satu jaringan.</p>
+          <span class="form-error" id="device-form-error" role="alert"></span>
+          <div class="form-aksi">
+            <button class="btn btn-primary" id="btn-save-device" type="button">Simpan</button>
+            <button class="btn btn-danger" id="btn-delete-device" type="button">Hapus</button>
+            <button class="btn btn-ghost" id="btn-close-form" type="button">Tutup</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ping-panel">
+        <div class="ping-pilih">
+          <label class="field-label" for="ping-dari">Ping dari</label><select class="input" id="ping-dari"></select>
+          <label class="field-label" for="ping-ke">ke</label><select class="input" id="ping-ke"></select>
+          <button class="btn btn-amber" id="btn-ping" type="button">Kirim ping</button>
+        </div>
+        <pre class="terminal" id="terminal" aria-live="polite">C:\&gt; (pilih PC lalu tekan Kirim ping)</pre>
+      </div>
+    </div>
+
+    <aside class="pemeriksa" aria-live="polite">
+      <h2 class="section-title kecil">Pemeriksa</h2>
+      <ul class="cek-list" id="cek-list"><li class="info">Tekan <b>Periksa topologi</b> untuk mengecek susunanmu.</li></ul>
+    </aside>
+  </div>
+
+  <div class="aksi-bawah">
+    <a class="btn btn-ghost" href="index.html">Kembali</a>
+    <button class="btn btn-primary" id="btn-finish-topo" type="button" disabled>Selesai &amp; lihat hasil</button>
+  </div>
+</main>
+<script src="script.js?v=6"></script>
+</body>
+</html>

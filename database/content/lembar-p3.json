@@ -1,0 +1,127 @@
+{
+  "judul": "LKPD Pertemuan 3 · MikroTik dan Winbox",
+  "petunjuk": "Kerjakan sendiri. Jawabanmu tersimpan otomatis. Pilihan ganda dinilai otomatis setelah dikumpulkan; uraian dinilai gurumu.",
+  "tujuan": [
+    "Menjelaskan fungsi Winbox dan cara masuk ke router MikroTik.",
+    "Menjelaskan fungsi IP interface router sebagai gateway.",
+    "Menjelaskan fungsi DHCP Client, DNS, NAT, dan firewall pada MikroTik.",
+    "Menganalisis penyebab kegagalan koneksi."
+  ],
+  "poin_pg": 5,
+  "pg": [
+    {
+      "id": "pg1",
+      "soal": "Aplikasi untuk mengatur router MikroTik melalui tampilan grafis (GUI) adalah …",
+      "opsi": [
+        "Packet Tracer",
+        "Winbox",
+        "Command Prompt",
+        "Control Panel"
+      ],
+      "kunci": 1,
+      "bahas": "Winbox adalah aplikasi GUI resmi untuk mengonfigurasi router MikroTik.",
+      "topik": "Mengenal Winbox"
+    },
+    {
+      "id": "pg2",
+      "soal": "Router yang baru di-reset dapat dimasuki melalui Winbox menggunakan MAC Address karena …",
+      "opsi": [
+        "MAC Address lebih cepat daripada IP",
+        "router belum memiliki IP Address",
+        "IP Address tidak dapat dipakai di Winbox",
+        "MAC Address dapat diganti sesuka hati"
+      ],
+      "kunci": 1,
+      "bahas": "Setelah di-reset tanpa konfigurasi bawaan, router belum punya IP (0.0.0.0), sehingga koneksi dilakukan lewat MAC Address di tab Neighbors.",
+      "topik": "Mengenal Winbox"
+    },
+    {
+      "id": "pg3",
+      "soal": "Pada praktik, PC1 tersambung ke ether2 yang ber-IP 192.168.11.1/24. Default gateway PC1 adalah …",
+      "opsi": [
+        "192.168.11.2",
+        "192.168.22.1",
+        "192.168.11.1",
+        "192.168.11.0"
+      ],
+      "kunci": 2,
+      "bahas": "Gateway PC adalah IP interface router yang tersambung langsung dengannya, yaitu ether2: 192.168.11.1.",
+      "topik": "IP dan gateway PC"
+    },
+    {
+      "id": "pg4",
+      "soal": "PC1 (192.168.11.2) dapat ping PC2 (192.168.22.2) walaupun berbeda jaringan karena …",
+      "opsi": [
+        "keduanya memakai subnet mask yang sama",
+        "router meneruskan paket antara ether2 dan ether3",
+        "keduanya memakai DNS 8.8.8.8",
+        "kabel yang dipakai adalah straight-through"
+      ],
+      "kunci": 1,
+      "bahas": "Router mengenal kedua jaringan karena keduanya terpasang langsung pada interface-nya, sehingga paket dari 192.168.11.0/24 dapat diteruskan ke 192.168.22.0/24.",
+      "topik": "Routing antar-jaringan"
+    },
+    {
+      "id": "pg5",
+      "soal": "Status DHCP Client pada ether1 yang menandakan router sudah mendapat IP dari jaringan internet adalah …",
+      "opsi": [
+        "searching",
+        "bound",
+        "running",
+        "disabled"
+      ],
+      "kunci": 1,
+      "bahas": "Status bound berarti DHCP Client sudah memperoleh IP. Status searching berarti masih mencari server DHCP.",
+      "topik": "DHCP Client dan internet"
+    },
+    {
+      "id": "pg6",
+      "soal": "PC dapat ping 8.8.8.8 tetapi gagal ping google.com. Bagian yang perlu diperiksa adalah …",
+      "opsi": [
+        "NAT masquerade",
+        "IP ether2",
+        "DNS",
+        "kabel ether1"
+      ],
+      "kunci": 2,
+      "bahas": "Ping ke IP berhasil berarti jalur internet sudah ada. Kegagalan pada nama domain menandakan DNS belum benar.",
+      "topik": "DNS dan troubleshooting"
+    },
+    {
+      "id": "pg7",
+      "soal": "Perbedaan menu NAT dan Filter Rules pada IP → Firewall adalah …",
+      "opsi": [
+        "NAT memblokir lalu lintas, Filter Rules mengubah alamat",
+        "NAT mengubah alamat agar PC dapat ke internet, Filter Rules mengizinkan atau memblokir lalu lintas",
+        "Keduanya sama-sama hanya untuk memblokir ping",
+        "NAT untuk DNS, Filter Rules untuk DHCP"
+      ],
+      "kunci": 1,
+      "bahas": "NAT masquerade mengganti IP privat PC dengan IP router di ether1. Filter Rules menentukan lalu lintas mana yang diizinkan atau diblokir.",
+      "topik": "NAT dan firewall"
+    }
+  ],
+  "uraian": [
+    {
+      "id": "u1",
+      "soal": "Mengapa ether1 memakai DHCP Client, sedangkan ether2 dan ether3 diberi IP secara manual?",
+      "maks": 20,
+      "kunci": "ether1 tersambung ke jaringan ISP/sekolah yang sudah menyediakan server DHCP, sehingga IP-nya cukup diminta otomatis dan dapat berubah sesuai jaringan di atasnya. ether2 dan ether3 adalah gateway untuk PC1 dan PC2, sehingga alamatnya harus tetap (statis) dan diketahui; jika berubah, pengaturan gateway di PC tidak lagi cocok.",
+      "topik": "DHCP Client dan internet"
+    },
+    {
+      "id": "u2",
+      "soal": "Jelaskan perjalanan paket ketika PC1 melakukan ping ke PC2, mulai dari PC1 sampai balasan diterima kembali.",
+      "maks": 25,
+      "kunci": "PC1 melihat tujuan 192.168.22.2 berada di jaringan lain, sehingga paket dikirim ke gateway 192.168.11.1 (ether2). Router memeriksa tabel routing, menemukan 192.168.22.0/24 terhubung langsung di ether3, lalu meneruskan paket ke PC2. PC2 membalas ke 192.168.11.2 melalui gatewaynya 192.168.22.1 (ether3), dan router meneruskan balasan lewat ether2 ke PC1.",
+      "topik": "Routing antar-jaringan"
+    },
+    {
+      "id": "u3",
+      "soal": "PC1 dapat ping gatewaynya (192.168.11.1) tetapi gagal ping 8.8.8.8. Sebutkan minimal tiga hal yang perlu diperiksa dan alasannya.",
+      "maks": 20,
+      "kunci": "(1) Koneksi internet dan kabel ether1, karena tanpa sumber internet paket tidak dapat keluar. (2) Status DHCP Client ether1 harus bound dan Add Default Route aktif, agar router punya IP WAN dan rute ke internet. (3) NAT masquerade srcnat out-interface ether1, agar IP privat PC diganti IP router. (4) Firewall filter yang mungkin memblokir. (5) Default gateway PC harus 192.168.11.1.",
+      "topik": "DNS dan troubleshooting"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "judul": "Pengayaan Pertemuan 3 · Internet, NAT, dan Firewall",
+  "petunjuk": "Soal tantangan untuk kamu yang sudah tuntas. Kerjakan sendiri; boleh membuka catatan dan materi. Pilihan ganda dinilai otomatis; uraian dinilai gurumu.",
+  "poin_pg": 10,
+  "pg": [
+    {
+      "id": "pg1",
+      "soal": "Action NAT yang dipakai agar banyak PC berbagi satu IP publik saat ke internet adalah …",
+      "opsi": [
+        "accept",
+        "drop",
+        "masquerade",
+        "dst-nat"
+      ],
+      "kunci": 2,
+      "bahas": "masquerade mengganti IP sumber paket dengan IP interface keluar (ether1).",
+      "topik": "NAT dan firewall"
+    },
+    {
+      "id": "pg2",
+      "soal": "Rule masquerade dipasang pada chain …",
+      "opsi": [
+        "srcnat",
+        "dstnat",
+        "input",
+        "forward"
+      ],
+      "kunci": 0,
+      "bahas": "Yang diubah adalah alamat sumber (source), jadi chain srcnat dengan out-interface ether1.",
+      "topik": "NAT dan firewall"
+    },
+    {
+      "id": "pg3",
+      "soal": "Fungsi centang \"Allow Remote Requests\" pada IP → DNS adalah …",
+      "opsi": [
+        "router memblokir DNS",
+        "router melayani permintaan DNS dari PC klien",
+        "router mendapat IP dari ISP",
+        "router menjadi server DHCP"
+      ],
+      "kunci": 1,
+      "bahas": "Dengan opsi itu PC boleh memakai IP router sebagai DNS server.",
+      "topik": "DNS dan troubleshooting"
+    },
+    {
+      "id": "pg4",
+      "soal": "Rule firewall untuk menolak ping yang ditujukan ke router itu sendiri adalah …",
+      "opsi": [
+        "chain=forward protocol=icmp action=drop",
+        "chain=input protocol=icmp action=drop",
+        "chain=srcnat action=masquerade",
+        "chain=output action=accept"
+      ],
+      "kunci": 1,
+      "bahas": "Paket yang tujuannya router diproses di chain input; paket yang melewati router di chain forward.",
+      "topik": "NAT dan firewall"
+    },
+    {
+      "id": "pg5",
+      "soal": "Rule firewall MikroTik diperiksa dengan cara …",
+      "opsi": [
+        "acak",
+        "dari bawah ke atas",
+        "dari atas ke bawah, rule pertama yang cocok dijalankan",
+        "semua rule dijalankan bersamaan"
+      ],
+      "kunci": 2,
+      "bahas": "Urutan penting: rule di atas diperiksa lebih dulu. Letakkan rule accept khusus sebelum rule drop umum.",
+      "topik": "NAT dan firewall"
+    }
+  ],
+  "uraian": [
+    {
+      "id": "u1",
+      "soal": "Rancang konfigurasi lengkap agar PC1 (ether2) dan PC2 (ether3) bisa mengakses internet melalui ether1. Tuliskan pengaturan di router (minimal: DHCP Client, NAT, DNS) dan di kedua PC, beserta alasannya.",
+      "kunci": "Router: IP → DHCP Client pada ether1 (status bound); IP → Firewall → NAT: chain srcnat, out-interface ether1, action masquerade; IP → DNS: server mis. 8.8.8.8, centang Allow Remote Requests. PC: gateway = IP ether router di jaringannya, DNS = gateway atau 8.8.8.8. Uji ping 8.8.8.8 lalu ping google.com.",
+      "maks": 25,
+      "topik": "DHCP Client dan internet"
+    },
+    {
+      "id": "u2",
+      "soal": "Guru ingin PC2 (192.168.22.0/24) tidak bisa membuka koneksi ke PC1 (192.168.11.0/24), tetapi PC1 tetap bisa ping PC2 dan menerima balasannya. Rancang rule firewall-nya dan jelaskan mengapa connection-state penting.",
+      "kunci": "Contoh: chain=forward connection-state=established,related action=accept (di atas); chain=forward src-address=192.168.22.0/24 dst-address=192.168.11.0/24 connection-state=new action=drop. Balasan PC2 untuk ping dari PC1 berstatus established sehingga lolos, sedangkan koneksi baru dari PC2 ditolak.",
+      "maks": 25,
+      "topik": "NAT dan firewall"
+    }
+  ]
+}

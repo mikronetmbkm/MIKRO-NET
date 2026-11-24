@@ -1,0 +1,76 @@
+{
+ "judul": "Pengumpulan Praktikum Pertemuan 4",
+ "petunjuk": "Unggah foto bukti praktik kelompokmu. Jawaban tersimpan otomatis. Tekan Kumpulkan di bagian bawah setelah semua lengkap.",
+ "bagian": [
+  {
+   "judul": "A. Identitas kelompok",
+   "butir": [
+    {
+     "id": "kelompok",
+     "jenis": "teks",
+     "label": "Nama kelompok dan SSID hotspot",
+     "petunjuk": "Contoh: Kelompok 1 · KEL1-TKJ"
+    },
+    {
+     "id": "anggota",
+     "jenis": "paragraf",
+     "label": "Anggota kelompok"
+    }
+   ]
+  },
+  {
+   "judul": "B. Bukti praktik",
+   "butir": [
+    {
+     "id": "f_wajan",
+     "jenis": "berkas",
+     "label": "Foto wajanbolic yang sudah dirakit",
+     "petunjuk": "Terlihat wajan, pipa berfoil, dan USB WiFi adapter di ujung pipa. JPG atau PNG.",
+     "maks_berkas": 3
+    },
+    {
+     "id": "f_hotspot",
+     "jenis": "berkas",
+     "label": "Foto layar Mobile hotspot di laptop pemancar",
+     "petunjuk": "Terlihat hotspot On, SSID kelompok, dan laptop penerima di bagian Devices connected.",
+     "maks_berkas": 2
+    },
+    {
+     "id": "internet",
+     "jenis": "pilihan",
+     "label": "Apakah laptop penerima mendapat internet?",
+     "opsi": [
+      "Ya, situs web bisa dibuka",
+      "Tersambung, tetapi No internet",
+      "Tidak bisa tersambung ke SSID"
+     ]
+    },
+    {
+     "id": "catatan",
+     "jenis": "paragraf",
+     "label": "Catatan (opsional)",
+     "petunjuk": "Masalah yang muncul dan cara kelompok mengatasinya.",
+     "wajib": false
+    }
+   ]
+  }
+ ],
+ "rubrik": [
+  {
+   "kriteria": "Perakitan wajanbolic rapi dan benar: foil rapi, pipa tegak lurus, adapter di titik fokus",
+   "maks": 35
+  },
+  {
+   "kriteria": "Hotspot aktif dengan SSID kelompok dan laptop penerima tampil di Devices connected",
+   "maks": 35
+  },
+  {
+   "kriteria": "Laptop penerima mendapat internet",
+   "maks": 15
+  },
+  {
+   "kriteria": "Kerja sama dan keselamatan kerja selama praktik",
+   "maks": 15
+  }
+ ]
+}

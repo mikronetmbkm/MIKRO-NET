@@ -1,0 +1,88 @@
+{
+  "judul": "Pengayaan Pertemuan 2 · Desain Jaringan Sekolah",
+  "petunjuk": "Soal tantangan untuk kamu yang sudah tuntas. Kerjakan sendiri; boleh membuka catatan dan materi. Pilihan ganda dinilai otomatis; uraian dinilai gurumu.",
+  "poin_pg": 10,
+  "pg": [
+    {
+      "id": "pg1",
+      "soal": "Perintah yang wajib ada pada subinterface g0/0.10 agar melayani VLAN 10 adalah …",
+      "opsi": [
+        "switchport mode trunk",
+        "encapsulation dot1Q 10",
+        "vlan 10",
+        "ip dhcp pool 10"
+      ],
+      "kunci": 1,
+      "bahas": "encapsulation dot1Q 10 membuat subinterface menerima frame bertag VLAN 10.",
+      "topik": "VLAN dan inter-VLAN"
+    },
+    {
+      "id": "pg2",
+      "soal": "Nilai administrative distance default untuk static route pada Cisco adalah …",
+      "opsi": [
+        "0",
+        "1",
+        "90",
+        "120"
+      ],
+      "kunci": 1,
+      "bahas": "Connected = 0, static = 1, OSPF = 110, RIP = 120. Makin kecil makin dipercaya.",
+      "topik": "Routing statis"
+    },
+    {
+      "id": "pg3",
+      "soal": "Perintah agar router meneruskan permintaan DHCP ke server di network lain adalah …",
+      "opsi": [
+        "ip helper-address",
+        "ip dhcp excluded-address",
+        "service dhcp",
+        "ip route"
+      ],
+      "kunci": 0,
+      "bahas": "ip helper-address dipasang pada interface gateway klien untuk meneruskan (relay) DHCP ke server.",
+      "topik": "DHCP"
+    },
+    {
+      "id": "pg4",
+      "soal": "Native VLAN default pada port trunk switch Cisco adalah …",
+      "opsi": [
+        "VLAN 0",
+        "VLAN 1",
+        "VLAN 10",
+        "VLAN 99"
+      ],
+      "kunci": 1,
+      "bahas": "Secara bawaan native VLAN adalah VLAN 1 (frame-nya dikirim tanpa tag).",
+      "topik": "VLAN dan inter-VLAN"
+    },
+    {
+      "id": "pg5",
+      "soal": "Dengan VLSM dari 192.168.1.0/24, subnet untuk kebutuhan 100 host sebaiknya memakai prefix …",
+      "opsi": [
+        "/24",
+        "/25",
+        "/26",
+        "/27"
+      ],
+      "kunci": 1,
+      "bahas": "/25 = 126 host (cukup), /26 = 62 host (kurang).",
+      "topik": "VLSM"
+    }
+  ],
+  "uraian": [
+    {
+      "id": "u1",
+      "soal": "Bandingkan routing statis dengan routing dinamis (mis. OSPF atau RIP): jelaskan kelebihan dan kekurangan masing-masing, lalu tentukan mana yang lebih cocok untuk jaringan sekolah dengan 2 router dan alasannya.",
+      "kunci": "Statis: sederhana, ringan, aman, tapi harus diatur manual dan tidak menyesuaikan diri saat link putus. Dinamis: otomatis bertukar rute dan menyesuaikan perubahan, tapi lebih kompleks dan memakai sumber daya. Untuk 2 router, statis cukup; dinamis lebih cocok bila router banyak.",
+      "maks": 25,
+      "topik": "Routing statis"
+    },
+    {
+      "id": "u2",
+      "soal": "Rancang VLSM dari 192.168.1.0/24 untuk VLAN Siswa (60 host), VLAN Guru (30 host), VLAN TU (10 host), dan satu link router /30. Tuliskan network, rentang host, broadcast, dan gateway tiap bagian.",
+      "kunci": "Siswa /26: .0 (host .1–.62, bc .63, gw .1). Guru /27: .64 (.65–.94, bc .95, gw .65). TU /28: .96 (.97–.110, bc .111, gw .97). Link /30: .112 (.113–.114, bc .115).",
+      "maks": 25,
+      "topik": "VLSM"
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "judul": "Remidi Pertemuan 4 · Wajanbolic dan Link Point-to-Point",
+  "petunjuk": "Kerjakan sendiri dengan teliti. Jawabanmu tersimpan otomatis. Pilihan ganda dinilai otomatis; uraian dinilai gurumu. Nilai remidi paling tinggi sama dengan KKM.",
+  "poin_pg": 10,
+  "pg": [
+    {
+      "id": "pg1",
+      "soal": "Rumus panjang feeder (titik fokus) wajan adalah …",
+      "opsi": [
+        "F = D × d",
+        "F = D² / (16 × d)",
+        "F = 16 × d / D",
+        "F = D / 2"
+      ],
+      "kunci": 1,
+      "bahas": "F = D² / (16d), dengan D diameter dan d kedalaman wajan.",
+      "topik": "Perhitungan feeder"
+    },
+    {
+      "id": "pg2",
+      "soal": "Wajan berdiameter 40 cm dengan kedalaman 8 cm memiliki panjang feeder …",
+      "opsi": [
+        "10 cm",
+        "12,5 cm",
+        "20 cm",
+        "5 cm"
+      ],
+      "kunci": 1,
+      "bahas": "F = 40² / (16 × 8) = 1600 / 128 = 12,5 cm.",
+      "topik": "Perhitungan feeder"
+    },
+    {
+      "id": "pg3",
+      "soal": "USB WiFi adapter harus diletakkan di titik fokus wajan karena …",
+      "opsi": [
+        "agar adapter tidak panas",
+        "di titik itulah sinyal pantulan wajan berkumpul paling kuat",
+        "agar kabel USB cukup",
+        "agar wajan tidak goyang"
+      ],
+      "kunci": 1,
+      "bahas": "Permukaan parabola memantulkan sinyal ke satu titik fokus, sehingga penerimaan paling kuat di sana.",
+      "topik": "Prinsip wajanbolic"
+    },
+    {
+      "id": "pg4",
+      "soal": "Frekuensi WiFi yang dipakai pada praktik wajanbolic adalah …",
+      "opsi": [
+        "900 MHz",
+        "2,4 GHz",
+        "60 GHz",
+        "100 MHz"
+      ],
+      "kunci": 1,
+      "bahas": "Adapter USB WiFi umum bekerja di 2,4 GHz; ukuran wajan rumahan cocok untuk frekuensi ini.",
+      "topik": "Prinsip wajanbolic"
+    },
+    {
+      "id": "pg5",
+      "soal": "Syarat utama agar link Point-to-Point stabil adalah …",
+      "opsi": [
+        "kedua antena saling terlihat tanpa halangan (line of sight)",
+        "memakai kabel UTP panjang",
+        "banyak pengguna di SSID yang sama",
+        "laptop dalam mode pesawat"
+      ],
+      "kunci": 0,
+      "bahas": "Sinyal 2,4 GHz mudah teredam dinding, pohon, dan tubuh. Jalur pandang yang bersih membuat link stabil.",
+      "topik": "Konsep Point-to-Point"
+    },
+    {
+      "id": "pg6",
+      "soal": "Dari hasil pengukuran berikut, sinyal paling baik adalah …",
+      "opsi": [
+        "−85 dBm",
+        "−75 dBm",
+        "−65 dBm",
+        "−55 dBm"
+      ],
+      "kunci": 3,
+      "bahas": "dBm bernilai negatif; makin mendekati 0 makin kuat. −55 dBm paling kuat.",
+      "topik": "Kekuatan sinyal (dBm)"
+    },
+    {
+      "id": "pg7",
+      "soal": "Agar laptop penerima bisa tersambung, laptop pemancar diatur sebagai …",
+      "opsi": [
+        "mobile hotspot (pemancar WiFi)",
+        "mode pesawat",
+        "server DNS",
+        "printer jaringan"
+      ],
+      "kunci": 0,
+      "bahas": "Laptop pemancar membuat hotspot (SSID) dan membagikan IP lewat DHCP ke penerima.",
+      "topik": "Mode adapter dan hotspot"
+    }
+  ],
+  "uraian": [
+    {
+      "id": "u1",
+      "soal": "Hitung panjang feeder untuk wajan D = 36 cm dan d = 9 cm. Tuliskan langkahnya, lalu jelaskan bagaimana menentukan posisi adapter di pipa feeder.",
+      "kunci": "F = 36² / (16 × 9) = 1296 / 144 = 9 cm. Ukur 9 cm dari dasar (tengah) wajan ke arah luar; bagian chip/antena adapter diletakkan tepat di titik itu di dalam pipa.",
+      "maks": 15,
+      "topik": "Perhitungan feeder"
+    },
+    {
+      "id": "u2",
+      "soal": "Sebutkan tiga hal yang membuat sinyal link wajanbolic melemah dan cara mengatasi masing-masing.",
+      "kunci": "Contoh: arah wajan tidak lurus → arahkan ulang perlahan sambil memantau dBm; adapter tidak di titik fokus → geser posisi adapter; ada halangan (orang, dinding, pohon) → cari jalur pandang bersih/tinggikan antena; jarak terlalu jauh → dekatkan atau pakai wajan lebih besar.",
+      "maks": 15,
+      "topik": "Troubleshooting link"
+    }
+  ]
+}

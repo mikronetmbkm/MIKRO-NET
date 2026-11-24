@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulasi Jaringan Pertemuan 2 — Mikronet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body data-halaman="beranda">
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="Mikronet — Beranda simulasi">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="4" y="4" width="40" height="40" rx="12" fill="#003B7A"/>
+        <circle cx="24" cy="16" r="7" fill="#009BFF"/>
+        <path d="M24 26 C16 26 10 31 8 42 L40 42 C38 31 32 26 24 26 Z" fill="#0B3B7B"/>
+        <circle cx="24" cy="16" r="2.5" fill="#F7B217"/>
+      </svg>
+      Mikronet
+    </a>
+    <div class="progress-pill" title="Kemajuan simulasi">
+      <div class="progress-track"><div class="progress-fill" id="header-progress-bar"></div></div>
+      <span class="progress-label" id="header-progress-text">0%</span>
+    </div>
+  </div>
+</header>
+<main class="page">
+
+  <section class="hero">
+    <span class="misi-no">Pertemuan 2</span>
+    <h1 class="hero-title">VLAN, DHCP, VLSM, dan Static Route</h1>
+    <p class="hero-desc">Latihan VLAN, router-on-a-stick, DHCP, VLSM, dan static route. Kerjakan tiga misi berurutan; skormu terkirim otomatis ke MIKRO-NET setelah semua misi selesai.</p>
+  </section>
+
+  <details class="card topo-ringkas">
+    <summary>Lihat topologi praktikum hari ini</summary>
+    <p class="section-note">Semua misi memakai topologi ini, sama seperti lembar praktikum.</p>
+    <pre class="terminal topo-ascii" aria-label="Diagram topologi">PC1 (VLAN 10) ─┐
+PC2 (VLAN 20) ─┴─ SW1
+                   ║  trunk
+                   R1
+                   │  link /30
+                   R2
+                   ║  trunk
+PC3 (VLAN 30) ─┬─ SW2
+PC4 (VLAN 40) ─┘</pre>
+    <div class="tabel-gulir">
+      <table class="kelas-table">
+        <thead><tr><th>Segmen</th><th>Jaringan</th><th>Gateway</th><th>Cara IP</th></tr></thead>
+        <tbody>
+          <tr><td>VLAN 10 · LAB-BAWAH</td><td class="mono">192.168.10.0/24</td><td class="mono">192.168.10.1</td><td>PC1 manual .2</td></tr>
+          <tr><td>VLAN 20 · LAB-ATAS</td><td class="mono">192.168.20.0/24</td><td class="mono">192.168.20.1</td><td>PC2 DHCP dari R1</td></tr>
+          <tr><td>Link R1–R2</td><td class="mono">192.168.100.0/30</td><td class="mono">R1 .1 · R2 .2</td><td>Manual</td></tr>
+          <tr><td>VLAN 30 · RUANG-GURU</td><td class="mono">192.168.30.0/24</td><td class="mono">192.168.30.1</td><td>PC3 manual .2</td></tr>
+          <tr><td>VLAN 40 · PERPUS</td><td class="mono">192.168.40.0/24</td><td class="mono">192.168.40.1</td><td>PC4 DHCP dari R2</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <div class="card-grid">
+    <article class="card" id="card-m1">
+      <span class="misi-no">Misi 1</span>
+      <h2 class="card-title">VLAN &amp; Trunk</h2>
+      <p class="card-desc">Atur port SW1: masukkan PC ke VLAN-nya dan jadikan port ke router sebagai trunk. Uji broadcast, lalu kuis 5 soal.</p>
+      <div class="card-status" id="status-m1">Belum dimulai</div>
+      <a class="btn btn-primary" id="btn-m1" href="vlan.html">Mulai</a>
+    </article>
+    <article class="card locked" id="card-m2">
+      <span class="misi-no">Misi 2</span>
+      <h2 class="card-title">Router-on-a-Stick &amp; DHCP</h2>
+      <p class="card-desc">Lengkapi subinterface R1, ikuti perjalanan ping antar-VLAN, susun urutan DORA, lalu isi pool DHCP sampai PC2 dapat IP.</p>
+      <div class="card-status" id="status-m2">Terkunci: selesaikan Misi 1</div>
+      <a class="btn btn-lock" id="btn-m2" href="dhcp.html" aria-disabled="true">Terkunci</a>
+    </article>
+    <article class="card locked" id="card-m3">
+      <span class="misi-no">Misi 3</span>
+      <h2 class="card-title">VLSM &amp; Static Route</h2>
+      <p class="card-desc">Hitung subnet /30 untuk link antar-router, bagi jaringan dengan VLSM, lalu tulis static route sampai ping PC1 ⇄ PC3 berhasil dua arah.</p>
+      <div class="card-status" id="status-m3">Terkunci: selesaikan Misi 2</div>
+      <a class="btn btn-lock" id="btn-m3" href="rute.html" aria-disabled="true">Terkunci</a>
+    </article>
+  </div>
+
+  <div class="aksi-bawah">
+    <a class="btn btn-success" id="btn-hasil" href="hasil.html" hidden>Lihat hasil akhir</a>
+    <button class="btn btn-ghost" id="btn-reset-progress" type="button">Ulangi dari awal</button>
+  </div>
+</main>
+<script src="script.js?v=3"></script>
+</body>
+</html>

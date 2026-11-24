@@ -1,0 +1,88 @@
+{
+  "judul": "Pengayaan Pertemuan 4 · Merancang Link Antar-Gedung",
+  "petunjuk": "Soal tantangan untuk kamu yang sudah tuntas. Kerjakan sendiri; boleh membuka catatan dan materi. Pilihan ganda dinilai otomatis; uraian dinilai gurumu.",
+  "poin_pg": 10,
+  "pg": [
+    {
+      "id": "pg1",
+      "soal": "Polarisasi antena pada kedua sisi link sebaiknya …",
+      "opsi": [
+        "berbeda (satu vertikal, satu horizontal)",
+        "sama (sama-sama vertikal atau sama-sama horizontal)",
+        "tidak berpengaruh",
+        "diputar terus-menerus"
+      ],
+      "kunci": 1,
+      "bahas": "Polarisasi yang tidak sama membuat sinyal yang diterima turun drastis.",
+      "topik": "Prinsip wajanbolic"
+    },
+    {
+      "id": "pg2",
+      "soal": "Fresnel zone pada link nirkabel adalah …",
+      "opsi": [
+        "nama SSID",
+        "area berbentuk elips di sekitar garis pandang yang sebaiknya bebas halangan",
+        "jarak maksimal kabel UTP",
+        "kanal WiFi nomor 6"
+      ],
+      "kunci": 1,
+      "bahas": "Walau antena saling terlihat, halangan di dalam Fresnel zone tetap melemahkan sinyal.",
+      "topik": "Konsep Point-to-Point"
+    },
+    {
+      "id": "pg3",
+      "soal": "Kenaikan sinyal sebesar 3 dB berarti daya sinyal kira-kira …",
+      "opsi": [
+        "tetap",
+        "naik 3 kali",
+        "naik 2 kali",
+        "naik 10 kali"
+      ],
+      "kunci": 2,
+      "bahas": "Setiap +3 dB ≈ daya dua kali lipat; +10 dB = 10 kali lipat.",
+      "topik": "Kekuatan sinyal (dBm)"
+    },
+    {
+      "id": "pg4",
+      "soal": "Dua wajan berdiameter sama. Wajan yang lebih dalam memiliki feeder yang …",
+      "opsi": [
+        "lebih panjang",
+        "lebih pendek",
+        "sama panjang",
+        "tidak bisa dihitung"
+      ],
+      "kunci": 1,
+      "bahas": "F = D² / (16d): d makin besar, F makin kecil.",
+      "topik": "Perhitungan feeder"
+    },
+    {
+      "id": "pg5",
+      "soal": "Untuk mengurangi gangguan dari WiFi lain di 2,4 GHz, sebaiknya memilih kanal …",
+      "opsi": [
+        "1, 6, atau 11 yang paling sepi",
+        "kanal yang paling ramai",
+        "kanal 3 dan 4 sekaligus",
+        "kanal tidak berpengaruh"
+      ],
+      "kunci": 0,
+      "bahas": "Kanal 1, 6, dan 11 tidak saling tumpang tindih. Pilih yang paling sedikit dipakai jaringan sekitar.",
+      "topik": "Troubleshooting link"
+    }
+  ],
+  "uraian": [
+    {
+      "id": "u1",
+      "soal": "Sekolah ingin menyambungkan internet dari Gedung A ke Gedung B yang berjarak sekitar 200 m dengan link Point-to-Point. Rancang solusinya: perangkat yang dibutuhkan, posisi antena, pengaturan jaringan, dan cara menguji link.",
+      "kunci": "Contoh: dua antena directional (wajanbolic/grid) dengan adapter atau radio outdoor, dipasang tinggi dan saling berhadapan (line of sight, Fresnel zone bersih), polarisasi sama. Sisi A sebagai pemancar (AP/bridge) terhubung ke jaringan internet; sisi B sebagai klien/station dengan IP satu network atau DHCP. Uji dengan memantau dBm, ping beruntun, dan uji kecepatan; catat hasil di beberapa waktu.",
+      "maks": 25,
+      "topik": "Konsep Point-to-Point"
+    },
+    {
+      "id": "u2",
+      "soal": "Hasil uji: tanpa wajan −78 dBm, dengan wajan −62 dBm. Hitung selisihnya dalam dB, perkirakan berapa kali kenaikan dayanya, dan simpulkan pengaruh wajan terhadap link.",
+      "kunci": "Selisih 16 dB. 10 dB = 10×, 6 dB ≈ 4×, jadi 16 dB ≈ 40× daya. Wajan memfokuskan sinyal sehingga link jauh lebih kuat dan stabil (−62 dBm tergolong baik untuk koneksi).",
+      "maks": 25,
+      "topik": "Kekuatan sinyal (dBm)"
+    }
+  ]
+}

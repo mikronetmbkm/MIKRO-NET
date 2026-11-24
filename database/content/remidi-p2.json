@@ -1,0 +1,114 @@
+{
+  "judul": "Remidi Pertemuan 2 · VLAN, DHCP, dan Routing",
+  "petunjuk": "Kerjakan sendiri dengan teliti. Jawabanmu tersimpan otomatis. Pilihan ganda dinilai otomatis; uraian dinilai gurumu. Nilai remidi paling tinggi sama dengan KKM.",
+  "poin_pg": 10,
+  "pg": [
+    {
+      "id": "pg1",
+      "soal": "Fungsi utama VLAN adalah …",
+      "opsi": [
+        "mempercepat kabel UTP",
+        "membagi satu switch menjadi beberapa jaringan logis",
+        "memberikan IP otomatis",
+        "menghubungkan ke internet"
+      ],
+      "kunci": 1,
+      "bahas": "VLAN memisahkan port switch ke beberapa jaringan (broadcast domain) secara logis tanpa menambah switch.",
+      "topik": "VLAN dan inter-VLAN"
+    },
+    {
+      "id": "pg2",
+      "soal": "Port switch yang terhubung ke router pada router-on-a-stick harus diatur sebagai …",
+      "opsi": [
+        "access",
+        "trunk",
+        "shutdown",
+        "console"
+      ],
+      "kunci": 1,
+      "bahas": "Port trunk membawa banyak VLAN sekaligus (diberi tag 802.1Q) ke router.",
+      "topik": "VLAN dan inter-VLAN"
+    },
+    {
+      "id": "pg3",
+      "soal": "Perintah Cisco untuk melihat tabel routing adalah …",
+      "opsi": [
+        "show vlan brief",
+        "show ip route",
+        "show running-config dhcp",
+        "ping"
+      ],
+      "kunci": 1,
+      "bahas": "show ip route menampilkan rute yang dikenal router, termasuk kode C (connected) dan S (static).",
+      "topik": "Routing statis"
+    },
+    {
+      "id": "pg4",
+      "soal": "Penulisan default route yang benar pada router Cisco adalah …",
+      "opsi": [
+        "ip route 0.0.0.0 0.0.0.0 192.168.40.18",
+        "ip route 192.168.40.18 0.0.0.0",
+        "ip default 0.0.0.0",
+        "route add default"
+      ],
+      "kunci": 0,
+      "bahas": "Default route memakai network 0.0.0.0 dan mask 0.0.0.0, lalu alamat next-hop.",
+      "topik": "Routing statis"
+    },
+    {
+      "id": "pg5",
+      "soal": "Perintah untuk mencegah IP gateway dibagikan oleh DHCP pada router Cisco adalah …",
+      "opsi": [
+        "ip dhcp pool",
+        "ip dhcp excluded-address",
+        "default-router",
+        "ip helper-address"
+      ],
+      "kunci": 1,
+      "bahas": "ip dhcp excluded-address mengecualikan alamat tertentu (mis. gateway) dari pembagian DHCP.",
+      "topik": "DHCP"
+    },
+    {
+      "id": "pg6",
+      "soal": "PC mendapat IP 169.254.x.x artinya …",
+      "opsi": [
+        "PC berhasil mendapat IP dari DHCP",
+        "PC gagal mendapat IP dari DHCP sehingga memakai IP otomatis Windows (APIPA)",
+        "PC terhubung ke internet",
+        "IP diatur manual oleh guru"
+      ],
+      "kunci": 1,
+      "bahas": "169.254.x.x adalah APIPA, dipakai Windows saat tidak ada balasan dari server DHCP.",
+      "topik": "DHCP"
+    },
+    {
+      "id": "pg7",
+      "soal": "Perangkat yang menghubungkan dua network yang berbeda adalah …",
+      "opsi": [
+        "switch",
+        "hub",
+        "router",
+        "kabel cross-over"
+      ],
+      "kunci": 2,
+      "bahas": "Router meneruskan paket antar-network berdasarkan tabel routing.",
+      "topik": "Perangkat jaringan"
+    }
+  ],
+  "uraian": [
+    {
+      "id": "u1",
+      "soal": "Jelaskan langkah-langkah agar PC di VLAN 10 dapat ping PC di VLAN 20 menggunakan router-on-a-stick.",
+      "kunci": "Buat VLAN 10 dan 20 di switch, port PC mode access sesuai VLAN; port ke router mode trunk; di router buat subinterface (mis. g0/0.10 dan g0/0.20) dengan encapsulation dot1Q dan IP gateway tiap VLAN; aktifkan interface (no shutdown); PC memakai gateway subinterface; uji ping.",
+      "maks": 15,
+      "topik": "VLAN dan inter-VLAN"
+    },
+    {
+      "id": "u2",
+      "soal": "Link R1–R2 memakai jaringan 192.168.40.16/30. Tentukan IP untuk R1, IP untuk R2, dan broadcast address-nya. Jelaskan mengapa /30 cocok untuk link antar-router.",
+      "kunci": "Network .16, host .17 (R1) dan .18 (R2), broadcast .19. /30 hanya punya 2 host, pas untuk link titik-ke-titik sehingga tidak boros alamat.",
+      "maks": 15,
+      "topik": "VLSM"
+    }
+  ]
+}

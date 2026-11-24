@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misi 2: Pasang IP & Uji Ping — Mikronet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body data-halaman="ip">
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="Mikronet — Beranda simulasi">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="4" y="4" width="40" height="40" rx="12" fill="#003B7A"/>
+        <circle cx="24" cy="16" r="7" fill="#009BFF"/>
+        <path d="M24 26 C16 26 10 31 8 42 L40 42 C38 31 32 26 24 26 Z" fill="#0B3B7B"/>
+        <circle cx="24" cy="16" r="2.5" fill="#F7B217"/>
+      </svg>
+      Mikronet
+    </a>
+    <div class="progress-pill" title="Kemajuan simulasi">
+      <div class="progress-track"><div class="progress-fill" id="header-progress-bar"></div></div>
+      <span class="progress-label" id="header-progress-text">0%</span>
+    </div>
+  </div>
+</header>
+<main class="page">
+
+  <div class="hero">
+    <span class="misi-no">Misi 2 dari 3</span>
+    <h1 class="hero-title">Pasang IP &amp; Uji Ping</h1>
+    <p class="hero-desc">Setiap port router yang tersambung ke PC diberi IP. IP itulah yang menjadi <b>gateway</b> PC. Setelah router dan PC diatur, uji dengan ping.</p>
+  </div>
+  <div class="banner-urut" id="banner-urut" hidden></div>
+
+  <div class="card">
+    <h2 class="section-title">Bagian A: IP pada interface router</h2>
+    <p class="section-note">Di Winbox: <b>IP → Addresses</b>, klik <b>+</b>. Tulis alamat lengkap dengan prefix, misalnya <span class="mono">192.168.11.1/24</span>. Kolom Network terisi otomatis.</p>
+    <div class="tugas"><b>Tugas:</b>
+      <ul><li data-tugas="m2_ip">Pasang IP untuk ether2 dan ether3 sesuai topologi, lalu tekan <b>Periksa IP router</b>.</li></ul>
+    </div>
+    <div class="wb-win" id="wb-addr">
+      <div class="wb-title"><span>Address List</span><span aria-hidden="true">▢ ✕</span></div>
+      <div class="wb-toolbar">
+        <button class="wb-tool tambah" type="button" id="addr-tambah" aria-label="Tambah alamat">+</button>
+        <button class="wb-tool hapus" type="button" id="addr-hapus" aria-label="Hapus alamat terpilih" disabled>−</button>
+      </div>
+      <div class="tabel-gulir"><table class="wb-tabel pilihan" id="addr-tabel"></table></div>
+      <div class="wb-dialog" id="addr-dialog" hidden>
+        <div class="wb-title"><span id="addr-dialog-judul">New Address</span></div>
+        <div class="wb-body">
+          <div class="wb-form">
+            <label for="addr-ip">Address:</label><input class="wb-input mono" id="addr-ip" autocomplete="off" spellcheck="false" inputmode="decimal" placeholder="contoh 10.0.0.1/24">
+            <label for="addr-net">Network:</label><input class="wb-input mono" id="addr-net" readonly tabindex="-1">
+            <label for="addr-if">Interface:</label><select class="wb-input mono" id="addr-if"><option>ether1</option><option>ether2</option><option>ether3</option><option>ether4</option><option>ether5</option></select>
+          </div>
+          <p class="wb-galat" id="addr-galat" aria-live="polite"></p>
+          <div class="wb-tombol"><button class="wb-btn" type="button" id="addr-ok">OK</button><button class="wb-btn" type="button" id="addr-batal">Cancel</button><button class="wb-btn" type="button" id="addr-apply">Apply</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="toolbar-baris"><button class="btn btn-success" id="btn-cek-addr" type="button">Periksa IP router</button></div>
+    <ul class="cek-list" id="cek-addr" aria-live="polite"></ul>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <h2 class="section-title">Bagian B: IP pada PC1 dan PC2</h2>
+    <p class="section-note">Di Windows: <b>Control Panel → Network and Sharing Center → Change adapter settings</b> → Properties → <b>Internet Protocol Version 4 (TCP/IPv4)</b>.</p>
+    <div class="tugas"><b>Tugas:</b>
+      <ul><li data-tugas="m2_pc">Isi IP, subnet mask, gateway, dan DNS di kedua PC, lalu tekan <b>Periksa PC</b>.</li></ul>
+    </div>
+    <div class="dua-kolom">
+      <div class="win-dlg" data-pc="pc1">
+        <div class="win-judul">PC1 · Internet Protocol Version 4 (TCP/IPv4) Properties</div>
+        <div class="win-isi">
+          <p class="win-radio">◉ Use the following IP address:</p>
+          <label for="pc1-ip">IP address:</label><input class="win-input mono" id="pc1-ip" inputmode="decimal" autocomplete="off">
+          <label for="pc1-mask">Subnet mask:</label><input class="win-input mono" id="pc1-mask" inputmode="decimal" autocomplete="off">
+          <label for="pc1-gw">Default gateway:</label><input class="win-input mono" id="pc1-gw" inputmode="decimal" autocomplete="off">
+          <p class="win-radio">◉ Use the following DNS server addresses:</p>
+          <label for="pc1-dns">Preferred DNS server:</label><input class="win-input mono" id="pc1-dns" inputmode="decimal" autocomplete="off">
+        </div>
+      </div>
+      <div class="win-dlg" data-pc="pc2">
+        <div class="win-judul">PC2 · Internet Protocol Version 4 (TCP/IPv4) Properties</div>
+        <div class="win-isi">
+          <p class="win-radio">◉ Use the following IP address:</p>
+          <label for="pc2-ip">IP address:</label><input class="win-input mono" id="pc2-ip" inputmode="decimal" autocomplete="off">
+          <label for="pc2-mask">Subnet mask:</label><input class="win-input mono" id="pc2-mask" inputmode="decimal" autocomplete="off">
+          <label for="pc2-gw">Default gateway:</label><input class="win-input mono" id="pc2-gw" inputmode="decimal" autocomplete="off">
+          <p class="win-radio">◉ Use the following DNS server addresses:</p>
+          <label for="pc2-dns">Preferred DNS server:</label><input class="win-input mono" id="pc2-dns" inputmode="decimal" autocomplete="off">
+        </div>
+      </div>
+    </div>
+    <div class="toolbar-baris"><button class="btn btn-success" id="btn-cek-pc" type="button">Periksa PC</button></div>
+    <ul class="cek-list" id="cek-pc" aria-live="polite"></ul>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <h2 class="section-title">Bagian C: Uji ping</h2>
+    <p class="section-note">Uji bertahap: gateway sendiri dulu, lalu gateway jaringan lain, baru PC lain. Kalau gagal, baca pesan di bawah terminal.</p>
+    <div class="tugas"><b>Tugas:</b>
+      <ul><li data-tugas="m2_ping">Buat <b>PC1 → PC2</b> dan <b>PC2 → PC1</b> sama-sama berhasil.</li></ul>
+    </div>
+    <div class="panggung panggung-p3" id="pg-lan" aria-hidden="true"></div>
+    <div class="fw-win">
+      <p class="langkah-no" style="margin-top:4px">Windows Firewall: izinkan ping masuk</p>
+      <div class="toolbar-baris">
+        <button type="button" class="toggle-btn" id="winfw-pc1" aria-pressed="false"><span class="toggle-knop" aria-hidden="true"></span>PC1</button>
+        <button type="button" class="toggle-btn" id="winfw-pc2" aria-pressed="false"><span class="toggle-knop" aria-hidden="true"></span>PC2</button>
+      </div>
+      <p class="section-note">Di lab, langkah ini dilakukan dengan perintah <span class="mono">netsh</span> (lihat lembar praktikum).</p>
+    </div>
+    <div class="chip-baris ping-tombol">
+      <button class="btn btn-ghost btn-kecil" type="button" data-ping="pc1|192.168.11.1">PC1 → 192.168.11.1</button>
+      <button class="btn btn-ghost btn-kecil" type="button" data-ping="pc1|192.168.22.1">PC1 → 192.168.22.1</button>
+      <button class="btn btn-amber btn-kecil" type="button" data-ping="pc1|192.168.22.2">PC1 → PC2</button>
+      <button class="btn btn-amber btn-kecil" type="button" data-ping="pc2|192.168.11.2">PC2 → PC1</button>
+    </div>
+    <pre class="terminal" id="terminal">C:\Users\Siswa&gt; _</pre>
+    <ul class="cek-list" id="cek-ping" aria-live="polite"></ul>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <div class="judul-baris"><h2 class="section-title">Bagian D: Kuis 5 soal</h2><span class="score-pill" id="m2-skor">0/5</span></div>
+    <p class="section-note">Klik pilihanmu, lalu tekan <b>Kunci jawaban</b>. Setelah dikunci tidak bisa diganti.</p>
+    <div id="m2-soal"></div>
+  </div>
+
+  <div class="aksi-bawah">
+    <a class="btn btn-ghost" href="index.html">Kembali</a>
+    <button class="btn btn-primary" id="btn-m2-selesai" type="button" disabled>Selesai, lanjut ke Misi 3</button>
+  </div>
+  <p class="syarat" id="syarat-m2" aria-live="polite"></p>
+</main>
+<script src="script.js?v=1"></script>
+</body>
+</html>

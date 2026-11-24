@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulasi Jaringan — Mikronet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=6">
+</head>
+<body data-halaman="beranda">
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="Mikronet — Beranda simulasi">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="4" y="4" width="40" height="40" rx="12" fill="#003B7A"/>
+        <circle cx="24" cy="16" r="7" fill="#009BFF"/>
+        <path d="M24 26 C16 26 10 31 8 42 L40 42 C38 31 32 26 24 26 Z" fill="#0B3B7B"/>
+        <circle cx="24" cy="16" r="2.5" fill="#F7B217"/>
+      </svg>
+      Mikronet
+    </a>
+    <div class="progress-pill" title="Kemajuan simulasi">
+      <div class="progress-track"><div class="progress-fill" id="header-progress-bar"></div></div>
+      <span class="progress-label" id="header-progress-text">0%</span>
+    </div>
+  </div>
+</header>
+<main class="page">
+
+  <section class="hero">
+    <h1 class="hero-title">Simulasi Jaringan Pertemuan 1</h1>
+    <p class="hero-desc">Tiga misi singkat sebelum praktik di Cisco Packet Tracer. Kerjakan berurutan; skormu terkirim otomatis ke MIKRO-NET setelah semua misi selesai.</p>
+  </section>
+
+  <div class="card-grid">
+    <article class="card" id="card-m1">
+      <span class="misi-no">Misi 1</span>
+      <h2 class="card-title">Kenali IP Address</h2>
+      <p class="card-desc">Lihat bagaimana IP dipecah jadi 4 oktet, berubah jadi biner, dan dibagi menjadi bagian network dan bagian host. Lalu jawab 5 tantangan.</p>
+      <div class="card-status" id="status-m1">Belum dimulai</div>
+      <a class="btn btn-primary" id="btn-m1" href="ip-alamat.html">Mulai</a>
+    </article>
+    <article class="card locked" id="card-m2">
+      <span class="misi-no">Misi 2</span>
+      <h2 class="card-title">Subnet Mask &amp; Subnetting</h2>
+      <p class="card-desc">Geser prefix (/24 sampai /30) dan lihat satu jaringan “dipotong” jadi beberapa subnet. Lalu kuis 5 soal pilihan ganda.</p>
+      <div class="card-status" id="status-m2">Terkunci: selesaikan Misi 1</div>
+      <a class="btn btn-lock" id="btn-m2" href="subnetmask.html" aria-disabled="true">Terkunci</a>
+    </article>
+    <article class="card locked" id="card-m3">
+      <span class="misi-no">Misi 3</span>
+      <h2 class="card-title">Susun Topologi &amp; Uji Ping</h2>
+      <p class="card-desc">Rangkai PC, switch, dan router sesuai standar, atur IP-nya, lalu lihat paket ping berjalan dari PC ke PC.</p>
+      <div class="card-status" id="status-m3">Terkunci: selesaikan Misi 2</div>
+      <a class="btn btn-lock" id="btn-m3" href="topologi.html" aria-disabled="true">Terkunci</a>
+    </article>
+  </div>
+
+  <div class="aksi-bawah">
+    <a class="btn btn-success" id="btn-hasil" href="hasil.html" hidden>Lihat hasil akhir</a>
+    <button class="btn btn-ghost" id="btn-reset-progress" type="button">Ulangi dari awal</button>
+  </div>
+</main>
+<script src="script.js?v=6"></script>
+</body>
+</html>

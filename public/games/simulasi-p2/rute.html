@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misi 3: VLSM &amp; Static Route — Mikronet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body data-halaman="rute">
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="Mikronet — Beranda simulasi">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="4" y="4" width="40" height="40" rx="12" fill="#003B7A"/>
+        <circle cx="24" cy="16" r="7" fill="#009BFF"/>
+        <path d="M24 26 C16 26 10 31 8 42 L40 42 C38 31 32 26 24 26 Z" fill="#0B3B7B"/>
+        <circle cx="24" cy="16" r="2.5" fill="#F7B217"/>
+      </svg>
+      Mikronet
+    </a>
+    <div class="progress-pill" title="Kemajuan simulasi">
+      <div class="progress-track"><div class="progress-fill" id="header-progress-bar"></div></div>
+      <span class="progress-label" id="header-progress-text">0%</span>
+    </div>
+  </div>
+</header>
+<main class="page">
+
+  <div class="hero">
+    <span class="misi-no">Misi 3 dari 3</span>
+    <h1 class="hero-title">VLSM &amp; Static Route</h1>
+    <p class="hero-desc">Bagi alamat sesuai kebutuhan tiap segmen, lalu ajari kedua router jalan menuju jaringan di seberang.</p>
+  </div>
+  <div class="banner-urut" id="banner-urut" hidden></div>
+
+  <!-- ===== Bagian A ===== -->
+  <div class="card">
+    <h2 class="section-title">Bagian A: VLSM</h2>
+    <div class="cerita">
+      <p><b>VLSM</b> = subnet dengan ukuran berbeda sesuai kebutuhan. Rumus host valid: <b class="mono">2<sup>n</sup> − 2</b> (n = jumlah bit host) (dikurangi network address dan broadcast address).</p>
+      <p><b>Trik:</b> hitung <i>kebutuhan + 2</i>, lalu cari ukuran blok terkecil (4, 8, 16, 32, 64, 128, 256) yang muat.</p>
+    </div>
+    <div class="tabel-gulir">
+      <table class="kelas-table contekan">
+        <thead><tr><th>Prefix</th><th>Mask</th><th>Blok</th><th>Host</th></tr></thead>
+        <tbody>
+          <tr><td>/24</td><td class="mono">255.255.255.0</td><td>256</td><td>254</td></tr>
+          <tr><td>/25</td><td class="mono">255.255.255.128</td><td>128</td><td>126</td></tr>
+          <tr><td>/26</td><td class="mono">255.255.255.192</td><td>64</td><td>62</td></tr>
+          <tr><td>/27</td><td class="mono">255.255.255.224</td><td>32</td><td>30</td></tr>
+          <tr><td>/28</td><td class="mono">255.255.255.240</td><td>16</td><td>14</td></tr>
+          <tr><td>/29</td><td class="mono">255.255.255.248</td><td>8</td><td>6</td></tr>
+          <tr><td>/30</td><td class="mono">255.255.255.252</td><td>4</td><td>2</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tugas">
+      <b>Tugas:</b>
+      <ul>
+        <li data-tugas="m3_vlsm1">Latihan 1: hitung subnet link R1–R2 (2 host) dari 192.168.100.0.</li>
+        <li data-tugas="m3_vlsm2">Latihan 2: pilih prefix yang tepat untuk 5 segmen dari 192.168.50.0/24.</li>
+      </ul>
+    </div>
+
+    <p class="langkah-no">Latihan 1 · Link R1–R2 (mulai dari 192.168.100.0)</p>
+    <p class="soal-tetap">Kabel antara R1 dan R2 hanya dipakai <b>2 perangkat</b>: R1 dan R2. Jadi kebutuhan host di soal ini sudah pasti <b>2</b>. Hitung semua kotak di bawah untuk kebutuhan 2 host ini.</p>
+    <div class="vlsm-grid" id="vlsm1">
+      <div class="field"><label class="field-label" for="v-butuh">2 host + 2 = …</label><input class="input mono" id="v-butuh" type="text" inputmode="numeric" autocomplete="off"><span class="field-fb" id="fb-v-butuh"></span></div>
+      <div class="field"><label class="field-label" for="v-blok">Ukuran blok</label><input class="input mono" id="v-blok" type="text" inputmode="numeric" autocomplete="off"><span class="field-fb" id="fb-v-blok"></span></div>
+      <div class="field"><label class="field-label" for="v-prefix">Prefix (angka setelah /)</label><input class="input mono" id="v-prefix" type="text" inputmode="numeric" autocomplete="off" placeholder="mis. 24"><span class="field-fb" id="fb-v-prefix"></span></div>
+      <div class="field"><label class="field-label" for="v-mask">Subnet mask</label><input class="input mono" id="v-mask" type="text" inputmode="decimal" autocomplete="off" placeholder="255.255.255.?"><span class="field-fb" id="fb-v-mask"></span></div>
+      <div class="field"><label class="field-label" for="v-net">Network address</label><input class="input mono" id="v-net" type="text" inputmode="decimal" autocomplete="off" placeholder="192.168.100.?"><span class="field-fb" id="fb-v-net"></span></div>
+      <div class="field"><label class="field-label" for="v-h1">Host pertama (R1)</label><input class="input mono" id="v-h1" type="text" inputmode="decimal" autocomplete="off" placeholder="192.168.100.?"><span class="field-fb" id="fb-v-h1"></span></div>
+      <div class="field"><label class="field-label" for="v-h2">Host terakhir (R2)</label><input class="input mono" id="v-h2" type="text" inputmode="decimal" autocomplete="off" placeholder="192.168.100.?"><span class="field-fb" id="fb-v-h2"></span></div>
+      <div class="field"><label class="field-label" for="v-bc">Broadcast address</label><input class="input mono" id="v-bc" type="text" inputmode="decimal" autocomplete="off" placeholder="192.168.100.?"><span class="field-fb" id="fb-v-bc"></span></div>
+    </div>
+    <div class="toolbar-baris"><button class="btn btn-success" id="btn-cek-vlsm1" type="button">Periksa latihan 1</button></div>
+    <p class="hasil-uji" id="hasil-vlsm1" aria-live="polite"></p>
+    <details class="coba-sendiri">
+      <summary>Coba sendiri dengan jumlah host lain (tidak dinilai)</summary>
+      <div class="coba-isi">
+        <div class="field"><label class="field-label" for="coba-host">Jumlah host yang dibutuhkan</label><input class="input mono" id="coba-host" type="number" min="1" max="254" inputmode="numeric" placeholder="mis. 15"></div>
+        <div class="coba-hasil mono" id="coba-hasil" aria-live="polite">Ketik jumlah host untuk melihat perhitungannya.</div>
+      </div>
+    </details>
+
+    <p class="langkah-no">Latihan 2 · Bagi 192.168.50.0/24 untuk 5 segmen</p>
+    <p class="section-note">Segmen sudah diurutkan dari kebutuhan <b>terbesar</b>. Pilih prefix paling hemat yang masih muat, lalu tekan <b>Hitung alokasi</b>.</p>
+    <div class="vlsm2-list" id="vlsm2-list"></div>
+    <div class="toolbar-baris"><button class="btn btn-success" id="btn-cek-vlsm2" type="button">Hitung alokasi</button></div>
+    <div id="hasil-vlsm2" aria-live="polite"></div>
+  </div>
+
+  <!-- ===== Bagian B ===== -->
+  <div class="card" style="margin-top:20px">
+    <h2 class="section-title">Bagian B: Static route</h2>
+    <div class="cerita">
+      <p>Router hanya otomatis mengenal jaringan yang <b>terhubung langsung</b> (kode C). Untuk jaringan di balik router lain, kita menulis <b>static route</b>. Mirip petugas pos yang diberi tahu: “Surat untuk kota B, titipkan ke kantor pos sebelah.”</p>
+      <p class="mono kecil-mono">ip route &lt;network-tujuan&gt; &lt;subnet-mask&gt; &lt;next-hop&gt;</p>
+    </div>
+
+    <div class="tugas" id="tugas-rute">
+      <b>Tugas (dicentang otomatis):</b>
+      <ul>
+        <li data-cek="r1-30">R1 punya rute ke <b>192.168.30.0/24</b></li>
+        <li data-cek="r1-40">R1 punya rute ke <b>192.168.40.0/24</b></li>
+        <li data-cek="r2-def">R2 punya rute kembali ke <b>VLAN 10 dan 20</b> (paling praktis: <b>default route</b> 0.0.0.0/0 ke R1)</li>
+        <li data-cek="ping-13">Ping <b>PC1 → PC3</b> berhasil</li>
+        <li data-cek="ping-31">Ping <b>PC3 → PC1</b> berhasil</li>
+      </ul>
+    </div>
+
+    <div class="panggung panggung-rute" id="pg-rute" aria-hidden="true"></div>
+
+    <div class="dua-kolom">
+      <div class="rute-kartu" id="kartu-R1"></div>
+      <div class="rute-kartu" id="kartu-R2"></div>
+    </div>
+
+    <div class="ping-panel">
+      <div class="ping-pilih">
+        <label class="field-label" for="ping-dari">Ping dari</label>
+        <select class="input" id="ping-dari"><option value="PC1">PC1 (192.168.10.2)</option><option value="PC2">PC2 (192.168.20.6)</option><option value="PC3">PC3 (192.168.30.2)</option><option value="PC4">PC4 (192.168.40.6)</option></select>
+        <label class="field-label" for="ping-ke">ke</label>
+        <select class="input" id="ping-ke"><option value="PC1">PC1 (192.168.10.2)</option><option value="PC2">PC2 (192.168.20.6)</option><option value="PC3" selected>PC3 (192.168.30.2)</option><option value="PC4">PC4 (192.168.40.6)</option></select>
+      </div>
+      <div class="chip-baris">
+        <button type="button" class="chip" data-ping="PC1,PC3">PC1 → PC3</button>
+        <button type="button" class="chip" data-ping="PC3,PC1">PC3 → PC1</button>
+      </div>
+      <button class="btn btn-amber" id="btn-ping" type="button">Kirim ping</button>
+      <pre class="terminal" id="terminal" aria-live="polite">C:\&gt; (pilih PC lalu tekan Kirim ping)</pre>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <div class="judul-baris"><h2 class="section-title">Bagian C: Kuis 5 soal</h2><span class="score-pill" id="m3-skor">0/5</span></div>
+    <p class="section-note">Klik pilihanmu, lalu tekan <b>Kunci jawaban</b>. Setelah dikunci tidak bisa diganti.</p>
+    <div id="m3-soal"></div>
+  </div>
+
+  <div class="aksi-bawah">
+    <a class="btn btn-ghost" href="index.html">Kembali</a>
+    <button class="btn btn-primary" id="btn-m3-selesai" type="button" disabled>Selesai &amp; lihat hasil</button>
+  </div>
+  <p class="syarat" id="syarat-m3" aria-live="polite"></p>
+</main>
+<script src="script.js?v=3"></script>
+</body>
+</html>

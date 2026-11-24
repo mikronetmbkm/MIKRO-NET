@@ -1,0 +1,390 @@
+{
+ "judul": "Praktikum Pertemuan 4 · Merakit Wajanbolic dan Uji Link Point-to-Point",
+ "sub": "Rakit antena wajanbolic, lalu bangun link nirkabel antara dua laptop sampai laptop penerima tersambung ke hotspot kelompok dan mendapat internet. Kerjakan dalam sub-kelompok pemancar dan penerima dengan peran bergilir.",
+ "durasi": "± 150 menit",
+ "tanpa_gambar": "Kerjakan langsung pada wajan dan laptop.",
+ "tujuan": [
+  "Mengukur diameter (D) dan kedalaman (d) wajan, lalu menghitung panjang feeder F = D² / (16 × d).",
+  "Merakit antena wajanbolic sesuai perhitungan dan prosedur keselamatan kerja.",
+  "Mengonfigurasi laptop pemancar sebagai Mobile hotspot dan laptop penerima sebagai klien dengan USB WiFi adapter.",
+  "Membuktikan link berhasil: penerima tersambung ke SSID kelompok dan mendapat internet.",
+  "Menganalisis penyebab link yang gagal atau lemah dan memperbaikinya."
+ ],
+ "alat": [
+  "Per sisi: wajan logam (± 36–45 cm), USB WiFi adapter yang mendukung hotspot, pipa paralon dan doff, aluminium foil, mur, baut, bracket, kabel USB extension ≤ 5 m, laptop.",
+  "Per kelompok: meteran, penggaris lurus, gunting, cutter, gergaji pipa, obeng, kunci pas, kabel ties, spidol, lakban.",
+  "Penopang wajan (meja, bangku, atau dudukan).",
+  "Sumber internet untuk laptop pemancar: kabel LAN atau HP untuk USB tethering.",
+  "Area terbuka dengan pandangan bebas sekitar 10–30 m."
+ ],
+ "teori": [
+  {
+   "istilah": "Point-to-Point (P2P)",
+   "arti": "link nirkabel yang menghubungkan dua titik secara langsung dengan antena yang saling diarahkan."
+  },
+  {
+   "istilah": "Wajanbolic",
+   "arti": "antena sederhana yang memakai wajan logam sebagai reflektor untuk memfokuskan sinyal USB WiFi adapter."
+  },
+  {
+   "istilah": "Titik fokus dan feeder (F)",
+   "arti": "titik tempat semua pantulan wajan bertemu; jaraknya dari dasar wajan dihitung dengan F = D² / (16 × d)."
+  },
+  {
+   "istilah": "Hotspot dan station",
+   "arti": "laptop pemancar menjadi access point (hotspot); laptop penerima menyambung sebagai station/klien dan mendapat IP lewat DHCP."
+  },
+  {
+   "istilah": "SSID",
+   "arti": "nama jaringan WiFi yang muncul di daftar WiFi. Pakai nama kelompok supaya mudah dikenali."
+  },
+  {
+   "istilah": "Line of sight",
+   "arti": "garis pandang bebas hambatan antara dua antena."
+  },
+  {
+   "istilah": "Polarisasi",
+   "arti": "orientasi gelombang (vertikal atau horizontal). Arah adapter di kedua sisi harus sama."
+  }
+ ],
+ "topologi": {
+  "gambar": "p4-01.png",
+  "alt": "Dua wajanbolic saling berhadapan; laptop pemancar dengan hotspot dan laptop penerima",
+  "kolom": [
+   "Sisi",
+   "Peran laptop",
+   "IP address",
+   "Keterangan"
+  ],
+  "baris": [
+   [
+    "Pemancar",
+    "Mobile hotspot (access point)",
+    "192.168.137.1",
+    "membagikan IP (DHCP) dan internet dari kabel LAN"
+   ],
+   [
+    "Penerima",
+    "Station/klien",
+    "192.168.137.x (otomatis)",
+    "gateway = 192.168.137.1"
+   ]
+  ],
+  "catatan": "Praktik ini berdiri sendiri: tidak memakai router MikroTik dan tidak disambungkan ke jaringan Pertemuan 3."
+ },
+ "tahap": [
+  {
+   "judul": "Tahap A · Persiapan dan keselamatan kerja",
+   "langkah": [
+    {
+     "judul": "Baca aturan keselamatan kerja (K3)",
+     "isi": "Sebelum memegang alat, baca dan pahami aturan berikut bersama kelompok. Petugas K3 bertugas mengingatkan anggota selama praktik.",
+     "gambar": [],
+     "cek": [
+      "Cutter dan gergaji dipakai menjauhi tubuh dan disimpan setelah dipakai.",
+      "Tepi aluminium foil dan wajan dapat melukai; ujung foil dilipat rapi.",
+      "Praktik luar ruangan dihentikan bila hujan atau terdengar petir.",
+      "Wajan dan pipa tidak diarahkan ke kabel listrik di atas kepala.",
+      "Kabel USB extension dirapikan agar tidak tersandung; laptop di permukaan stabil."
+     ]
+    },
+    {
+     "judul": "Bagi peran dalam sub-kelompok",
+     "isi": "Setiap kelompok besar dibagi menjadi sub-kelompok pemancar dan penerima. Bagikan peran berikut dan gantilah peran di setiap tahap.",
+     "gambar": [],
+     "tabel": {
+      "kolom": [
+       "Peran",
+       "Tugas"
+      ],
+      "baris": [
+       [
+        "Perakit",
+        "memasang pipa, doff, dan adapter pada wajan"
+       ],
+       [
+        "Pelapis foil",
+        "melapisi pipa dengan aluminium foil"
+       ],
+       [
+        "Pengukur",
+        "mengukur D, d, dan menghitung F"
+       ],
+       [
+        "Operator laptop",
+        "mengatur hotspot dan menyambungkan laptop penerima"
+       ],
+       [
+        "Pencatat",
+        "mengambil foto bukti dan mengisi Pengumpulan"
+       ],
+       [
+        "Petugas K3",
+        "memastikan alat dipakai dengan aman"
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "judul": "Tahap B · Mengukur wajan dan menghitung feeder",
+   "langkah": [
+    {
+     "judul": "Periksa wajan",
+     "isi": "Pastikan wajan berbahan logam (aluminium atau baja), bersih, kering, tidak penyok parah, dan sisi cekung bagian dalamnya halus. Wajan berfungsi sebagai reflektor, jadi permukaannya harus baik.",
+     "gambar": []
+    },
+    {
+     "judul": "Ukur diameter (D)",
+     "isi": "Ukur lebar bibir wajan melalui titik tengah. Lakukan dua kali pada arah yang saling tegak lurus, lalu ambil rata-ratanya. Catat dalam sentimeter.",
+     "gambar": [
+      "p4-02.png"
+     ]
+    },
+    {
+     "judul": "Ukur kedalaman (d)",
+     "isi": "Letakkan penggaris atau papan lurus melintang di atas bibir wajan. Ukur jarak tegak dari sisi bawah penggaris ke titik terdalam di tengah dasar wajan. Ulangi dua kali dan ambil rata-ratanya.",
+     "gambar": [
+      "p4-02.png"
+     ]
+    },
+    {
+     "judul": "Hitung panjang feeder (F)",
+     "isi": "Hitung F dengan rumus F = D² / (16 × d). F adalah jarak titik fokus dari dasar wajan. Minta guru memeriksa hasil hitungan sebelum memotong pipa.",
+     "gambar": [],
+     "tabel": {
+      "kolom": [
+       "D (cm)",
+       "d (cm)",
+       "D²",
+       "16 × d",
+       "F (cm)"
+      ],
+      "baris": [
+       [
+        "40",
+        "10",
+        "1600",
+        "160",
+        "10,00"
+       ],
+       [
+        "36",
+        "12",
+        "1296",
+        "192",
+        "6,75"
+       ],
+       [
+        "45",
+        "14",
+        "2025",
+        "224",
+        "9,04"
+       ]
+      ]
+     },
+     "cek": [
+      "D dan d sudah diukur dua kali dan dirata-ratakan.",
+      "F sudah dihitung dan diperiksa guru."
+     ]
+    }
+   ]
+  },
+  {
+   "judul": "Tahap C · Merakit wajanbolic",
+   "langkah": [
+    {
+     "judul": "Tentukan sumbu wajan",
+     "isi": "Sumbu wajan adalah garis lurus yang tegak dari titik tengah dasar wajan ke tengah bukaan wajan. Pipa nantinya harus sejajar dengan sumbu ini.",
+     "gambar": [
+      "p4-03.png"
+     ]
+    },
+    {
+     "judul": "Potong pipa dan tandai F",
+     "isi": "Potong pipa paralon sedikit lebih panjang dari F (tambah ±5 cm) agar posisi adapter masih dapat disetel. Tandai posisi F dengan spidol, diukur dari titik terdalam dasar wajan.",
+     "gambar": [
+      "p4-04.png"
+     ]
+    },
+    {
+     "judul": "Lapisi pipa dengan aluminium foil",
+     "isi": "Tempelkan foil rapat dan halus tanpa gelembung atau robekan, tutup sambungan dengan lakban aluminium foil, lalu lipat ujungnya agar tidak melukai. Setelah itu tandai ulang posisi F pada permukaan foil.",
+     "gambar": [
+      "p4-04.png"
+     ],
+     "catatan": "Foil memantulkan gelombang WiFi sehingga sinyal tidak menyebar ke samping. Foil yang robek atau bergelombang membuat sinyal bocor."
+    },
+    {
+     "judul": "Pasang pipa pada wajan",
+     "isi": "Pasang pipa pada dasar wajan menggunakan bracket, mur, baut, dan ring. Kencangkan, lalu periksa pipa tegak lurus dengan mengukur jarak pipa ke bibir wajan di beberapa sisi; jaraknya harus sama.",
+     "gambar": [
+      "p4-03.png"
+     ]
+    },
+    {
+     "judul": "Pasang adapter di titik fokus",
+     "isi": "Pasang doff/tutup di ujung pipa, lalu pasang USB WiFi adapter sehingga bagian antena di dalam adapter tepat pada tanda F. Ikat dengan kabel ties atau lakban. Beri tanda arah adapter dengan spidol dan samakan arahnya di sisi pemancar dan penerima.",
+     "gambar": [
+      "p4-05.png"
+     ],
+     "catatan": "Ukur F ke bagian tengah adapter (tempat antena di dalamnya), bukan ke ujung konektornya."
+    },
+    {
+     "judul": "Sambungkan kabel dan periksa rakitan",
+     "isi": "Sambungkan kabel USB extension (maksimal 5 m) dari adapter ke laptop, ikat kabel pada pipa tanpa membuatnya tegang, lalu periksa rakitan dengan ceklis berikut. Foto rakitan sebagai dokumentasi.",
+     "gambar": [],
+     "cek": [
+      "Foil pada pipa rapi, rapat, tidak robek, dan ujungnya terlipat aman.",
+      "Pipa tegak lurus sumbu wajan dan terkunci kuat.",
+      "Adapter tepat pada tanda F dan terikat.",
+      "Arah adapter diberi tanda dan sama di kedua sisi.",
+      "Laptop mengenali adapter (muncul adapter WiFi kedua)."
+     ]
+    }
+   ]
+  },
+  {
+   "judul": "Tahap D · Menyiapkan kedua laptop",
+   "langkah": [
+    {
+     "judul": "Nonaktifkan WiFi bawaan laptop",
+     "isi": "Tekan Win + R, ketik devmgmt.msc, buka Network adapters, klik kanan WiFi bawaan laptop (misalnya Intel atau Realtek), lalu pilih Disable device. Lakukan di laptop pemancar dan penerima. Yang aktif hanya adapter USB di wajan.",
+     "gambar": [],
+     "kode_label": "Jendela Run (Win + R)",
+     "kode": "devmgmt.msc",
+     "catatan": "Jika WiFi bawaan masih aktif, laptop dapat tersambung lewat WiFi bawaan sehingga wajan tidak benar-benar dipakai."
+    },
+    {
+     "judul": "Sambungkan laptop pemancar ke internet",
+     "isi": "Sambungkan laptop pemancar ke internet memakai kabel LAN, atau USB tethering dari HP bila tidak ada kabel LAN. Internet inilah yang nanti dibagikan ke laptop penerima lewat hotspot.",
+     "gambar": []
+    },
+    {
+     "judul": "Atur daya laptop",
+     "isi": "Atur mode daya kedua laptop ke performa tinggi dan pastikan baterai terisi, supaya adapter USB tidak kekurangan daya.",
+     "gambar": []
+    }
+   ]
+  },
+  {
+   "judul": "Tahap E · Hotspot (pemancar) dan koneksi (penerima)",
+   "langkah": [
+    {
+     "judul": "Pemancar: aktifkan Mobile hotspot",
+     "isi": "Buka Settings → Network & Internet → Mobile hotspot. Pada Share my internet connection from pilih Ethernet (atau koneksi tethering HP). Klik Edit, isi Network name dengan nama kelompok (misalnya KEL1-TKJ), password minimal 8 karakter, dan Network band 2.4 GHz. Lalu aktifkan Mobile hotspot.",
+     "gambar": [],
+     "catatan": "Pilih 2.4 GHz, jangan Any available atau 5 GHz. Sebagian besar USB WiFi adapter murah hanya mendukung 2,4 GHz sehingga SSID 5 GHz tidak akan terlihat."
+    },
+    {
+     "judul": "Tempatkan kedua wajan",
+     "isi": "Pasang wajan pada penopang setinggi sekitar 1,2–1,5 m, bibir wajan saling berhadapan, dan jalur di antara keduanya bebas halangan. Mulai dari jarak sekitar 10 m.",
+     "gambar": [
+      "p4-06.png"
+     ]
+    },
+    {
+     "judul": "Penerima: sambungkan ke SSID kelompok",
+     "isi": "Di laptop penerima, buka daftar WiFi, pilih SSID kelompokmu, klik Connect, lalu masukkan password hotspot. Bila SSID belum muncul, setel arah wajan perlahan sampai muncul.",
+     "gambar": [
+      "p4-10.png"
+     ],
+     "cek": [
+      "SSID kelompok muncul di daftar WiFi penerima.",
+      "Status penerima Connected, bukan No internet."
+     ]
+    },
+    {
+     "judul": "Penerima: buktikan dapat internet",
+     "isi": "Buka browser di laptop penerima dan buka satu situs web. Jika situs terbuka, link berhasil: data dari penerima lewat wajan ke pemancar, lalu diteruskan ke internet.",
+     "gambar": [],
+     "catatan": "Jika statusnya Connected, no internet, lihat tabel Masalah yang sering muncul di bawah."
+    },
+    {
+     "judul": "Pemancar: foto layar Mobile hotspot",
+     "isi": "Di laptop pemancar, buka lagi halaman Mobile hotspot. Pada bagian Devices connected akan muncul laptop penerima beserta IP address-nya. Foto layar ini sebagai bukti untuk langkah Pengumpulan.",
+     "gambar": [
+      "p4-09.png"
+     ],
+     "cek": [
+      "Foto memperlihatkan hotspot On dan SSID kelompok.",
+      "Foto memperlihatkan minimal 1 perangkat di Devices connected.",
+      "Foto wajanbolic yang sudah dirakit tersimpan."
+     ]
+    }
+   ]
+  },
+  {
+   "judul": "Tahap F · Coba jarak lebih jauh (bila waktu cukup)",
+   "langkah": [
+    {
+     "judul": "Mundurkan penerima dan setel arah",
+     "isi": "Mundurkan wajan penerima ke 20–30 m. Setel arah kedua wajan perlahan sampai penerima tetap tersambung dan situs web masih bisa dibuka. Langkah ini tidak perlu dicatat.",
+     "gambar": [
+      "p4-03.png"
+     ],
+     "catatan": "Bila koneksi melemah, geser adapter ±1–2 cm dari tanda F dan pastikan arah adapter di kedua sisi sama (tidak diputar 90°)."
+    }
+   ]
+  },
+  {
+   "judul": "Penutup",
+   "langkah": [
+    {
+     "judul": "Rapikan perangkat dan area",
+     "isi": "Matikan Mobile hotspot, aktifkan kembali WiFi bawaan di Device Manager pada kedua laptop, kumpulkan sisa potongan pipa dan foil, lalu kembalikan alat.",
+     "gambar": []
+    }
+   ]
+  }
+ ],
+ "tantangan": [
+  "Hitung F untuk tiga wajan: (a) D = 50, d = 15; (b) D = 36, d = 9; (c) D = 44, d = 12 (cm). Wajan mana yang titik fokusnya paling jauh dari dasar?",
+  "Dengan link yang sudah tersambung, putar adapter di salah satu sisi sebesar 90°. Amati apakah koneksi melemah atau putus, lalu jelaskan penyebabnya.",
+  "Mundurkan penerima sampai koneksi mulai putus. Berapa kira-kira jarak terjauh yang masih tersambung dengan wajan? Bandingkan bila wajan dilepas."
+ ],
+ "masalah": [
+  [
+   "Mobile hotspot tidak mau aktif",
+   "Laptop pemancar belum mendapat internet; adapter tidak mendukung hotspot; driver belum terpasang",
+   "Periksa kabel LAN atau tethering; coba adapter lain; instal ulang driver"
+  ],
+  [
+   "SSID tidak muncul di laptop penerima",
+   "Hotspot belum aktif; band diatur 5 GHz atau Any available; wajan tidak berhadapan; terlalu jauh",
+   "Periksa status hotspot; atur band 2.4 GHz; dekatkan jarak lalu naikkan perlahan; arahkan wajan"
+  ],
+  [
+   "The network security key isn't correct",
+   "Password salah ketik",
+   "Ketik ulang password; perhatikan huruf besar dan kecil"
+  ],
+  [
+   "Tersambung, tetapi IP 169.254.x.x",
+   "Penerima tidak mendapat IP dari DHCP hotspot",
+   "Matikan lalu hidupkan hotspot; sambungkan ulang SSID"
+  ],
+  [
+   "Connected, no internet (IP 192.168.137.x)",
+   "Koneksi WiFi berhasil, tetapi laptop pemancar tidak punya internet atau Share from salah",
+   "Periksa kabel LAN atau tethering di pemancar; pilih sumber internet yang benar di Share my internet connection from"
+  ],
+  [
+   "Penerima tersambung, tetapi Devices connected di pemancar tetap 0",
+   "Penerima tersambung ke WiFi lain lewat WiFi bawaan",
+   "Nonaktifkan WiFi bawaan; sambungkan ke SSID kelompok"
+  ],
+  [
+   "Koneksi lemah atau putus walau memakai wajan",
+   "Wajan tidak berhadapan; adapter tidak di titik fokus; arah adapter beda; foil robek; ada halangan",
+   "Setel arah; geser adapter ±1–2 cm; samakan arah adapter; rapikan foil; pindah ke area lapang"
+  ],
+  [
+   "Link putus-putus",
+   "Kabel USB terlalu panjang/longgar; adapter kekurangan daya; interferensi",
+   "Pakai kabel ≤ 5 m; kencangkan konektor; daya performa tinggi; beri jarak dengan kelompok lain"
+  ]
+ ]
+}

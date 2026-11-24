@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misi 2: Subnet Mask — Mikronet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=6">
+</head>
+<body data-halaman="subnet">
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="Mikronet — Beranda simulasi">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="4" y="4" width="40" height="40" rx="12" fill="#003B7A"/>
+        <circle cx="24" cy="16" r="7" fill="#009BFF"/>
+        <path d="M24 26 C16 26 10 31 8 42 L40 42 C38 31 32 26 24 26 Z" fill="#0B3B7B"/>
+        <circle cx="24" cy="16" r="2.5" fill="#F7B217"/>
+      </svg>
+      Mikronet
+    </a>
+    <div class="progress-pill" title="Kemajuan simulasi">
+      <div class="progress-track"><div class="progress-fill" id="header-progress-bar"></div></div>
+      <span class="progress-label" id="header-progress-text">0%</span>
+    </div>
+  </div>
+</header>
+<main class="page">
+
+  <div class="hero">
+    <span class="misi-no">Misi 2 dari 3</span>
+    <h1 class="hero-title">Subnet Mask &amp; Subnetting</h1>
+    <p class="hero-desc">Belajar membagi satu jaringan menjadi beberapa jaringan kecil, yang disebut <b>subnet</b>.</p>
+  </div>
+
+  <div class="card">
+    <h2 class="section-title">Bagian A: Bagi jaringan jadi beberapa subnet</h2>
+    <div class="cerita">
+      <p><b>Bayangkan</b> satu gang yang dibagi jadi beberapa RT. Jaringan <span class="mono">192.168.10.x</span> punya 256 alamat (<span class="mono">.0</span> sampai <span class="mono">.255</span>) dan bisa dibagi dengan cara yang sama. Batang kuning-biru di bawah adalah jaringan itu, dari alamat .0 di kiri sampai .255 di kanan.</p>
+      <p><b>Prefix</b> (/24, /25, /26, …) menentukan jaringan itu <b>dibagi jadi berapa subnet</b>. Alamat pertama tiap subnet jadi <b class="w-papan">network address</b>, alamat terakhir jadi <b class="w-toa">broadcast address</b>, sisanya untuk <b class="w-pc">PC (host)</b>.</p>
+    </div>
+
+    <p class="langkah-no">1. Pilih mau dibagi jadi berapa subnet</p>
+    <div class="pilih-prefix" id="pilih-prefix" role="radiogroup" aria-label="Pilih prefix">
+      <button type="button" data-p="24" role="radio"><b>/24</b><span>1 subnet</span></button>
+      <button type="button" data-p="25" role="radio"><b>/25</b><span>2 subnet</span></button>
+      <button type="button" data-p="26" role="radio"><b>/26</b><span>4 subnet</span></button>
+      <button type="button" data-p="27" role="radio"><b>/27</b><span>8 subnet</span></button>
+      <button type="button" data-p="28" role="radio"><b>/28</b><span>16 subnet</span></button>
+    </div>
+
+    <p class="langkah-no">2. Lihat jaringannya terbagi</p>
+    <div class="pita" id="pita" aria-hidden="true"></div>
+    <div class="pita-skala mono"><span>.0</span><span>.128</span><span>.255</span></div>
+    <p class="pita-ket" id="pita-ket"></p>
+
+    <p class="langkah-no">3. Cari alamat sebuah PC: ada di subnet mana?</p>
+    <div class="field">
+      <label class="field-label" for="subnet-input">Alamat PC (coba ganti angka terakhirnya)</label>
+      <div class="input-row"><input class="input mono" id="subnet-input" type="text" inputmode="decimal" value="192.168.10.70" autocomplete="off">
+        <button type="button" class="chip" data-ip="192.168.10.5">.5</button><button type="button" class="chip" data-ip="192.168.10.70">.70</button><button type="button" class="chip" data-ip="192.168.10.200">.200</button></div>
+      <span class="error-text" id="subnet-error" role="alert"></span>
+    </div>
+    <div id="rt-kartu"></div>
+
+    <div class="tugas" id="tugas">
+      <b>Coba 3 hal ini (otomatis dicentang):</b>
+      <ul>
+        <li data-tugas="a">Pilih <b>/25</b>: jaringan terbagi jadi 2 subnet.</li>
+        <li data-tugas="b">Pilih <b>/26</b> dengan alamat <b>.70</b>: perhatikan .70 ada di subnet ke-2 (mulai .64).</li>
+        <li data-tugas="c">Ketik alamat berakhiran <b>.200</b> dengan /26: ia ada di subnet ke-4.</li>
+      </ul>
+    </div>
+
+    <details class="detail-mask"><summary>Subnet mask untuk prefix ini (lihat versi biner)</summary>
+      <div class="mask-biner mono" id="mask-biner"></div>
+      <p class="section-note">Angka 1 = bagian network, angka 0 = bagian host. /26 artinya ada 26 angka 1.</p>
+    </details>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <div class="judul-baris"><h2 class="section-title">Bagian B: Kuis 5 soal</h2><span class="score-pill" id="m2-skor">0/5</span></div>
+    <p class="section-note">Pakai batang dan kartu subnet di atas untuk membantu menjawab. Klik pilihanmu, lalu tekan <b>Kunci jawaban</b>. Setelah dikunci tidak bisa diganti.</p>
+    <div id="m2-soal"></div>
+  </div>
+
+  <div class="aksi-bawah">
+    <a class="btn btn-ghost" href="index.html">Kembali</a>
+    <button class="btn btn-primary" id="btn-m2-selesai" type="button" disabled>Selesai, lanjut ke Misi 3</button>
+  </div>
+</main>
+<script src="script.js?v=6"></script>
+</body>
+</html>

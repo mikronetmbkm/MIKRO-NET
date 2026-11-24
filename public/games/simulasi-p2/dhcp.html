@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misi 2: Router-on-a-Stick &amp; DHCP — Mikronet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body data-halaman="dhcp">
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="Mikronet — Beranda simulasi">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="4" y="4" width="40" height="40" rx="12" fill="#003B7A"/>
+        <circle cx="24" cy="16" r="7" fill="#009BFF"/>
+        <path d="M24 26 C16 26 10 31 8 42 L40 42 C38 31 32 26 24 26 Z" fill="#0B3B7B"/>
+        <circle cx="24" cy="16" r="2.5" fill="#F7B217"/>
+      </svg>
+      Mikronet
+    </a>
+    <div class="progress-pill" title="Kemajuan simulasi">
+      <div class="progress-track"><div class="progress-fill" id="header-progress-bar"></div></div>
+      <span class="progress-label" id="header-progress-text">0%</span>
+    </div>
+  </div>
+</header>
+<main class="page">
+
+  <div class="hero">
+    <span class="misi-no">Misi 2 dari 3</span>
+    <h1 class="hero-title">Router-on-a-Stick &amp; DHCP</h1>
+    <p class="hero-desc">Switch tidak bisa menyeberangkan data antar-VLAN. Router yang melakukannya, cukup lewat <b>satu kabel trunk</b>.</p>
+  </div>
+  <div class="banner-urut" id="banner-urut" hidden></div>
+
+  <!-- ===== Bagian A ===== -->
+  <div class="card">
+    <h2 class="section-title">Bagian A: Subinterface R1</h2>
+    <p class="section-note">Port fisik Gi0/0 dibagi menjadi <b>subinterface</b>: Gi0/0.10 untuk VLAN 10 dan Gi0/0.20 untuk VLAN 20. IP subinterface menjadi <b>default gateway</b> PC di VLAN itu.</p>
+
+    <div class="tugas">
+      <b>Tugas:</b>
+      <ul><li data-tugas="m2_sub">Lengkapi konfigurasi R1 sampai semua subinterface <b>up</b>, lalu tekan <b>Periksa R1</b>.</li></ul>
+    </div>
+
+    <div class="cfg-blok">
+      <div class="cfg-judul mono">R1(config)# interface g0/0</div>
+      <div class="cfg-isi">
+        <span class="mono redup-teks">no ip address</span>
+        <button type="button" class="toggle-btn" id="r1-noshut" aria-pressed="false"><span class="toggle-knop" aria-hidden="true"></span><span class="mono">no shutdown</span></button>
+        <span class="lampu" id="lampu-g00">Gi0/0: mati</span>
+      </div>
+    </div>
+    <div class="dua-kolom">
+      <fieldset class="cfg-blok subif">
+        <legend class="cfg-judul mono">interface g0/0.10 <small>(VLAN 10)</small></legend>
+        <div class="field"><label class="field-label" for="enc10">encapsulation dot1Q …</label>
+          <select class="input mono" id="enc10"><option value="">— pilih —</option><option>1</option><option>10</option><option>20</option><option>100</option></select></div>
+        <div class="field"><label class="field-label" for="ip10">ip address … 255.255.255.0</label>
+          <select class="input mono" id="ip10"><option value="">— pilih —</option><option>192.168.10.0</option><option>192.168.10.1</option><option>192.168.10.255</option><option>192.168.20.1</option></select></div>
+        <span class="lampu" id="lampu-10">Gi0/0.10: mati</span>
+      </fieldset>
+      <fieldset class="cfg-blok subif">
+        <legend class="cfg-judul mono">interface g0/0.20 <small>(VLAN 20)</small></legend>
+        <div class="field"><label class="field-label" for="enc20">encapsulation dot1Q …</label>
+          <select class="input mono" id="enc20"><option value="">— pilih —</option><option>1</option><option>10</option><option>20</option><option>100</option></select></div>
+        <div class="field"><label class="field-label" for="ip20">ip address … 255.255.255.0</label>
+          <select class="input mono" id="ip20"><option value="">— pilih —</option><option>192.168.10.1</option><option>192.168.20.0</option><option>192.168.20.1</option><option>192.168.20.255</option></select></div>
+        <span class="lampu" id="lampu-20">Gi0/0.20: mati</span>
+      </fieldset>
+    </div>
+
+    <div class="dua-kolom kolom-cli">
+      <div>
+        <p class="langkah-no">Konfigurasi R1</p>
+        <pre class="terminal" id="cli-r1"></pre>
+      </div>
+      <div>
+        <p class="langkah-no">R1# show ip interface brief</p>
+        <div class="tabel-gulir"><table class="tabel-cli" id="ip-brief"></table></div>
+      </div>
+    </div>
+
+    <div class="toolbar-baris">
+      <button class="btn btn-success" id="btn-periksa-r1" type="button">Periksa R1</button>
+    </div>
+    <ul class="cek-list" id="cek-r1" aria-live="polite"><li class="info">Pilih nilai untuk tiap subinterface, nyalakan <b>no shutdown</b>, lalu tekan <b>Periksa R1</b>.</li></ul>
+
+    <p class="langkah-no">Perjalanan ping PC1 (VLAN 10) → PC2 (VLAN 20)</p>
+    <div class="panggung" id="pg-ros" aria-hidden="true"></div>
+    <ol class="langkah-list" id="langkah-ros">
+      <li>PC1 melihat tujuan 192.168.20.6 ada di subnet lain, jadi paket dikirim ke gateway 192.168.10.1.</li>
+      <li>SW1 menerima di port access VLAN 10, menambah <b>tag 10</b>, lalu mengirim lewat trunk Fa0/1.</li>
+      <li>R1 menerima di Gi0/0.10, cek tabel routing: 192.168.20.0 ada di Gi0/0.20.</li>
+      <li>R1 mengirim keluar Gi0/0.20 dengan <b>tag 20</b>, lewat kabel trunk yang sama.</li>
+      <li>SW1 <b>melepas tag</b> dan meneruskan ke Fa0/3 (VLAN 20). PC2 menerima.</li>
+    </ol>
+    <div class="toolbar-baris">
+      <button class="btn btn-amber" id="btn-ping-ros" type="button">Jalankan ping PC1 → PC2</button>
+    </div>
+    <p class="hasil-uji" id="hasil-ros" aria-live="polite"></p>
+  </div>
+
+  <!-- ===== Bagian B ===== -->
+  <div class="card" style="margin-top:20px">
+    <h2 class="section-title">Bagian B: DHCP di R1 untuk VLAN 20</h2>
+    <div class="cerita">
+      <p><b>DHCP</b> membagikan IP, subnet mask, gateway, dan DNS secara otomatis. Mirip petugas pendaftaran yang membagikan nomor antrean: tidak ada dua tamu yang memegang nomor sama.</p>
+    </div>
+    <div class="tugas">
+      <b>Tugas:</b>
+      <ul>
+        <li data-tugas="m2_dora">Susun 4 pesan DHCP (DORA) dengan urutan yang benar.</li>
+        <li data-tugas="m2_dhcp">Isi pool DHCP sampai PC2 mendapat <b>192.168.20.6</b> dengan gateway dan DNS yang benar.</li>
+      </ul>
+    </div>
+
+    <p class="langkah-no">1. Susun urutan DORA</p>
+    <p class="section-note">Ketuk kartu di bawah sesuai urutan kejadian. Ketuk kotak yang sudah terisi untuk mengembalikannya.</p>
+    <ol class="dora-slot" id="dora-slot"></ol>
+    <div class="dora-pilih" id="dora-pilih"></div>
+    <div class="toolbar-baris">
+      <button class="btn btn-success" id="btn-cek-dora" type="button" disabled>Periksa urutan</button>
+      <button class="btn btn-ghost" id="btn-ulang-dora" type="button">Kosongkan</button>
+    </div>
+    <p class="hasil-uji" id="hasil-dora" aria-live="polite"></p>
+
+    <p class="langkah-no">2. Isi pool DHCP</p>
+    <div class="pool-form">
+      <div class="pool-baris">
+        <span class="pool-cmd mono">ip dhcp excluded-address</span>
+        <div class="field"><label class="field-label" for="ex-awal">Alamat awal</label><input class="input mono" id="ex-awal" type="text" inputmode="decimal" autocomplete="off" placeholder="192.168.20.?"><span class="field-fb" id="fb-ex-awal"></span></div>
+        <div class="field"><label class="field-label" for="ex-akhir">Alamat akhir</label><input class="input mono" id="ex-akhir" type="text" inputmode="decimal" autocomplete="off" placeholder="192.168.20.?"><span class="field-fb" id="fb-ex-akhir"></span></div>
+      </div>
+      <div class="pool-baris"><span class="pool-cmd mono">ip dhcp pool VLAN20</span></div>
+      <div class="pool-baris">
+        <span class="pool-cmd mono">&nbsp;network</span>
+        <div class="field"><label class="field-label" for="pool-net">Network address</label><input class="input mono" id="pool-net" type="text" inputmode="decimal" autocomplete="off" placeholder="192.168.20.?"><span class="field-fb" id="fb-pool-net"></span></div>
+        <div class="field"><label class="field-label" for="pool-mask">Subnet mask</label><input class="input mono" id="pool-mask" type="text" inputmode="decimal" autocomplete="off" placeholder="255.255.255.?"><span class="field-fb" id="fb-pool-mask"></span></div>
+      </div>
+      <div class="pool-baris">
+        <span class="pool-cmd mono">&nbsp;default-router</span>
+        <div class="field"><label class="field-label" for="pool-gw">Gateway untuk PC</label><input class="input mono" id="pool-gw" type="text" inputmode="decimal" autocomplete="off" placeholder="192.168.20.?"><span class="field-fb" id="fb-pool-gw"></span></div>
+      </div>
+      <div class="pool-baris">
+        <span class="pool-cmd mono">&nbsp;dns-server</span>
+        <div class="field"><label class="field-label" for="pool-dns">Alamat DNS</label><input class="input mono" id="pool-dns" type="text" inputmode="decimal" autocomplete="off" placeholder="8.8.8.8"><span class="field-fb" id="fb-pool-dns"></span></div>
+      </div>
+    </div>
+    <div class="toolbar-baris">
+      <button class="btn btn-success" id="btn-cek-pool" type="button">Periksa pool</button>
+      <button class="btn btn-amber" id="btn-minta-ip" type="button">PC2 minta IP (DHCP)</button>
+    </div>
+    <p class="hasil-uji" id="hasil-pool" aria-live="polite"></p>
+
+    <div class="panggung panggung-dora" id="pg-dora" aria-hidden="true"></div>
+    <div id="hasil-dhcp" aria-live="polite"></div>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <div class="judul-baris"><h2 class="section-title">Bagian C: Kuis 5 soal</h2><span class="score-pill" id="m2-skor">0/5</span></div>
+    <p class="section-note">Klik pilihanmu, lalu tekan <b>Kunci jawaban</b>. Setelah dikunci tidak bisa diganti.</p>
+    <div id="m2-soal"></div>
+  </div>
+
+  <div class="aksi-bawah">
+    <a class="btn btn-ghost" href="index.html">Kembali</a>
+    <button class="btn btn-primary" id="btn-m2-selesai" type="button" disabled>Selesai, lanjut ke Misi 3</button>
+  </div>
+  <p class="syarat" id="syarat-m2" aria-live="polite"></p>
+</main>
+<script src="script.js?v=3"></script>
+</body>
+</html>

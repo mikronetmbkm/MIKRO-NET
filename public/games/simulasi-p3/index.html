@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulasi Jaringan Pertemuan 3 — Mikronet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body data-halaman="beranda">
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="Mikronet — Beranda simulasi">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="4" y="4" width="40" height="40" rx="12" fill="#003B7A"/>
+        <circle cx="24" cy="16" r="7" fill="#009BFF"/>
+        <path d="M24 26 C16 26 10 31 8 42 L40 42 C38 31 32 26 24 26 Z" fill="#0B3B7B"/>
+        <circle cx="24" cy="16" r="2.5" fill="#F7B217"/>
+      </svg>
+      Mikronet
+    </a>
+    <div class="progress-pill" title="Kemajuan simulasi">
+      <div class="progress-track"><div class="progress-fill" id="header-progress-bar"></div></div>
+      <span class="progress-label" id="header-progress-text">0%</span>
+    </div>
+  </div>
+</header>
+<main class="page">
+
+  <section class="hero">
+    <span class="misi-no">Pertemuan 3</span>
+    <h1 class="hero-title">MikroTik dan Winbox</h1>
+    <p class="hero-desc">Latihan memakai Winbox sebelum memegang router sungguhan. Kerjakan tiga misi berurutan; skormu terkirim otomatis ke MIKRO-NET setelah semua misi selesai.</p>
+  </section>
+
+  <details class="card topo-ringkas">
+    <summary>Lihat topologi praktikum hari ini</summary>
+    <p class="section-note">Semua misi memakai topologi ini, sama seperti lembar praktikum.</p>
+    <pre class="terminal topo-ascii" aria-label="Diagram topologi">        Internet
+            │ ether1 (DHCP Client)
+        MikroTik
+     ether2 │      │ ether3
+ 192.168.11.1      192.168.22.1
+            │      │
+          PC1      PC2
+ 192.168.11.2      192.168.22.2</pre>
+    <div class="tabel-gulir">
+      <table class="kelas-table">
+        <thead><tr><th>Perangkat</th><th>Interface</th><th>IP Address</th><th>Gateway</th></tr></thead>
+        <tbody>
+          <tr><td>MikroTik</td><td class="mono">ether1</td><td>DHCP Client (dari internet)</td><td>-</td></tr>
+          <tr><td>MikroTik</td><td class="mono">ether2</td><td class="mono">192.168.11.1/24</td><td>-</td></tr>
+          <tr><td>MikroTik</td><td class="mono">ether3</td><td class="mono">192.168.22.1/24</td><td>-</td></tr>
+          <tr><td>PC1</td><td class="mono">Ethernet</td><td class="mono">192.168.11.2/24</td><td class="mono">192.168.11.1</td></tr>
+          <tr><td>PC2</td><td class="mono">Ethernet</td><td class="mono">192.168.22.2/24</td><td class="mono">192.168.22.1</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <div class="card-grid">
+    <article class="card" id="card-m1">
+      <span class="misi-no">Misi 1 · Fase 1</span>
+      <h2 class="card-title">Kenali Winbox</h2>
+      <p class="card-desc">Masuk ke router lewat tab Neighbors, temukan menu-menu penting, lalu reset router tanpa konfigurasi bawaan. Kuis 5 soal.</p>
+      <div class="card-status" id="status-m1">Belum dimulai</div>
+      <a class="btn btn-primary" id="btn-m1" href="winbox.html">Mulai</a>
+    </article>
+    <article class="card locked" id="card-m2">
+      <span class="misi-no">Misi 2 · Fase 1</span>
+      <h2 class="card-title">Pasang IP &amp; Uji Ping</h2>
+      <p class="card-desc">Beri IP pada ether2 dan ether3, atur IP kedua PC, lalu uji ping sampai PC1 dan PC2 saling terhubung. Kuis 5 soal.</p>
+      <div class="card-status" id="status-m2">Terkunci: selesaikan Misi 1</div>
+      <a class="btn btn-lock" id="btn-m2" href="ip.html" aria-disabled="true">Terkunci</a>
+    </article>
+    <article class="card locked" id="card-m3">
+      <span class="misi-no">Misi 3 · Fase 2</span>
+      <h2 class="card-title">Internet &amp; Firewall</h2>
+      <p class="card-desc">Atur DHCP Client, DNS, dan NAT sampai PC bisa ping google.com, lalu buat aturan firewall yang memblokir ping. Kuis 5 soal.</p>
+      <div class="card-status" id="status-m3">Terkunci: selesaikan Misi 2</div>
+      <a class="btn btn-lock" id="btn-m3" href="internet.html" aria-disabled="true">Terkunci</a>
+    </article>
+  </div>
+
+  <div class="aksi-bawah">
+    <a class="btn btn-success" id="btn-hasil" href="hasil.html" hidden>Lihat hasil akhir</a>
+    <button class="btn btn-ghost" id="btn-reset-progress" type="button">Ulangi dari awal</button>
+  </div>
+</main>
+<script src="script.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hasil Simulasi Pertemuan 4 — Mikronet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=16">
+</head>
+<body data-halaman="hasil">
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="Mikronet — Beranda simulasi">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="4" y="4" width="40" height="40" rx="12" fill="#003B7A"/>
+        <circle cx="24" cy="16" r="7" fill="#009BFF"/>
+        <path d="M24 26 C16 26 10 31 8 42 L40 42 C38 31 32 26 24 26 Z" fill="#0B3B7B"/>
+        <circle cx="24" cy="16" r="2.5" fill="#F7B217"/>
+      </svg>
+      Mikronet
+    </a>
+    <div class="progress-pill" title="Kemajuan simulasi">
+      <div class="progress-track"><div class="progress-fill" id="header-progress-bar"></div></div>
+      <span class="progress-label" id="header-progress-text">0%</span>
+    </div>
+  </div>
+</header>
+<main class="page">
+
+  <section class="result-hero">
+    <svg class="trophy trophy-bounce" viewBox="0 0 128 128" aria-hidden="true">
+      <path d="M32 24 H96 V48 a32 32 0 0 1 -64 0 Z" fill="#F7B217"/>
+      <path d="M64 80 V98" stroke="#0B3B7B" stroke-width="8" stroke-linecap="round"/>
+      <rect x="40" y="98" width="48" height="12" rx="6" fill="#0B3B7B"/>
+      <circle cx="64" cy="42" r="9" fill="#0B3B7B"/>
+      <path d="M59 42 L63 46 L70 38" stroke="#F7B217" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <h1 class="hero-title" id="hasil-judul">Simulasi selesai!</h1>
+    <div class="score-big" id="result-final">0</div>
+    <div class="score-caption" id="result-caption">Skor akhir (dari 100). Sudah tercatat di MIKRO-NET.</div>
+  </section>
+  <div class="card" style="margin:28px 0">
+    <h2 class="section-title">Rincian skor</h2>
+    <ul class="breakdown-list" id="result-breakdown"></ul>
+  </div>
+  <div class="card">
+    <h2 class="section-title">Yang perlu kamu ingat saat praktik</h2>
+    <ul class="ingat-list">
+      <li>Makin jauh, makin lemah: setiap jarak dua kali lipat, sinyal turun sekitar <b>6 dB</b>. dBm makin mendekati 0 makin kuat.</li>
+      <li>Logam memantulkan sinyal; tembok, pohon, dan tubuh manusia menyerap. Jalur antara pemancar dan penerima sebaiknya bebas halangan.</li>
+      <li>Laptop pemancar menjadi access point lewat Mobile hotspot: SSID yang jelas, password minimal <b>8 karakter</b>, dan band <b>2,4 GHz</b> bila adapter penerima hanya mendukung 2,4 GHz.</li>
+      <li>Penerima tersambung dengan benar bila mendapat IP <b>192.168.137.x</b>. IP 169.254.x.x berarti DHCP gagal; <i>No internet</i> berarti pemancar belum membagikan internet.</li>
+      <li>Bukti praktik: foto layar Mobile hotspot di laptop pemancar yang menampilkan perangkat terhubung.</li>
+      <li>Di 2,4 GHz hanya channel <b>1, 6, dan 11</b> yang tidak tumpang tindih. Pilih yang paling sepi.</li>
+    </ul>
+  </div>
+  <div class="aksi-bawah">
+    <a class="btn btn-primary" href="index.html">Kembali ke beranda simulasi</a>
+    <button class="btn btn-ghost" id="btn-reset-progress" type="button">Main ulang dari awal</button>
+  </div>
+</main>
+<script src="script.js?v=16"></script>
+</body>
+</html>
